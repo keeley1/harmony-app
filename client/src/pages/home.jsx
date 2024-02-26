@@ -3,7 +3,10 @@ import React from "react";
 const home = () => {
     return (
         <>
-        <p>Home</p>
+        <div className="todo-container">
+            <h1 className="todo-title">To Do List</h1>
+            <p className="todo-item">To do item</p>
+        </div>
         </>
     )
 }

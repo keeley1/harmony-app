@@ -49,4 +49,11 @@ module.exports = function(app) {
             }
         });
     });
+    app.get('/getdate', (req, res) => {
+        let currentDate = new Date();
+        console.log(currentDate);
+        // handle date format
+        // check database
+        res.status(200).send(`Current date: ${currentDate}`);
+    });
 }

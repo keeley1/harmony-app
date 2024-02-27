@@ -41,44 +41,29 @@ body {
     margin: 20px;
     padding-top: 10px;
     padding-left: 30px;
-    padding-bottom: 10px;
+    padding-bottom: 30px;
     background-color: white;
-    width: 40%;
+    width: 45%;
 }
 
 .todo-title {
     text-align: center;
 }
 
-.todo-view-all {
-    text-decoration: none;
-    color: black;
-    padding: 7px;
-    border-radius: 5px;
-    margin-left: -6px;
-    transition: 0.4s ease;
-}
-
-.todo-view-all-p {
-    margin-top: 30px;
-}
-
-.todo-view-all:hover {
-    background-color: #f4f4f4;
-}
-
 /*temporary*/
 .todo-list {
     list-style: none;
     margin-left: -40px;
-  }
+    height: 200px;
+    overflow-y: auto;
+}
   
   .todo-list-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px;
-    width: 25%;
+    width: 95%;
     margin-top: 5px;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -88,7 +73,7 @@ body {
   .todo-form {
     padding: 5px;
     word-wrap: break-word;
-    width: 25%;
+    width: 80%;
   }
   
   .todo-button {
@@ -108,12 +93,12 @@ body {
   }
   
   .delete-button {
-    background-color: #cccccc;
+    background-color: white;
     border: none;
     border-radius: 3px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding: 5px 10px 5px 10px;
     transition: 0.4s ease;
+    order: 1;
   }
   
   .delete-button:hover {
@@ -121,6 +106,20 @@ body {
     cursor: pointer;
   }
 
-.home-cont {
-    display: flex;
+.gratitude-container {
+    margin: 20px;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-bottom: 10px;
+    background-color: white;
+    width: 45%;
+}
+
+.affirmation-container{
+    margin: 20px;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-bottom: 10px;
+    background-color: white;
+    width: 45%;
 }

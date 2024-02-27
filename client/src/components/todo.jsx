@@ -80,7 +80,7 @@ const todo = () => {
                     <li key={index} className="todo-list-item">
                         {console.log(item.task_id)}
                         {item.task}
-                        <button onClick={() => handleDeleteItem(item.task_id)} className="delete-button">Delete</button>
+                        <button onClick={() => handleDeleteItem(item.task_id)} className="delete-button">X</button>
                     </li>
                 ))}
             </ul>
@@ -92,7 +92,7 @@ const todo = () => {
                     placeholder="Add a new item"
                     className="todo-form"
                 />
-                <button onClick={handleAddItem} className="todo-button">Add</button>
+                <button onClick={handleAddItem} className="todo-button">Submit</button>
             </div>
         </div>
     );

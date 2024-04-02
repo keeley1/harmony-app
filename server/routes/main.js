@@ -1,6 +1,23 @@
 module.exports = function(app) {
     const mysql = require('mysql');
     
+    app.post('/register', (req, res) => {
+        let sqlquery = "INSERT INTO user_details (firstname, surname, email, username, hashedPassword) VALUES (?,?,?,?,?)";
+        let newrecord = [req.body.firstname, req.body.lastname, req.body.email, req.body.username, req.body.password];
+
+        console.log(req.body.firstname + " " + req.body.lastname + " " + req.body.email + req.body.username + " " + req.body.password);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error registering user', err);
+                res.status(500).send('Error registering user');
+            } 
+            else {
+                console.log('User registered successfully');
+                res.status(200).send('User registered successfully');
+            }
+        });
+    });
     app.get('/getitems', (req, res) => {
         let sqlquery = "SELECT task, task_id FROM daily_tasks";
 

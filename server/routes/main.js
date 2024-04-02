@@ -19,7 +19,7 @@ module.exports = function(app) {
         });
     });
     app.post('/login', (req, res) => {
-        let sqlquery = "SELECT * FROM user_details WHERE username = ? AND password = ?";
+        let sqlquery = "SELECT * FROM user_details WHERE username = ? AND hashedPassword = ?";
         let newrecord = [req.body.username, req.body.password];
 
         db.query(sqlquery, newrecord, (err, result) => {
@@ -28,8 +28,11 @@ module.exports = function(app) {
                 res.status(500).send('Error logging in');
             } 
             if (result.length > 0) {
-                res.send( result);
-                }else({message: "Wrong username/password comination!"});
+                console.log('logged in');
+                res.send(result);
+            } else {
+                res.send({message: "Wrong username/password combination!"});
+            }
             /*else {
                 console.log('User registered successfully');
                 res.status(200).send('User registered successfully');

@@ -18,6 +18,24 @@ module.exports = function(app) {
             }
         });
     });
+    app.post('/login', (req, res) => {
+        let sqlquery = "SELECT * FROM user_details WHERE username = ? AND password = ?";
+        let newrecord = [req.body.username, req.body.password];
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error logging in', err);
+                res.status(500).send('Error logging in');
+            } 
+            if (result.length > 0) {
+                res.send( result);
+                }else({message: "Wrong username/password comination!"});
+            /*else {
+                console.log('User registered successfully');
+                res.status(200).send('User registered successfully');
+            }*/
+        });
+    });
     app.get('/getitems', (req, res) => {
         let sqlquery = "SELECT task, task_id FROM daily_tasks";
 

@@ -11,6 +11,7 @@ const Register = () => {
    const [emailReg, setEmailReg] = useState("");
    const [usernameReg, setUsernameReg] = useState("");
    const [passwordReg, setPasswordReg] = useState("");
+   const [errors, setErrors] = useState([]);
    
    const RegisterUser = () => {
       Axios.post("http://localhost:8080/register", {
@@ -22,7 +23,13 @@ const Register = () => {
       }).then((response) => {
          console.log(response);
          setRegistered(true);
-      });
+      }).catch((error) => {
+         if (error.response && error.response.data.errors) {
+           setErrors(error.response.data.errors);
+         } else {
+           console.error("Error registering user:", error);
+         }
+       });
    };
    
    return (
@@ -58,6 +65,16 @@ const Register = () => {
          /><br/>
             
          <button onClick={RegisterUser}>Register</button>
+
+         {errors.length > 0 && (
+            <div className="error-messages">
+              {errors.map((error, index) => (
+                <p key={index}>{error.msg}</p>
+              ))}
+            </div>
+          )}
+
+         <p></p>
       </div>
    </div>
    </>

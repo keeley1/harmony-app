@@ -2,6 +2,7 @@ import React from "react";
 import "../main.css";
 import Axios from "axios";
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
  
 
 const Login = () => {
@@ -29,6 +30,7 @@ const Login = () => {
 
     return (
     <>
+    {loginStatus === 'Login Successful' && <Navigate to="/" replace />}
     <div className="App">
         <div className="login">
             <h1>Login</h1>
@@ -43,7 +45,7 @@ const Login = () => {
                 
             <button onClick={LoginUser}>Login</button>
         </div>
-        <h1> {loginStatus}</h1>
+        <p>{loginStatus}</p>
     </div>
     </>
     );

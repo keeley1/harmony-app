@@ -1,12 +1,23 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const session = require('express-session');
+var validator = require ('express-validator');
 
 const app = express();
 const port = 8080;
 
 app.use(cors());
 app.use(express.json());
+
+app.use(session({
+    secret: 'somerandomstuff',
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+        expires: 600000
+    }
+}));
 
 const db = mysql.createConnection ({
       host: 'localhost',

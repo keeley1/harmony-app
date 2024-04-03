@@ -2,7 +2,7 @@ import React from "react";
 import "../main.css";
 import Axios from "axios";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
  
 
 const Login = () => {
@@ -44,6 +44,7 @@ const Login = () => {
             /><br/>
                 
             <button onClick={LoginUser}>Login</button>
+            <p>Don't have an account? <NavLink to="/register"><b>Register</b></NavLink> for Harmony</p>
         </div>
         <p>{loginStatus}</p>
     </div>

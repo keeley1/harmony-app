@@ -2,7 +2,7 @@ import React from "react";
 import "../main.css";
 import Axios from "axios";
 import { useState } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, NavLink } from "react-router-dom";
 
 const Register = () => {
    const [registered, setRegistered] = useState(false);
@@ -66,15 +66,13 @@ const Register = () => {
             
          <button onClick={RegisterUser}>Register</button>
 
+         <p>Already have an account? <NavLink to="/login"><b>Log in</b></NavLink> to Harmony</p>
          {errors.length > 0 && (
-            <div className="error-messages">
-              {errors.map((error, index) => (
-                <p key={index}>{error.msg}</p>
-              ))}
-            </div>
-          )}
+         <div className="error-messages">
+            <p>{errors[0].msg}</p>
+         </div>
+         )}
 
-         <p></p>
       </div>
    </div>
    </>

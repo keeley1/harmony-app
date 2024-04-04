@@ -1,5 +1,5 @@
 import React from "react";
-import "../main.css";
+import "../app.css";
 import Axios from "axios";
 import { useState } from "react";
 import { Navigate, NavLink } from "react-router-dom";
@@ -14,7 +14,8 @@ const Login = () => {
         Axios.post("http://localhost:8080/login", {
             username: username,
             password: password,
-        }).then((response) => {
+        }, { withCredentials: true })
+        .then((response) => {
             if (response.data.message) { 
                 // If there is a message in the response, it means an error occurred
                 setLoginStatus(response.data.message);
@@ -31,20 +32,32 @@ const Login = () => {
     return (
     <>
     {loginStatus === 'Login Successful' && <Navigate to="/" replace />}
-    <div className="App">
-        <div className="login">
-            <h1>Login</h1>
+    <div className="form-container">
+        <div className="inner-form-container">
+            <h1 className="login-title">Welcome to Harmony</h1>
             
-            <input type="text" placeholder="Username…" 
-            onChange = { (e) => {setUsername (e.target.value);}}
-            /><br/>
+            <div className="input-container">
+                <label className="form-label">Username:</label>
+                <input 
+                type="text" 
+                placeholder="Username" 
+                className="input-field"
+                onChange={(e) => { setUsername(e.target.value); }}
+                /><br/>
+            </div>
+
+            <div className="input-container">
+                <label className="form-label">Password:</label>    
+                <input 
+                type="password" 
+                placeholder="Password" 
+                className="input-field"
+                onChange = { (e) => {setPassword (e.target.value);}}
+                /><br/>
+            </div>
                 
-            <input type="password" placeholder="Password…" 
-            onChange = { (e) => {setPassword (e.target.value);}}
-            /><br/>
-                
-            <button onClick={LoginUser}>Login</button>
-            <p>Don't have an account? <NavLink to="/register"><b>Register</b></NavLink> for Harmony</p>
+            <button onClick={LoginUser} className="form-submit-button">Login</button>
+            <p>Don't have an account? <NavLink to="/register" className="form-bold-link"><b>Register</b></NavLink> for Harmony</p>
         </div>
         <p>{loginStatus}</p>
     </div>

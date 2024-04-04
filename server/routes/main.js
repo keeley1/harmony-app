@@ -91,6 +91,8 @@ module.exports = function(app) {
                             req.session.userId = req.body.username; 
                             console.log('logged in');
                             console.log(result);
+                            console.log(req.session.userId);
+                            console.log(req.session);
                             res.send(result);
                         } else {
                             res.send('Error');
@@ -98,31 +100,11 @@ module.exports = function(app) {
                     });
                 }
             }
-        });
-
-        /*let sqlquery = "SELECT * FROM user_details WHERE username = ? AND hashedPassword = ?";
-        let newrecord = [req.body.username, req.body.password];*/
-
-        /*db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-                console.log('Error logging in', err);
-                res.status(500).send('Error logging in');
-            } 
-            if (result.length > 0) {
-                console.log('logged in');
-                console.log(result);
-                res.send(result);
-            } else {
-                console.log(result);
-                res.send({message: "Username and password do not match"});
-            }
-            /*else {
-                console.log('User registered successfully');
-                res.status(200).send('User registered successfully');
-            }
-        });*/
+        }); 
     });
     app.get('/auth', (req, res) => {
+        console.log(req.session);
+        console.log(req.session.userId);
         if (req.session.userId) {
             // user is logged in
             res.json({ loggedIn: true, user: req.session.userId });

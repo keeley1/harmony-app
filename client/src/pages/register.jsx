@@ -20,7 +20,8 @@ const Register = () => {
          email: emailReg,
          username: usernameReg,
          password: passwordReg,
-      }).then((response) => {
+      },{ withCredentials: true })
+      .then((response) => {
          console.log(response);
          setRegistered(true);
       }).catch((error) => {

@@ -1,80 +1,68 @@
 import React from "react";
-import "../main.css";
+import "../app.css";
 import Axios from "axios";
 import { useState } from "react";
+import { Navigate, NavLink } from "react-router-dom";
  
 
-const login = () => {
-    const [firstnameReg, setFirstnameReg] = useState("");
-    const [lastnameReg, setLastnameReg] = useState("");
-    const [emailReg, setEmailReg] = useState("");
-    const [usernameReg, setUsernameReg] = useState("");
-    const [passwordReg, setPasswordReg] = useState("");
+const Login = () => {
+    const [loginStatus, setLoginStatus] = useState("");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState ("");
 
-    const register = () => {
-        Axios.post("http://localhost:8080/register", {
-          firstname: firstnameReg,
-          lastname: lastnameReg,
-          email: emailReg,
-          username: usernameReg,
-          password: passwordReg,
-         }).then((response) => {
-            console.log(response);
-         });
+    const LoginUser = () => {
+        Axios.post("http://localhost:8080/login", {
+            username: username,
+            password: password,
+        }, { withCredentials: true })
+        .then((response) => {
+            if (response.data.message) { 
+                // If there is a message in the response, it means an error occurred
+                setLoginStatus(response.data.message);
+            } else {
+                setLoginStatus('Login Successful');
+                window.location.replace("/");
+                // Possibly redirect the user to another page or set authentication state
+            }
+        }).catch((error) => {
+            console.error("Login failed:", error);
+            // Handle the error, maybe set a loginStatus to display the error
+        });
     };
 
     return (
-        <>
-        <div className="App">
-        <div className="registration">
-           <h1>Registration</h1>
+    <>
+    <div className="form-container">
+        <div className="inner-form-container">
+            <h1 className="login-title">Welcome to Harmony</h1>
+            
+            <div className="input-container">
+                <label className="form-label">Username:</label>
+                <input 
+                type="text" 
+                placeholder="Username" 
+                className="input-field"
+                onChange={(e) => { setUsername(e.target.value);}}
+                /><br/>
+            </div>
 
-           <label>First Name</label>
-           <input type="text" 
-           onChange={(e) => {
-            setFirstnameReg(e.target.value);
-            }}
-           /><br/>
-
-           <label>Last Name</label>
-           <input type="text" 
-           onChange={(e) => {
-            setLastnameReg(e.target.value);
-            }}
-           /><br/>
-
-           <label>Email</label>
-           <input type="text" 
-           onChange={(e) => {
-            setEmailReg(e.target.value);
-            }}
-           /><br/>
-
-           <label>Username</label>
-           <input type="text" 
-           onChange={(e) => {
-            setUsernameReg(e.target.value);
-            }}
-           /><br/>
-
-           <label>password</label>
-           <input type="text" 
-           onChange={(e) =>{
-            setPasswordReg(e.target.value);
-            }}
-           /> <br />
-
-           <button onClick={register} > Register</button>
+            <div className="input-container">
+                <label className="form-label">Password:</label>    
+                <input 
+                type="password" 
+                placeholder="Password" 
+                className="input-field"
+                onChange = { (e) => {setPassword (e.target.value);}}
+                /><br/>
+            </div>
+                
+            <button onClick={LoginUser} className="form-submit-button">Login</button>
+            <p>Don't have an account? <NavLink to="/register" className="form-bold-link"><b>Register</b></NavLink> for Harmony</p>
         </div>
-        <div className="login">
-           <h1>Login</h1>
-           <input type="text" placeholder="Username…" /> <br/>
-           <input type="password" placeholder="Password…" />
-           <button >Login</button>
-        </div>
-     </div>
-        </>
-    )
-}
+        <p>{loginStatus}</p>
+    </div>
+    </>
+    );
+};
 
-export default login;
+export default Login;

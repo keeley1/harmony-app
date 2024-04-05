@@ -1,12 +1,28 @@
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
+const session = require('express-session');
+var validator = require ('express-validator');
 
 const app = express();
 const port = 8080;
 
-app.use(cors());
+//app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Adjust according to your React app's origin
+    credentials: true, // To allow cookies to be sent
+}));
 app.use(express.json());
+
+app.use(session({
+    secret: 'somerandomstuff',
+    resave: false,
+    saveUninitialized: false,
+    withCredentials: true,
+    cookie: {
+        expires: 600000
+    }
+}));
 
 const db = mysql.createConnection ({
       host: 'localhost',

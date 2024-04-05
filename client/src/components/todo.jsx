@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const todo = () => {
+const Todo = () => {
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
 
@@ -72,6 +72,7 @@ const todo = () => {
     };
 
     return (
+        <>
         <div className="todo-container">
             <h2 className="todo-title">Today's Tasks</h2>
 
@@ -95,7 +96,8 @@ const todo = () => {
                 <button onClick={handleAddItem} className="todo-button">Submit</button>
             </div>
         </div>
+        </>
     );
 };
 
-export default todo;
+export default Todo;

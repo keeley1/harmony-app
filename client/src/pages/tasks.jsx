@@ -1,7 +1,7 @@
 import React from "react";
 import Todo from "../components/todo";
 
-const tasks = () => {
+const Tasks = () => {
     return (
         <>
         <Todo />
@@ -9,4 +9,4 @@ const tasks = () => {
     )
 }
 
-export default tasks;
+export default Tasks;

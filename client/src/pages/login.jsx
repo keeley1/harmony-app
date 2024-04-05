@@ -42,7 +42,7 @@ const Login = () => {
                 type="text" 
                 placeholder="Username" 
                 className="input-field"
-                onChange={(e) => { setUsername(e.target.value); }}
+                onChange={(e) => { setUsername(e.target.value);}}
                 /><br/>
             </div>
 

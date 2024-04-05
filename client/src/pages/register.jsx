@@ -36,38 +36,63 @@ const Register = () => {
    return (
    <>
    {registered && <Navigate to="/login" replace />}
-   <div className="App">
-      <div className="registration">
+   <div className="form-container">
+      <div className="inner-form-container">
          <h1>Register for Harmony</h1>
-         
-         <label>First Name</label>
-         <input type="text" 
-         onChange={(e) => {setFirstnameReg(e.target.value);}}
-         /><br/>
-            
-         <label>Last Name</label>
-         <input type="text" 
-         onChange={(e) => {setLastnameReg(e.target.value);}}
-         /><br/>
-            
-         <label>Email</label>
-         <input type="text" 
-         onChange={(e) => {setEmailReg(e.target.value);}}
-         /><br/>
-            
-         <label>Username</label>
-         <input type="text" 
-         onChange={(e) => {setUsernameReg(e.target.value);}}
-         /><br/>
-            
-         <label>password</label>
-         <input type="text" 
-         onChange={(e) =>{setPasswordReg(e.target.value);}}
-         /><br/>
-            
-         <button onClick={RegisterUser}>Register</button>
 
-         <p>Already have an account? <NavLink to="/login"><b>Log in</b></NavLink> to Harmony</p>
+         <div className="input-container">
+            <label className="form-label">First name:</label>
+            <input 
+            type="text" 
+            placeholder="First name" 
+            className="input-field"
+            onChange={(e) => {setFirstnameReg(e.target.value);}}
+            /><br/>
+         </div>
+         
+         <div className="input-container">
+            <label className="form-label">last name:</label>
+            <input 
+            type="text" 
+            placeholder="Last name" 
+            className="input-field"
+            onChange={(e) => {setLastnameReg(e.target.value);}}
+            /><br/>
+         </div>
+            
+         <div className="input-container">
+            <label className="form-label">Email:</label>
+            <input 
+            type="text" 
+            placeholder="Email" 
+            className="input-field"
+            onChange={(e) => {setEmailReg(e.target.value);}}
+            /><br/>
+         </div>
+            
+         <div className="input-container">
+            <label className="form-label">Username:</label>
+            <input 
+            type="text" 
+            placeholder="Username" 
+            className="input-field"
+            onChange={(e) => {setUsernameReg(e.target.value);}}
+            /><br/>
+         </div>
+            
+         <div className="input-container">
+            <label className="form-label">Password:</label>
+            <input 
+            type="text" 
+            placeholder="Password" 
+            className="input-field"
+            onChange={(e) =>{setPasswordReg(e.target.value);}}
+            /><br/>
+         </div>
+            
+         <button onClick={RegisterUser} className="form-submit-button">Register</button>
+
+         <p>Already have an account? <NavLink to="/login" className="form-bold-link"><b>Log in</b></NavLink> to Harmony</p>
          {errors.length > 0 && (
          <div className="error-messages">
             <p>{errors[0].msg}</p>

@@ -102,6 +102,16 @@ module.exports = function(app) {
             }
         }); 
     });
+    app.get('/logout', (req, res) => {
+        console.log("logout " + req.session.userId);
+        req.session.destroy(err => {
+            if (err) {
+                return console.error(err.message);
+            }
+            console.log('logged out');
+            res.json({ loggedIn: false }); // Send JSON response
+        });
+    });
     app.get('/auth', (req, res) => {
         console.log(req.session);
         console.log(req.session.userId);
@@ -114,6 +124,7 @@ module.exports = function(app) {
         }
     });
     app.get('/getitems', (req, res) => {
+        console.log("get " + req.session.userId);
         let sqlquery = "SELECT task, task_id FROM daily_tasks";
 
         db.query(sqlquery, (err, result) => {

@@ -21,6 +21,7 @@ const Login = () => {
                 setLoginStatus(response.data.message);
             } else {
                 setLoginStatus('Login Successful');
+                window.location.replace("/");
                 // Possibly redirect the user to another page or set authentication state
             }
         }).catch((error) => {
@@ -31,7 +32,6 @@ const Login = () => {
 
     return (
     <>
-    {loginStatus === 'Login Successful' && <Navigate to="/" replace />}
     <div className="form-container">
         <div className="inner-form-container">
             <h1 className="login-title">Welcome to Harmony</h1>

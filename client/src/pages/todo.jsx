@@ -3,7 +3,7 @@ import axios from 'axios';
 import { NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 
-const Todo = () => {
+const TodoPage = () => {
     const { userId, loading } = useAuth();
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
@@ -69,6 +69,8 @@ const Todo = () => {
 
     return (
         <>
+        <h1>Tasks Full Page</h1>
+        <p><NavLink to="/">Back</NavLink></p>
         <div className="todo-container">
             <h2 className="todo-title">Today's Tasks</h2>
 
@@ -81,7 +83,6 @@ const Todo = () => {
                     </li>
                 ))}
             </ul>
-            <p><NavLink to="/todo" className="view-all-button"><b>View all</b></NavLink></p>
             <div>
                 <input
                     type="text"
@@ -97,4 +98,4 @@ const Todo = () => {
     );
 };
 
-export default Todo;
+export default TodoPage;

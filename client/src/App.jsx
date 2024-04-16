@@ -7,6 +7,7 @@ import Tasks from "./pages/tasks";
 import Register from "./pages/register";
 import Login from "./pages/login";
 import ProtectedRoute from "./hooks/protectedRoute";
+import TodoPage from "./pages/todo";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
       <Route path="/tasks" element={<Tasks />}/>
       <Route path="/register" element={<Register />}/>
       <Route path="/login" element={<Login />}/>
+      <Route path="/todo" element={<TodoPage />}/>
     </Routes>
     </>
   );

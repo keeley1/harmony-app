@@ -117,7 +117,7 @@ module.exports = function(app) {
         console.log(req.session.userId);
         if (req.session.userId) {
             // user is logged in
-            res.json({ loggedIn: true, user: req.session.userId });
+            res.json({ loggedIn: true, userId: req.session.userId });
         } else {
             // user is not logged in
             res.json({ loggedIn: false });
@@ -125,6 +125,7 @@ module.exports = function(app) {
     });
     app.get('/getitems', (req, res) => {
         console.log("get " + req.session.userId);
+        console.log(req.session)
         let sqlquery = "SELECT task, task_id FROM daily_tasks";
 
         db.query(sqlquery, (err, result) => {
@@ -139,10 +140,14 @@ module.exports = function(app) {
         });
     });
     app.post('/additem', (req, res) => {
+        console.log('Post item id:' + req.session.userId);
         console.log(req.body);
-      
-        let sqlquery = "INSERT INTO daily_tasks (task) VALUES (?)";
-        let newrecord = req.body.text;
+
+        // Extract the task text, date, and userId from the request body
+        const { text, date, userId } = req.body;
+
+        let sqlquery = "INSERT INTO daily_tasks (task, task_date, user_id) VALUES (?, ?, ?)";
+        let newrecord = [text, date, userId];
 
         console.log(newrecord);
       
@@ -190,9 +195,33 @@ module.exports = function(app) {
     
         // Send the JSON object
         res.status(200).json(dateInfo);
-    });       
-    app.get('/test', (req, res) => {
-        console.log('test route');
-        res.redirect('/login');
-    });
+    });  
+    app.get('/new', (req, res) => {
+        console.log(req.session.userId);
+        res.send(req.session.userId);
+    });     
+    app.get('/retrieveitems', (req, res) => {
+        // Get the date and userID from query parameters
+        const { date, userId } = req.query;
+        console.log('Date: ' + date);
+        console.log('user: ' + userId);
+        console.log(req.session.userId);
+    
+        console.log('retrieve items for date:', date, 'and user ID:', userId);
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT task, task_id FROM daily_tasks WHERE task_date = ? AND user_id = ?";
+        let newrecord = [date, userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting items', err);
+                res.status(500).send('Error getting items');
+            } else {
+                console.log('Items successfully received');
+                res.json({ items: result });
+            }
+        });
+    });    
 }

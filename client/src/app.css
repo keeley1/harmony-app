@@ -142,7 +142,7 @@ body {
   }
   
   .todo-form {
-    padding: 5px;
+    padding: 0px;
     word-wrap: break-word;
     width: 80%;
   }
@@ -175,6 +175,16 @@ body {
   .delete-button:hover {
     background-color: #e2e1e1;
     cursor: pointer;
+  }
+
+  .view-all-button {
+    text-decoration: none;
+    color: black;
+    transition: 0.4s ease;
+  }
+
+  .view-all-button:hover {
+    text-decoration: underline;
   }
 
 .gratitude-container {

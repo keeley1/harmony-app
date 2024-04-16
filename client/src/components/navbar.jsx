@@ -4,7 +4,7 @@ import Axios from "axios";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-    const { loggedIn } = useAuth();
+    const { loading, loggedIn } = useAuth();
 
     const handleLogout = () => {
         Axios.get("http://localhost:8080/logout", { withCredentials: true })

@@ -1,25 +1,39 @@
 import React, { useState, useEffect } from "react";
+import axios from 'axios';
+import DisplayDate from '../components/displayDate';
+import useAuth from "../hooks/useAuth";
 
 const Todo = () => {
+    const { userId, loading } = useAuth();
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
 
     useEffect(() => {
-        fetchItems();
-    }, []);
+        if (!loading && userId) {
+            fetchItems();
+        }
+    }, [loading, userId]);
 
-    const fetchItems = () => {
-        fetch('http://localhost:8080/getitems')
-            .then(response => response.json())
-            .then(data => {
-                if (data.items) {
-                    setItems(data.items);
-                } else {
-                    console.error('Error retrieving items:', data.error);
-                }
-            })
-            .catch(error => console.error('Error retrieving items:', error));
-    };
+    const fetchItems = async () => {
+        try {
+            // Get the current date
+            const currentDate = new Date();
+            const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
+    
+            console.log(userId);
+            console.log(formattedDate);
+            // Make the GET request with the date and user ID as query parameters
+            const response = await axios.get(`http://localhost:8080/retrieveitems?date=${formattedDate}&userId=${userId}`);
+    
+            if (response.data.items) {
+                setItems(response.data.items);
+            } else {
+                console.error('Error retrieving items:', response.data.error);
+            }
+        } catch (error) {
+            console.error('Error retrieving items:', error);
+        }
+    };    
 
     const handleNewItemChange = (event) => {
         setNewItem(event.target.value);
@@ -27,21 +41,14 @@ const Todo = () => {
 
     const handleAddItem = async () => {
         try {
-            const response = await fetch('http://localhost:8080/additem', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ text: newItem }),
-            });
+            const currentDate = new Date();
+            const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
 
-            if (response.ok) {
+            const response = await axios.post('http://localhost:8080/additem', { text: newItem, date: formattedDate, userId: userId });
+            if (response.status === 200) {
                 console.log('Item added successfully');
                 fetchItems();
                 setNewItem('');
-            } else {
-                const errorMessage = await response.text();
-                console.error('Error adding item:', errorMessage);
             }
         } catch (error) {
             console.error('Error adding item:', error);
@@ -49,22 +56,11 @@ const Todo = () => {
     };
 
     const handleDeleteItem = async (itemId) => {
-        console.log(itemId);
         try {
-            const response = await fetch('http://localhost:8080/deleteitem', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ itemId: itemId }),
-            });
-
-            if (response.ok) {
+            const response = await axios.post('http://localhost:8080/deleteitem', { itemId });
+            if (response.status === 200) {
                 console.log('Item deleted successfully');
                 fetchItems();
-            } else {
-                const errorMessage = await response.text();
-                console.error('Error deleting item:', errorMessage);
             }
         } catch (error) {
             console.error('Error deleting item:', error);

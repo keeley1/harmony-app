@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "../app.css";
 import Axios from "axios";
-import { useState } from "react";
-import { Navigate, NavLink } from "react-router-dom";
- 
+import { NavLink, useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
     const [loginStatus, setLoginStatus] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState ("");
@@ -21,8 +20,8 @@ const Login = () => {
                 setLoginStatus(response.data.message);
             } else {
                 setLoginStatus('Login Successful');
-                window.location.replace("/");
-                // Possibly redirect the user to another page or set authentication state
+                // Redirect the user to the home page
+                navigate("/");
             }
         }).catch((error) => {
             console.error("Login failed:", error);

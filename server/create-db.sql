@@ -20,6 +20,8 @@ CREATE TABLE user_details (
 DROP TABLE IF EXISTS daily_tasks;
 CREATE TABLE daily_tasks (
   task_id INT NOT NULL UNIQUE AUTO_INCREMENT,
-  task VARCHAR(300) NOT NULL,
+  task VARCHAR(1000) NOT NULL,
+  task_date DATE NOT NULL,
+  user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(task_id)
 );

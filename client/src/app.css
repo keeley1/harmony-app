@@ -106,7 +106,7 @@ body {
 .form-bold-link:hover {
   text-decoration: underline;
 }
-/*--- dashboard to do styling ---*/
+/*--- dashboard styling ---*/
 /* to do styling */
 .todo-container {
     margin: 20px;
@@ -193,4 +193,16 @@ body {
     padding-bottom: 10px;
     background-color: white;
     width: 45%;
+}
+
+/* date styling */
+.date-container {
+  text-align: center;
+  background-color: white;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1px 40px 1px 40px;
+  border-radius: 5px;
+  line-height: 0.6;
 }

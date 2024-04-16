@@ -175,10 +175,22 @@ module.exports = function(app) {
     app.get('/getdate', (req, res) => {
         let currentDate = new Date();
         console.log(currentDate);
-        // handle date format
-        // check database
-        res.status(200).send(`Current date: ${currentDate}`);
-    });
+    
+        // Extract date components
+        let dayOfWeek = currentDate.toLocaleDateString('en-GB', { weekday: 'long' });
+        let date = currentDate.toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' });
+        let time = currentDate.toLocaleTimeString('en-GB');
+    
+        // Create a JSON object with the date components
+        let dateInfo = {
+            dayOfWeek: dayOfWeek,
+            date: date,
+            time: time
+        };
+    
+        // Send the JSON object
+        res.status(200).json(dateInfo);
+    });       
     app.get('/test', (req, res) => {
         console.log('test route');
         res.redirect('/login');

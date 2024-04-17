@@ -106,16 +106,8 @@ body {
 .form-bold-link:hover {
   text-decoration: underline;
 }
-/*--- dashboard styling ---*/
-/* to do styling */
-.todo-container {
-    margin: 20px;
-    padding-top: 10px;
-    padding-left: 30px;
-    padding-bottom: 30px;
-    background-color: white;
-    width: 45%;
-}
+
+
 
 .todo-title {
     text-align: center;
@@ -187,15 +179,37 @@ body {
     text-decoration: underline;
   }
 
+/*--- dashboard styling ---*/
+/* to do styling */
+.dashboard-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.dashboard-left, .dashboard-right {
+  width: 47%; /* Set the width for each container */
+}
+
+.dashboard-left {
+  margin-left: 28px;
+  margin-top: 20px;
+}
+
+.dashboard-right {
+  margin-right: 28px;
+  margin-top: 20px;
+}
+
+.todo-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+}
+
 .gratitude-container {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
-    padding-top: 10px;
-    padding-left: 30px;
-    padding-bottom: 10px;
-    background-color: white;
-    width: 45%;
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
 }
 
 .gratitude-flex {
@@ -209,14 +223,16 @@ body {
   font-size: large;
 }
 
+.affirmation-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+}
 
-.affirmation-container{
-    margin: 20px;
-    padding-top: 10px;
-    padding-left: 30px;
-    padding-bottom: 10px;
-    background-color: white;
-    width: 45%;
+.timer-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
 }
 
 /* date styling */

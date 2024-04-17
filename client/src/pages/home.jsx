@@ -8,15 +8,26 @@ const Home = () => {
 
     return (
         <>
-        <div className="dashboard-flex">
-            <div className="dashboard-section">
-                <DisplayDate />
-                <Todo />
-                <Gratitude />
-                <Affirmations />
+    <div className="dashboard-flex">
+        <DisplayDate />
+        <div className="dashboard-container">
+            <div className="dashboard-left">
+                    <Todo />
+                    <Gratitude />
+                    <Affirmations />
+            </div>
+            <div className="dashboard-right">
+                <div className="timer-container">
+            <h2>Timer</h2>
+    </div>
+                    <Todo />
+                    <Gratitude />
+                    <Affirmations />
             </div>
         </div>
-        </>
+    </div>
+</>
+
     );
 };
 

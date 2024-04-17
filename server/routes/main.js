@@ -205,7 +205,6 @@ module.exports = function(app) {
         const { date, userId } = req.query;
         console.log('Date: ' + date);
         console.log('user: ' + userId);
-        console.log(req.session.userId);
     
         console.log('retrieve items for date:', date, 'and user ID:', userId);
     
@@ -224,4 +223,45 @@ module.exports = function(app) {
             }
         });
     });    
+    app.post('/savegratitude', (req, res) => {
+        const { text, date, userId } = req.body;
+
+        let sqlquery = "INSERT INTO gratitude (item, gratitude_date, user_id) VALUES (?, ?, ?)";
+        let newrecord = [text, date, userId];
+
+        console.log(newrecord);
+      
+        db.query(sqlquery, newrecord, (err, result) => {
+          if (err) {
+            console.log('Error adding item:', err);
+            res.status(500).send('Error adding item');
+          } 
+          else {
+            console.log('Item added successfully');
+            res.status(200).send('Item added successfully');
+          }
+        });
+    });
+    app.get('/getgratitude', (req, res) => {
+        const { date, userId } = req.query;
+        console.log('Date: ' + date);
+        console.log('user: ' + userId);
+    
+        console.log('retrieve items for date:', date, 'and user ID:', userId);
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT item, gratitude_id FROM gratitude WHERE gratitude_date = ? AND user_id = ?";
+        let newrecord = [date, userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting items', err);
+                res.status(500).send('Error getting items');
+            } else {
+                console.log('Items successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
 }

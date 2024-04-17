@@ -25,3 +25,12 @@ CREATE TABLE daily_tasks (
   user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(task_id)
 );
+
+DROP TABLE IF EXISTS gratitude;
+CREATE TABLE gratitude (
+  gratitude_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  item VARCHAR(500) NOT NULL,
+  gratitude_date DATE NOT NULL,
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(gratitude_id)
+);

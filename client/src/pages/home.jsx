@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Todo from "../components/todo";
 import DisplayDate from '../components/displayDate';
 import Gratitude from "../components/gratitude";
+import Affirmations from "../components/affirmations";
 
 const Home = () => {
 
@@ -12,10 +13,7 @@ const Home = () => {
                 <DisplayDate />
                 <Todo />
                 <Gratitude />
-                <div className="affirmation-container">
-                    <h3>Affirmations</h3>
-                    <p>"I am growing and I am going at my own pace"</p>
-                </div>
+                <Affirmations />
             </div>
         </div>
         </>

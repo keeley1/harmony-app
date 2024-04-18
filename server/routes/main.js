@@ -303,7 +303,16 @@ module.exports = function(app) {
             } else {
                 console.log('Check-in successfully received');
                 console.log('check in data:' + result)
-                res.json({ mood_rating: result });
+
+            // Convert result to an array of mood ratings
+            const moodRatings = result.map(entry => entry.mood_rating);
+
+            if (moodRatings.length === 0) {
+                console.log('No check-in data found');
+                res.json({ mood_rating: 0 }); // Return empty array for no check-in data
+            } else {
+                res.json({ mood_rating: moodRatings[0] });
+            }
             }
         });
     });

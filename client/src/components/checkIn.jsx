@@ -59,17 +59,19 @@ const CheckIn = () => {
         try {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
-
+    
             const response = await axios.get(`http://localhost:8080/checkinresponse?date=${formattedDate}&userId=${userId}`);
             if (response.data.mood_rating) {
-                const moodRating = response.data.mood_rating[0].mood_rating;
-                console.log(moodRating);
-                setCheckinText(getCheckinText(moodRating));
+                const moodRatingFromResponse = response.data.mood_rating;
+                console.log('mood rating:' + moodRatingFromResponse);
+                setMoodRating(moodRatingFromResponse);
+                setCheckinText(getCheckinText(moodRatingFromResponse));
             }
         } catch (error) {
             console.error('Error fetching check-in response', error);
         }
     };
+    
 
     const getCheckinText = (moodRating) => {
         switch (moodRating) {
@@ -119,7 +121,8 @@ const CheckIn = () => {
         <>
         <div className="checkin-container">
             <h3>Daily Check In</h3>
-            {moodRating == 0 ? ( <div className="plus-icon"></div> ) : ( <div className="plus-icon" onClick={toggleCheckin}>+</div> )}
+            {console.log('mood:' + moodRating)}
+            {moodRating == 0 ? ( <div className="plus-icon" onClick={toggleCheckin}>+</div> ) : ( <div className="plus-icon"></div> )}
             <p>{checkinText}</p>
         </div>
 

@@ -5,6 +5,7 @@ import Gratitude from "../components/gratitude";
 import Affirmations from "../components/affirmations";
 import Timer from '../components/timer';
 import CheckIn from "../components/checkIn";
+import Goals from "../components/goals";
 
 const Home = () => {
 
@@ -20,9 +21,8 @@ const Home = () => {
             </div>
             <div className="dashboard-right">
                 <Timer />
-                    <CheckIn />
-                    <Gratitude />
-                    <Affirmations />
+                <CheckIn />
+                <Goals />
             </div>
         </div>
     </div>

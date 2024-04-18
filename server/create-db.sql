@@ -46,3 +46,13 @@ CREATE TABLE checkin (
   user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(checkin_id)
 );
+
+DROP TABLE IF EXISTS goals;
+CREATE TABLE goals (
+  goal_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  goal VARCHAR(500) NOT NULL,
+  is_complete TINYINT(1),
+  goal_target_date DATE,
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(goal_id)
+);

@@ -87,7 +87,7 @@ const Todo = () => {
                     type="text"
                     value={newItem}
                     onChange={handleNewItemChange}
-                    placeholder="Add a new item"
+                    placeholder="Enter new task"
                     className="todo-form"
                 />
                 <button onClick={handleAddItem} className="todo-button">Submit</button>

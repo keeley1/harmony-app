@@ -282,7 +282,7 @@ module.exports = function(app) {
               console.log('Checkin added successfully');
               res.status(200).send('Checkin added successfully');
             }
-          });
+        });
     });
     app.get('/checkinresponse', (req, res) => {
         const { date, userId } = req.query;
@@ -313,6 +313,48 @@ module.exports = function(app) {
             } else {
                 res.json({ mood_rating: moodRatings[0] });
             }
+            }
+        });
+    });
+    app.post('/postgoal', (req, res) => {
+        console.log('post goal');
+        const { goal, goal_target_date, userId } = req.body;
+        let is_complete = 0;
+
+        let sqlquery = "INSERT INTO goals (goal, is_complete, goal_target_date, user_id) VALUES (?, ?, ?, ?)";
+        let newrecord = [goal, is_complete, goal_target_date, userId];
+
+        console.log(is_complete);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+              console.log('Error adding goal:', err);
+              res.status(500).send('Error adding goal');
+            } 
+            else {
+              console.log('Goal added successfully');
+              res.status(200).send('Goal added successfully');
+            }
+        });
+    });
+    app.get('/getgoals', (req, res) => {
+        const { userId } = req.query;
+        console.log('user: ' + userId);
+    
+        console.log('retrieve goals for user:', userId);
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT goal, is_complete, goal_target_date FROM goals WHERE user_id = ?";
+        let newrecord = [userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting goals', err);
+                res.status(500).send('Error getting goals');
+            } else {
+                console.log('Goals successfully received');
+                res.json({ items: result });
             }
         });
     });

@@ -64,22 +64,24 @@ const Timer = () => {
         { label: '15 mins', value: 900 },
         { label: '20 mins', value: 1200 },
         { label: '25 mins', value: 1500 },
-        // Add more preset timer options as needed
     ];
 
     return (
         <div className="timer-container">
-            <h3>Countdown Timer: {formatTime(time)}</h3>
-            <div>
-                <select value={time} onChange={handleTimeChange}>
-                <option value="">--Select a time--</option>
+            <div className="timer-flex">
+                <h3>Countdown</h3>
+                <select value={time} onChange={handleTimeChange} className="timer-dropdown">
+                    <option value="">--Select a time--</option>
                     {timerOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
                     ))}
-                </select>
-                <button onClick={startTimer}>Start</button>
-                <button onClick={pauseTimer}>Pause</button>
-                <button onClick={resetTimer}>Reset</button>
+                </select><br/>
+            </div>
+            <h1 className="timer-time">{formatTime(time)}</h1>
+            <div className="timer-controls">
+                <button onClick={startTimer} className="timer-button">Start</button>
+                <button onClick={pauseTimer} className="timer-button">Pause</button>
+                <button onClick={resetTimer} className="timer-button">Reset</button>
             </div>
         </div>
     );

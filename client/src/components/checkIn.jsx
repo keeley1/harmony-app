@@ -120,9 +120,11 @@ const CheckIn = () => {
     return (
         <>
         <div className="checkin-container">
-            <h3>Daily Check In</h3>
+        <div className="gratitude-flex">
+        <h3>Daily Check In</h3>
             {console.log('mood:' + moodRating)}
             {moodRating == 0 ? ( <div className="plus-icon" onClick={toggleCheckin}>+</div> ) : ( <div className="plus-icon"></div> )}
+        </div>
             <p>{checkinText}</p>
         </div>
 

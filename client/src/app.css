@@ -108,7 +108,7 @@ body {
 }
 
 
-
+/*temp to do*/
 .todo-title {
     text-align: center;
 }
@@ -117,7 +117,7 @@ body {
 .todo-list {
     list-style: none;
     margin-left: -40px;
-    height: 200px;
+    height: 110px;
     overflow-y: auto;
 }
   
@@ -126,7 +126,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 5px;
-    width: 95%;
+    width: 100%;
     margin-top: 5px;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -134,20 +134,23 @@ body {
   }
   
   .todo-form {
-    padding: 0px;
+    height: 30px;
+    padding: 3px;
     word-wrap: break-word;
-    width: 80%;
+    width: 85%;
+    border: 1px solid black;
+    border-radius: 5px;
   }
   
   .todo-button {
-    padding: 7px;
-    margin-left: 10px;
+    margin-left: 15px;
     cursor: pointer;
     background-color: #AFBBF4;
     border: none;
     padding-left: 15px;
     padding-right: 15px;
     border-radius: 25px;
+    height: 35px;
     transition: 0.4s ease;
   }
   
@@ -187,7 +190,7 @@ body {
 }
 
 .dashboard-left, .dashboard-right {
-  width: 47%; /* Set the width for each container */
+  width: 47%;
 }
 
 .dashboard-left {
@@ -202,14 +205,16 @@ body {
 
 .todo-container {
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 20px;
   background-color: white;
+  border-radius: 5px;
 }
 
 .gratitude-container {
   margin-bottom: 20px;
   padding: 10px;
   background-color: white;
+  border-radius: 5px;
 }
 
 .gratitude-flex {
@@ -219,30 +224,101 @@ body {
 
 .plus-icon {
   align-self: center;
-  margin-right: 30px;
+  margin-right: 15px;
   font-size: large;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 5px 10px 5px 10px;
+  transition: 0.4s ease;
+}
+
+.plus-icon:hover {
+  background-color: #e2e1e1;
 }
 
 .affirmation-container {
   margin-bottom: 20px;
   padding: 10px;
   background-color: white;
+  border-radius: 5px;
 }
 
 .timer-container {
   margin-bottom: 20px;
   padding: 10px;
   background-color: white;
+  border-radius: 5px;
+}
+
+.timer-flex {
+  display: flex;
+  justify-content: space-between; 
+}
+
+.timer-time {
+  text-align: center;
+}
+
+.timer-dropdown {
+  margin-left: 380px;
+  align-self: center;
+  padding: 5px;
+}
+
+.timer-controls {
+  margin-bottom: 10px;
+}
+
+.timer-button {
+  margin-left: 10px;
+  padding: 5px;
+  border: none;
+  background-color: #AFBBF4;
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  transition: 0.4s ease;
+}
+
+.timer-button:hover {
+  background-color: #c8cfef;
 }
 
 .checkin-container {
   margin-bottom: 20px;
   padding: 10px;
   background-color: white;
+  border-radius: 5px;
 }
 
 .moodbuttons-container {
   margin-bottom: 20px;
+}
+
+.goals-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.add-goal-button {
+  padding: 5px;
+  border: none;
+  background-color: #AFBBF4;
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  transition: 0.4s ease;
+}
+
+.add-goal-button:hover {
+  background-color: #c8cfef;
 }
 
 /* date styling */

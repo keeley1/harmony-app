@@ -34,3 +34,15 @@ CREATE TABLE gratitude (
   user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(gratitude_id)
 );
+
+DROP TABLE IF EXISTS checkin;
+CREATE TABLE checkin (
+  checkin_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  mood_rating TINYINT NOT NULL,
+  checkin_date DATE NOT NULL,
+  emotion_one VARCHAR(50),
+  emotion_two VARCHAR(50),
+  emotion_three VARCHAR(50),
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(checkin_id)
+);

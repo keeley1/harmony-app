@@ -3,6 +3,7 @@ import Todo from "../components/todo";
 import DisplayDate from '../components/displayDate';
 import Gratitude from "../components/gratitude";
 import Affirmations from "../components/affirmations";
+import CheckIn from "../components/checkIn";
 
 const Home = () => {
 
@@ -20,7 +21,7 @@ const Home = () => {
                 <div className="timer-container">
             <h2>Timer</h2>
     </div>
-                    <Todo />
+                    <CheckIn />
                     <Gratitude />
                     <Affirmations />
             </div>

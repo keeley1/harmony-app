@@ -264,4 +264,47 @@ module.exports = function(app) {
             }
         });
     });
+    app.post('/postcheckin', (req, res) => {
+        console.log('post check in');
+        const { mood_rating, date, emotion_one, emotion_two, emotion_three, userId } = req.body;
+
+        let sqlquery = "INSERT INTO checkin (mood_rating, checkin_date, emotion_one, emotion_two, emotion_three, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+        let newrecord = [mood_rating, date, emotion_one, emotion_two, emotion_three, userId];
+
+        console.log(emotion_one);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+              console.log('Error adding checkin:', err);
+              res.status(500).send('Error adding checkin');
+            } 
+            else {
+              console.log('Checkin added successfully');
+              res.status(200).send('Checkin added successfully');
+            }
+          });
+    });
+    app.get('/checkinresponse', (req, res) => {
+        const { date, userId } = req.query;
+        console.log('Date: ' + date);
+        console.log('user: ' + userId);
+    
+        console.log('retrieve items for date:', date, 'and user ID:', userId);
+
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT mood_rating FROM checkin WHERE checkin_date = ? AND user_id = ?";
+        let newrecord = [date, userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting check-in', err);
+                res.status(500).send('Error getting check-in');
+            } else {
+                console.log('Check-in successfully received');
+                console.log('check in data:' + result)
+                res.json({ mood_rating: result });
+            }
+        });
+    });
 }

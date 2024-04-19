@@ -25,7 +25,7 @@ const Goals = () => {
 
     const fetchGoals = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/getgoals?userId=${userId}`);
+            const response = await axios.get(`http://localhost:8000/getgoals?userId=${userId}`);
 
             if (response.data.items) {
                 console.log(response.data.items);
@@ -40,7 +40,7 @@ const Goals = () => {
 
     const handleAddGoal = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/postgoal', { goal: goal, goal_target_date: goalTargetDate, userId: userId });
+            const response = await axios.post('http://localhost:8000/postgoal', { goal: goal, goal_target_date: goalTargetDate, userId: userId });
 
             if (response.status === 200) {
                 console.log('Goal saved successfully');

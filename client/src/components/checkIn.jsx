@@ -60,7 +60,7 @@ const CheckIn = () => {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
     
-            const response = await axios.get(`http://localhost:8080/checkinresponse?date=${formattedDate}&userId=${userId}`);
+            const response = await axios.get(`http://localhost:8000/checkinresponse?date=${formattedDate}&userId=${userId}`);
             if (response.data.mood_rating) {
                 const moodRatingFromResponse = response.data.mood_rating;
                 console.log('mood rating:' + moodRatingFromResponse);
@@ -106,7 +106,7 @@ const CheckIn = () => {
                 userId: userId
             };
 
-            const response = await axios.post('http://localhost:8080/postcheckin', checkinData);
+            const response = await axios.post('http://localhost:8000/postcheckin', checkinData);
             if (response.status === 200) {
                 console.log('Check-in saved successfully');
                 setShowCheckin(false);

@@ -13,7 +13,7 @@ const DisplayDate = () => {
     }, []);
 
     const fetchDate = () => {
-        axios.get('http://localhost:8080/getdate')
+        axios.get('http://localhost:8000/getdate')
             .then(response => {
                 setDateInfo({
                     dayOfWeek: response.data.dayOfWeek,

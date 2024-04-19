@@ -5,7 +5,7 @@ const session = require('express-session');
 var validator = require ('express-validator');
 
 const app = express();
-const port = 8080;
+const port = 8000;
 
 //app.use(cors());
 app.use(cors({
@@ -20,7 +20,10 @@ app.use(session({
     saveUninitialized: false,
     withCredentials: true,
     cookie: {
-        expires: 600000
+        secure: true,
+        httpOnly: true,
+        expires: 600000,
+        maxAge: 600000
     }
 }));
 
@@ -43,5 +46,5 @@ const db = mysql.createConnection ({
 require('./routes/main')(app);
 
 app.listen(port, () => {
-      console.log('server listening on port 8080');
+      console.log('server listening on port 8000');
 });

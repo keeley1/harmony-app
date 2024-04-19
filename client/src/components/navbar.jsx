@@ -7,14 +7,13 @@ const Navbar = () => {
     const { loading, loggedIn } = useAuth();
 
     const handleLogout = () => {
-        Axios.get("http://localhost:8000/logout", { withCredentials: true })
+        Axios.get("https://www.doc.gold.ac.uk/usr/201/logout", { withCredentials: true })
             .then(() => {
                 // Reload the page upon successful logout
                 window.location.reload();
             })
             .catch(error => {
                 console.error("Logout failed:", error);
-                setLogoutStatus(false);
             });
     };
 

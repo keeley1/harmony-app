@@ -7,12 +7,13 @@ var validator = require ('express-validator');
 const app = express();
 const port = 8000;
 
-//app.use(cors());
 app.use(cors({
-    origin: 'http://localhost:3000', // Adjust according to your React app's origin
+    origin: true, // Adjust according to your React app's origin
     credentials: true, // To allow cookies to be sent
 }));
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, 'client', 'build')));
 
 app.use(session({
     secret: 'somerandomstuff',

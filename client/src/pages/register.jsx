@@ -14,7 +14,7 @@ const Register = () => {
    const [errors, setErrors] = useState([]);
    
    const RegisterUser = () => {
-      Axios.post("http://localhost:8000/registeruser", {
+      Axios.post("https://www.doc.gold.ac.uk/usr/201/registeruser", {
          firstname: firstnameReg,
          lastname: lastnameReg,
          email: emailReg,

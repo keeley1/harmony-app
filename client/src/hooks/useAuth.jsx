@@ -5,7 +5,7 @@ const useAuth = () => {
     const [authStatus, setAuthStatus] = useState({ loading: true, loggedIn: false, userId: null });
 
     useEffect(() => {
-        Axios.get('http://localhost:8000/auth', { withCredentials: true })
+        Axios.get('https://www.doc.gold.ac.uk/usr/201/auth', { withCredentials: true })
         .then(response => {
             console.log(response.data.userId);
             setAuthStatus({ loading: false, loggedIn: response.data.loggedIn, userId: response.data.userId });

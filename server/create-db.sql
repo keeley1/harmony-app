@@ -25,3 +25,34 @@ CREATE TABLE daily_tasks (
   user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(task_id)
 );
+
+DROP TABLE IF EXISTS gratitude;
+CREATE TABLE gratitude (
+  gratitude_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  item VARCHAR(500) NOT NULL,
+  gratitude_date DATE NOT NULL,
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(gratitude_id)
+);
+
+DROP TABLE IF EXISTS checkin;
+CREATE TABLE checkin (
+  checkin_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  mood_rating TINYINT NOT NULL,
+  checkin_date DATE NOT NULL,
+  emotion_one VARCHAR(50),
+  emotion_two VARCHAR(50),
+  emotion_three VARCHAR(50),
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(checkin_id)
+);
+
+DROP TABLE IF EXISTS goals;
+CREATE TABLE goals (
+  goal_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  goal VARCHAR(500) NOT NULL,
+  is_complete TINYINT(1),
+  goal_target_date DATE,
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(goal_id)
+);

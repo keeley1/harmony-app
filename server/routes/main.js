@@ -205,7 +205,6 @@ module.exports = function(app) {
         const { date, userId } = req.query;
         console.log('Date: ' + date);
         console.log('user: ' + userId);
-        console.log(req.session.userId);
     
         console.log('retrieve items for date:', date, 'and user ID:', userId);
     
@@ -224,4 +223,139 @@ module.exports = function(app) {
             }
         });
     });    
+    app.post('/savegratitude', (req, res) => {
+        const { text, date, userId } = req.body;
+
+        let sqlquery = "INSERT INTO gratitude (item, gratitude_date, user_id) VALUES (?, ?, ?)";
+        let newrecord = [text, date, userId];
+
+        console.log(newrecord);
+      
+        db.query(sqlquery, newrecord, (err, result) => {
+          if (err) {
+            console.log('Error adding item:', err);
+            res.status(500).send('Error adding item');
+          } 
+          else {
+            console.log('Item added successfully');
+            res.status(200).send('Item added successfully');
+          }
+        });
+    });
+    app.get('/getgratitude', (req, res) => {
+        const { date, userId } = req.query;
+        console.log('Date: ' + date);
+        console.log('user: ' + userId);
+    
+        console.log('retrieve items for date:', date, 'and user ID:', userId);
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT item, gratitude_id FROM gratitude WHERE gratitude_date = ? AND user_id = ?";
+        let newrecord = [date, userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting items', err);
+                res.status(500).send('Error getting items');
+            } else {
+                console.log('Items successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
+    app.post('/postcheckin', (req, res) => {
+        console.log('post check in');
+        const { mood_rating, date, emotion_one, emotion_two, emotion_three, userId } = req.body;
+
+        let sqlquery = "INSERT INTO checkin (mood_rating, checkin_date, emotion_one, emotion_two, emotion_three, user_id) VALUES (?, ?, ?, ?, ?, ?)";
+        let newrecord = [mood_rating, date, emotion_one, emotion_two, emotion_three, userId];
+
+        console.log(emotion_one);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+              console.log('Error adding checkin:', err);
+              res.status(500).send('Error adding checkin');
+            } 
+            else {
+              console.log('Checkin added successfully');
+              res.status(200).send('Checkin added successfully');
+            }
+        });
+    });
+    app.get('/checkinresponse', (req, res) => {
+        const { date, userId } = req.query;
+        console.log('Date: ' + date);
+        console.log('user: ' + userId);
+    
+        console.log('retrieve items for date:', date, 'and user ID:', userId);
+
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT mood_rating FROM checkin WHERE checkin_date = ? AND user_id = ?";
+        let newrecord = [date, userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting check-in', err);
+                res.status(500).send('Error getting check-in');
+            } else {
+                console.log('Check-in successfully received');
+                console.log('check in data:' + result)
+
+            // Convert result to an array of mood ratings
+            const moodRatings = result.map(entry => entry.mood_rating);
+
+            if (moodRatings.length === 0) {
+                console.log('No check-in data found');
+                res.json({ mood_rating: 0 }); // Return empty array for no check-in data
+            } else {
+                res.json({ mood_rating: moodRatings[0] });
+            }
+            }
+        });
+    });
+    app.post('/postgoal', (req, res) => {
+        console.log('post goal');
+        const { goal, goal_target_date, userId } = req.body;
+        let is_complete = 0;
+
+        let sqlquery = "INSERT INTO goals (goal, is_complete, goal_target_date, user_id) VALUES (?, ?, ?, ?)";
+        let newrecord = [goal, is_complete, goal_target_date, userId];
+
+        console.log(is_complete);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+              console.log('Error adding goal:', err);
+              res.status(500).send('Error adding goal');
+            } 
+            else {
+              console.log('Goal added successfully');
+              res.status(200).send('Goal added successfully');
+            }
+        });
+    });
+    app.get('/getgoals', (req, res) => {
+        const { userId } = req.query;
+        console.log('user: ' + userId);
+    
+        console.log('retrieve goals for user:', userId);
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT goal, is_complete, goal_target_date FROM goals WHERE user_id = ?";
+        let newrecord = [userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting goals', err);
+                res.status(500).send('Error getting goals');
+            } else {
+                console.log('Goals successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
 }

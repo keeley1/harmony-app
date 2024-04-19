@@ -8,6 +8,7 @@ import Register from "./pages/register";
 import Login from "./pages/login";
 import ProtectedRoute from "./hooks/protectedRoute";
 import TodoPage from "./pages/todo";
+import GoalPage from "./pages/goals";
 
 const App = () => {
   return (
@@ -15,15 +16,14 @@ const App = () => {
     <Navbar />
     <Routes>
     <Route element={<ProtectedRoute />}>
-                    {/* Place protected routes here */}
-                    <Route path="/" element={<Home />} />
+      <Route path="/" element={<Home />} />
     </Route>
-      {/*<Route path="/" element={<Home />}/>*/}
-      <Route path="/about" element={<About />}/>
-      <Route path="/tasks" element={<Tasks />}/>
-      <Route path="/register" element={<Register />}/>
-      <Route path="/login" element={<Login />}/>
-      <Route path="/todo" element={<TodoPage />}/>
+    <Route path="/about" element={<About />}/>
+    <Route path="/tasks" element={<Tasks />}/>
+    <Route path="/register" element={<Register />}/>
+    <Route path="/login" element={<Login />}/>
+    <Route path="/todo" element={<TodoPage />}/>
+    <Route path="/goals" element={<GoalPage />}/>
     </Routes>
     </>
   );

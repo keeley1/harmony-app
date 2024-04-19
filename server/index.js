@@ -20,10 +20,7 @@ app.use(session({
     saveUninitialized: false,
     withCredentials: true,
     cookie: {
-        secure: true,
-        httpOnly: true,
-        expires: 600000,
-        maxAge: 600000
+        expires: 600000
     }
 }));
 

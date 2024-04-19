@@ -10,7 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState ("");
 
     const LoginUser = () => {
-        Axios.post("http://localhost:8080/login", {
+        Axios.post("http://localhost:8080/loginuser", {
             username: username,
             password: password,
         }, { withCredentials: true })

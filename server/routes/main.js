@@ -4,7 +4,7 @@ module.exports = function(app) {
     const mysql = require('mysql');
     const bcrypt = require('bcrypt');
     
-    app.post('/register',
+    app.post('/registeruser',
         [
             // validate each field against specific criteria
             check('firstname').matches(/^[a-zA-Z]+$/).withMessage('First name is required'),
@@ -66,7 +66,7 @@ module.exports = function(app) {
         });
         }
     });
-    app.post('/login', (req, res) => {
+    app.post('/loginuser', (req, res) => {
         // query to select the hashed password via the username
         let sqlquery = "SELECT hashedPassword FROM user_details WHERE username = ?";
         let newrecord = [req.body.username];

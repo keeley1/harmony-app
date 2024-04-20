@@ -23,12 +23,12 @@ const Navbar = () => {
                 <ul className="nav-list">
                     <div className="nav-container">
                         <div className="nav-title">
-                            <li><NavLink to="/" className="nav-item"><b>Harmony</b></NavLink></li>
+                            <li><NavLink to="/usr/201/" className="nav-item"><b>Harmony</b></NavLink></li>
                         </div>
                         {loggedIn ? (
                             <>
                                 <div className="nav-flex">
-                                    <li><NavLink to="/goals" className="nav-item">Goals</NavLink></li>
+                                    <li><NavLink to="/usr/201/goals" className="nav-item">Goals</NavLink></li>
                                 </div>
                                 <div className="nav-flex">
                                     <li><NavLink className="logout-button" onClick={handleLogout}>Logout</NavLink></li>
@@ -37,10 +37,10 @@ const Navbar = () => {
                         ) : (
                             <>
                                 <div className="nav-flex">
-                                    <li><NavLink to="/about" className="nav-item">About</NavLink></li>
+                                    <li><NavLink to="/usr/201/about" className="nav-item">About</NavLink></li>
                                 </div>
                                 <div className="nav-flex">
-                                    <li><NavLink to="/login" className="nav-item" id="nav-item-login">Log in</NavLink></li>
+                                    <li><NavLink to="/usr/201/login" className="nav-item" id="nav-item-login">Log in</NavLink></li>
                                 </div>
                             </>
                         )}

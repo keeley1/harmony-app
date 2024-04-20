@@ -81,7 +81,7 @@ const Todo = () => {
                     </li>
                 ))}
             </ul>
-            <p><NavLink to="/todo" className="view-all-button"><b>View all</b></NavLink></p>
+            <p><NavLink to="/usr/201/todo" className="view-all-button"><b>View all</b></NavLink></p>
             <div>
                 <input
                     type="text"

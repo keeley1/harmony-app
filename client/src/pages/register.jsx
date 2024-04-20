@@ -35,7 +35,7 @@ const Register = () => {
    
    return (
    <>
-   {registered && <Navigate to="/login" replace />}
+   {registered && <Navigate to="/usr/201/login" replace />}
    <div className="form-container">
       <div className="inner-form-container">
          <h1>Register for Harmony</h1>
@@ -92,7 +92,7 @@ const Register = () => {
             
          <button onClick={RegisterUser} className="form-submit-button">Register</button>
 
-         <p>Already have an account? <NavLink to="/login" className="form-bold-link"><b>Log in</b></NavLink> to Harmony</p>
+         <p>Already have an account? <NavLink to="/usr/201/login" className="form-bold-link"><b>Log in</b></NavLink> to Harmony</p>
          {errors.length > 0 && (
          <div className="error-messages">
             <p>{errors[0].msg}</p>

@@ -25,7 +25,7 @@ const GoalPage = () => {
 
     const fetchGoals = async () => {
         try {
-            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/getgoals?userId=${userId}`);
+            const response = await axios.get(`http://localhost:8000/getgoals?userId=${userId}`);
 
             if (response.data.items) {
                 console.log(response.data.items);
@@ -40,7 +40,7 @@ const GoalPage = () => {
 
     const handleAddGoal = async () => {
         try {
-            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/postgoal', { goal: goal, goal_target_date: goalTargetDate, userId: userId });
+            const response = await axios.post('http://localhost:8000/postgoal', { goal: goal, goal_target_date: goalTargetDate, userId: userId });
 
             if (response.status === 200) {
                 console.log('Goal saved successfully');

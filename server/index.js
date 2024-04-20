@@ -3,17 +3,25 @@ const cors = require('cors');
 const mysql = require('mysql');
 const session = require('express-session');
 var validator = require ('express-validator');
+const path = require('path');
 
 const app = express();
 const port = 8000;
 
 app.use(cors({
-    origin: true, // Adjust according to your React app's origin
-    credentials: true, // To allow cookies to be sent
+    origin: 'http://localhost:3000', 
+    credentials: true, 
 }));
+
+/*
+app.use(cors({
+    origin: true, 
+    credentials: true, 
+}));*/
+
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'build')));
+//app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(session({
     secret: 'somerandomstuff',
@@ -21,7 +29,7 @@ app.use(session({
     saveUninitialized: false,
     withCredentials: true,
     cookie: {
-        expires: 600000
+        maxAge: 2 * 60 * 60 * 1000
     }
 }));
 

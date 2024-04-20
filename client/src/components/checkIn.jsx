@@ -29,24 +29,34 @@ const CheckIn = () => {
     }
 
     const moodButtons = [];
-    for (let i = 1; i <= 5; i++) {
-        moodButtons.push(
+for (let i = 1; i <= 5; i++) {
+    const hoverStyle = {
+        backgroundColor: '#c8cfef'  // a different shade for hover
+    };
+    const defaultStyle = {
+        margin: '0 8px',
+        backgroundColor: moodRating === i ? '#c8cfef' : '#AFBBF4',
+        color: 'black',
+        border: 'none',
+        padding: '18px 20px',
+        cursor: 'pointer',
+        borderRadius: '5px',
+        transition: '0.4s ease'
+    };
+
+    moodButtons.push(
         <button
             key={i}
-            style={{
-                margin: '0 2px',
-                backgroundColor: moodRating === i ? 'lightblue' : 'gray',
-                color: 'white',
-                border: 'none',
-                padding: '8px 16px',
-                cursor: 'pointer'
-            }}
+            style={defaultStyle}
+            onMouseEnter={(e) => e.target.style.backgroundColor = hoverStyle.backgroundColor}
+            onMouseLeave={(e) => e.target.style.backgroundColor = moodRating === i ? '#c8cfef' : '#AFBBF4'}
             onClick={(e) => onClickMoodButton(e, i)}
         >
             {i}
         </button>
-        );
-    }
+    );
+}
+
 
     useEffect(() => {
         if (!loading && userId) {
@@ -60,7 +70,7 @@ const CheckIn = () => {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
     
-            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/checkinresponse?date=${formattedDate}&userId=${userId}`);
+            const response = await axios.get(`http://localhost:8000/checkinresponse?date=${formattedDate}&userId=${userId}`);
             if (response.data.mood_rating) {
                 const moodRatingFromResponse = response.data.mood_rating;
                 console.log('mood rating:' + moodRatingFromResponse);
@@ -106,7 +116,7 @@ const CheckIn = () => {
                 userId: userId
             };
 
-            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/postcheckin', checkinData);
+            const response = await axios.post('http://localhost:8000/postcheckin', checkinData);
             if (response.status === 200) {
                 console.log('Check-in saved successfully');
                 setShowCheckin(false);
@@ -129,8 +139,8 @@ const CheckIn = () => {
         </div>
 
         {showCheckin && (
-        <div className="grat-form-overlay">
-            <div className="grat-form-container">
+        <div className="checkin-form-overlay">
+            <div className="checkin-form-container">
                 <button className="grat-close-button" onClick={handleCloseCheckin}>X</button>
                 <h2>Complete check in</h2>
                 <form onSubmit={(e) => e.preventDefault()}>
@@ -163,7 +173,7 @@ const CheckIn = () => {
                         ))}
                     </select>
 
-                    <button type="submit" onClick={handleCheckinSubmit}>Submit</button>
+                    <button type="submit" onClick={handleCheckinSubmit} className="checkin-submit-button">Submit</button>
                 </form>
             </div>
         </div>

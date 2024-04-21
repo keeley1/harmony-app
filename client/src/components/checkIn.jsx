@@ -131,11 +131,11 @@ for (let i = 1; i <= 5; i++) {
         <>
         <div className="checkin-container">
         <div className="gratitude-flex">
-        <h3>Daily Check In</h3>
+            <h3>Daily Check In</h3>
             {console.log('mood:' + moodRating)}
             {moodRating == 0 ? ( <div className="plus-icon" onClick={toggleCheckin}>+</div> ) : ( <div className="plus-icon"></div> )}
         </div>
-            <p>{checkinText}</p>
+            <p className="checkin-text">{checkinText}</p>
         </div>
 
         {showCheckin && (

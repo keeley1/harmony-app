@@ -463,7 +463,7 @@ body {
   color: #333;                    
   cursor: pointer;                 
   outline: none;   
-  margin-bottom: 5px;        
+  margin-bottom: 10px;        
 }
 
 .checkin-submit-button {
@@ -486,10 +486,111 @@ body {
   justify-content: center;  
   align-items: center;         
   flex-wrap: wrap;   
-  margin: 10px 0;       
+  margin: 10px 0;    
+  margin-bottom: 15px;   
 }
 
+.checkin-text {
+  margin-top: -3px;
+}
 
-.gratitude-item {
+/*temp affirmation form*/
+.affirmation-form-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.affirmation-form-container {
+  position: relative;
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column; /* Ensure vertical stacking */
+  align-items: center;
+  width: 400px;
+}
+
+.affirmation-form-container h2 {
+  text-align: center; 
+  margin-bottom: 30px;
+}
+
+.affirmation-form-container p {
+  text-align: center; 
+  margin-bottom: 30px;
+}
+
+.affirmation-form-container form {
+  display: flex;
+  flex-direction: column;
+}
+
+.affirmation-repetitions {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.affirmation-button-flex {
+  display: flex;
+  justify-content: space-between; /* Align items to the beginning and end */
+}
+
+.affirmation-count-up {
+  background-color: #AFBBF4;
+  transition: 0.4s ease;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  font-size: larger;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.affirmation-count-up:hover {
+  background-color: #c9d1fb;
+}
+
+.affirmation-next {
+  background-color: #AFBBF4;
+  transition: 0.4s ease;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+  padding-left: 12px;
+  padding-right: 14px;
+}
+
+.affirmation-next:hover {
+  background-color: #c9d1fb;
+}
+
+.affirmation-reset-count {
+  background-color: #AFBBF4;
+  border: none;
+  transition: 0.4s ease;
+  border-radius: 25px;
+  padding: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.affirmation-reset-count:hover {
+  background-color: #c9d1fb;
+}
+
+.affirmation-text {
   margin-top: -3px;
 }

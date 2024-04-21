@@ -66,15 +66,18 @@ const Affirmations = () => {
     return (
         <>
         <div className="affirmation-container">
-            <h3>Affirmations</h3>
-            <p onClick={toggleAffirmations}>Complete your daily affirmations</p>
+        <div className="gratitude-flex">
+        <h3>Affirmations</h3>
+        <div className="plus-icon" onClick={toggleAffirmations}>+</div>
+        </div>
+            <p className="affirmation-text">Complete your daily affirmations</p>
         </div>
 
         {showAffirmations && (
-        <div className="grat-form-overlay">
-            <div className="grat-form-container">
-                <button className="grat-close-button" onClick={handleCloseAffirmations}>X</button>
-                <h2>Repeat this affirmation:</h2>
+        <div className="affirmation-form-overlay">
+            <div className="affirmation-form-container">
+                <button className="grat-close-button" onClick={handleCloseAffirmations}><b>X</b></button>
+                <h2>Repeat this Affirmation 10 Times:</h2>
                 {completed ? (
                     <p>Affirmations Complete</p>
                 ) : (
@@ -84,10 +87,11 @@ const Affirmations = () => {
                     <button onClick={handleCloseAffirmations}>Close</button>
                 ) : (
                     <>
-                        <p>Repetition count: {repetitionCount}</p>
-                        <button onClick={handleCountRepetition}>Count</button>
-                        {repetitionCount === 10 && <button onClick={handleNextAffirmation}>Next</button>}
-                        <button onClick={handleResetCount}>Reset</button>
+                        <h3 className="affirmation-repetitions">{repetitionCount}</h3>
+                        <div className="affirmation-button-flex">
+                        <button onClick={handleResetCount} className="affirmation-reset-count">Reset count</button>
+                            {repetitionCount === 10 ? ( <button onClick={handleNextAffirmation} className="affirmation-next">Next</button> ) : ( <button onClick={handleCountRepetition} className="affirmation-count-up">+</button> )}
+                        </div>
                     </>
                 )}
             </div>

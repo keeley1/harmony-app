@@ -84,7 +84,7 @@ const Affirmations = () => {
                     <p>{randomAffirmation}</p>
                 )}
                 {completed ? (
-                    <button onClick={handleCloseAffirmations}>Close</button>
+                    <button onClick={handleCloseAffirmations} className="affirmations-close">Close</button>
                 ) : (
                     <>
                         <h3 className="affirmation-repetitions">{repetitionCount}</h3>

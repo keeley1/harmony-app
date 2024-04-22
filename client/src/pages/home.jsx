@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import Todo from "../components/todo";
 import DisplayDate from '../components/displayDate';
 import Gratitude from "../components/gratitude";
@@ -8,26 +8,24 @@ import CheckIn from "../components/checkIn";
 import Goals from "../components/goals";
 
 const Home = () => {
-
     return (
         <>
-    <div className="dashboard-flex">
-        <DisplayDate />
-        <div className="dashboard-container">
-            <div className="dashboard-left">
+        <div className="dashboard-flex">
+            <DisplayDate />
+            <div className="dashboard-container">
+                <div className="dashboard-left">
                     <Todo />
                     <Gratitude />
                     <Affirmations />
-            </div>
-            <div className="dashboard-right">
-                <Timer />
-                <CheckIn />
-                <Goals />
+                </div>
+                <div className="dashboard-right">
+                    <Timer />
+                    <CheckIn />
+                    <Goals />
+                </div>
             </div>
         </div>
-    </div>
-</>
-
+        </>
     );
 };
 

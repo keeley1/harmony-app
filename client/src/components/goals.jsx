@@ -11,6 +11,7 @@ const Goals = () => {
     const [selectedGoal, setSelectedGoal] = useState(null);
     const [completedGoals, setCompletedGoals] = useState([]);
     const [showCompletedGoals, setShowCompletedGoals] = useState(false);
+    const [goalTask, setGoalTask] = useState('');
     const { userId, loading } = useAuth();
     const listRef = useRef(null);
 
@@ -78,6 +79,20 @@ const Goals = () => {
         setShowCompletedGoals(!showCompletedGoals);
     };
 
+    const handleAddGoalTask = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8000/addgoaltask', { goalId: selectedGoal.goal_id, goal_task: goalTask, userId });
+            if (response.status === 200) {
+                //fetchGoals();
+                //setShowAddGoal(false);
+                console.log('task added');
+            }
+        } catch (error) {
+            console.error('Error adding task:', error);
+        }
+    };
+
     const formatDate = dateString => new Date(dateString).toLocaleDateString();
 
     const toggleGoalDetails = (item) => {
@@ -112,34 +127,59 @@ const Goals = () => {
                     <div className="goal-form-container">
                         <button onClick={handleCloseAddGoal} className="grat-close-button"><b>X</b></button>
                         <h2>Add Goal</h2>
-                        <input type="text" value={goal} onChange={e => setGoal(e.target.value)} placeholder="Enter goal" />
-                        <input type="date" value={goalTargetDate} onChange={e => setGoalTargetDate(e.target.value)} placeholder="Enter target date" /><br/>
-                        <button onClick={handleAddGoal} className="goal-add-submit">Submit</button>
+                        <form>
+                            <label>Goal:</label>
+                            <input type="text" className="goal-add-text" value={goal} onChange={e => setGoal(e.target.value)} placeholder="Enter goal" />
+                            <label>Goal target date:</label>
+                            <input type="date" className="goal-add-date" value={goalTargetDate} onChange={e => setGoalTargetDate(e.target.value)} placeholder="Enter target date" /><br/>
+                            <button onClick={handleAddGoal} className="goal-add-submit">Submit</button>
+                        </form>
                     </div>
                 </div>
             )}
             
             {showGoalDetails && selectedGoal && (
             <div className="goal-form-overlay">
-                <div className="goal-form-container">
+                <div className="single-goal-form-container">
                     <button onClick={handleCloseGoalDetails} className="grat-close-button"><b>X</b></button>
                     <h2>Goal Details</h2>
                     <p><strong>Goal:</strong> {selectedGoal.goal}</p>
                     <p><strong>Target Date:</strong> {formatDate(selectedGoal.goal_target_date)}</p>
-                    <button
-                    onClick={() => handleCompleteGoal(selectedGoal.goal_id)}
-                    className="goal-complete-button"
-                    disabled={selectedGoal.is_complete}
-                    >
-                    Mark as Complete
-                    </button>
+
+                    <div>
+                        <h3>Tasks for this Goal</h3>
+                        <ul>
+                            {/*{selectedGoal.tasks && selectedGoal.tasks.map((task, index) => (
+                                <li key={index}>{task.description} - {task.completed ? 'Done' : 'Pending'}</li>
+                            ))}*/}
+                        </ul>
+                        <form onSubmit={handleAddGoalTask}>
+                            <input type="text" placeholder="Enter new task" value={goalTask} onChange={(e) => setGoalTask(e.target.value)} />
+                            <button type="submit">Add Task</button>
+                        </form>
+                        {/*<form>
+                            <input type="text" placeholder="Enter new task" />
+                            <button type="submit">Add Task</button>
+                        </form>*/}
+                    </div>
+                    
+                    <div className="goal-complete-button">
+                        <button
+                        onClick={() => handleCompleteGoal(selectedGoal.goal_id)}
+                        className="add-goal-button"
+                        disabled={selectedGoal.is_complete}
+                        >
+                        Mark goal as complete
+                        </button>
+                    </div>
                 </div>
             </div>
             )}
+
             
             {showCompletedGoals && (
             <div className="goal-form-overlay">
-                <div className="goal-form-container">
+                <div className="completed-goal-container">
                     <button onClick={toggleCompletedGoals} className="grat-close-button"><b>X</b></button>
                     <h2>Completed Goals</h2>
                     <ul>

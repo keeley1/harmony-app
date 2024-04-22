@@ -56,3 +56,13 @@ CREATE TABLE goals (
   user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(goal_id)
 );
+
+DROP TABLE IF EXISTS goal_tasks;
+CREATE TABLE goal_tasks (
+  goal_task_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  goal_task VARCHAR(500) NOT NULL,
+  is_complete TINYINT(1),
+  user_id VARCHAR(15) NOT NULL,
+  goal_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(goal_task_id)
+);

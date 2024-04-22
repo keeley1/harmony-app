@@ -375,5 +375,46 @@ module.exports = function(app) {
             }
         });
     });
+    app.post('/addgoaltask', (req, res) => {
+        console.log('post goal');
+        const { goalId, goal_task, userId } = req.body;
+        let is_complete = 0;
+
+        let sqlquery = "INSERT INTO goal_tasks (goal_task, is_complete, user_id, goal_id) VALUES (?, ?, ?, ?)";
+        let newrecord = [goal_task, is_complete, userId, goalId];
+
+        console.log(is_complete);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+              console.log('Error adding task:', err);
+              res.status(500).send('Error adding task');
+            } 
+            else {
+              console.log('Task added successfully');
+              res.status(200).send('Task added successfully');
+            }
+        });
+    });
+    app.get('/getgoaltasks', (req, res) => {
+        const { goalId, userId } = req.query;
+        console.log('goal: ' + goalId);
     
+        console.log('retrieve tasks for user:', userId);
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT goal_id, goal_task, is_complete FROM goal_tasks WHERE goal_id = ? AND user_id = ?";
+        let newrecord = [goalId, userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting goal tasks', err);
+                res.status(500).send('Error getting goal tasks');
+            } else {
+                console.log('Goal tasks successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
 }

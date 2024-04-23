@@ -403,7 +403,7 @@ module.exports = function(app) {
         console.log('retrieve tasks for user:', userId);
     
         // Construct the SQL query with parameters
-        let sqlquery = "SELECT goal_id, goal_task, is_complete FROM goal_tasks WHERE goal_id = ? AND user_id = ?";
+        let sqlquery = "SELECT goal_id, goal_task_id, goal_task, is_complete FROM goal_tasks WHERE goal_id = ? AND user_id = ?";
         let newrecord = [goalId, userId];
     
         // Execute the SQL query with parameters
@@ -413,7 +413,24 @@ module.exports = function(app) {
                 res.status(500).send('Error getting goal tasks');
             } else {
                 console.log('Goal tasks successfully received');
-                res.json({ items: result });
+                res.json({ tasks: result });
+            }
+        });
+    });
+    app.post('/completegoaltask', (req, res) => {
+        const { goalId, goalTaskId, isComplete, userId } = req.body;
+        console.log('User:', userId, 'Goal ID:', goalTaskId, 'Complete:', isComplete);
+    
+        let sqlQuery = "UPDATE goal_tasks SET is_complete = ? WHERE goal_id = ? AND goal_task_id = ? AND user_id = ?";
+        let values = [isComplete, goalId, goalTaskId, userId];
+    
+        db.query(sqlQuery, values, (err, result) => {
+            if (err) {
+                console.log('Error updating goal:', err);
+                res.status(500).send('Error updating goal');
+            } else {
+                console.log('Goal updated successfully');
+                res.status(200).send('Goal updated successfully');
             }
         });
     });

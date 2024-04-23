@@ -1,15 +1,17 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const { loading, loggedIn } = useAuth();
 
     const handleLogout = () => {
         Axios.get("http://localhost:8000/logout", { withCredentials: true })
             .then(() => {
                 // Reload the page upon successful logout
+                navigate("/");
                 window.location.reload();
             })
             .catch(error => {

@@ -12,6 +12,7 @@ const Goals = () => {
     const [completedGoals, setCompletedGoals] = useState([]);
     const [showCompletedGoals, setShowCompletedGoals] = useState(false);
     const [goalTask, setGoalTask] = useState('');
+    const [tasks, setTasks] = useState([]);
     const { userId, loading } = useAuth();
     const listRef = useRef(null);
 
@@ -79,17 +80,59 @@ const Goals = () => {
         setShowCompletedGoals(!showCompletedGoals);
     };
 
+    const fetchGoalTasks = async (goalId) => {
+        try {
+            const response = await axios.get(`http://localhost:8000/getgoaltasks?goalId=${goalId}&userId=${userId}`);
+            if (response.data.tasks) {
+                setTasks(response.data.tasks); // Update state with received data directly
+                scrollToBottom();
+                /*
+                const allGoalTasks = response.data.tasks;
+                console.log(allGoalTasks);
+                const incompleteGoals = allGoalTasks.filter(task => task.is_complete === 0);
+                const completeGoals = allGoalTasks.filter(task => task.is_complete === 1);
+                setTasks(incompleteGoals);
+                console.log(tasks);
+                //setCompletedGoals(completeGoals);
+                scrollToBottom();*/
+            } else {
+                console.error('Error retrieving items:', response.data.error);
+            }
+        } catch (error) {
+            console.error('Error retrieving items:', error);
+        }
+    };
+
     const handleAddGoalTask = async (event) => {
         event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8000/addgoaltask', { goalId: selectedGoal.goal_id, goal_task: goalTask, userId });
             if (response.status === 200) {
-                //fetchGoals();
-                //setShowAddGoal(false);
+                fetchGoalTasks(selectedGoal.goal_id);
                 console.log('task added');
             }
         } catch (error) {
             console.error('Error adding task:', error);
+        }
+    };
+
+    const handleCompleteGoalTask = async (goalId, goalTaskId) => {
+        console.log('goal id' + goalId);
+        console.log(goalTaskId);
+        try {
+            const response = await axios.post('http://localhost:8000/completegoaltask', {
+                goalId,
+                goalTaskId,
+                isComplete: 1,
+                userId
+            });
+            if (response.status === 200) {
+                alert('Task marked as complete!');
+                fetchGoalTasks(goalId);
+            }
+        } catch (error) {
+            console.error('Error completing goal:', error);
+            alert('Failed to mark goal as complete.');
         }
     };
 
@@ -98,6 +141,7 @@ const Goals = () => {
     const toggleGoalDetails = (item) => {
         setSelectedGoal(item);
         setShowGoalDetails(true);
+        fetchGoalTasks(item.goal_id);
     };
 
     const handleCloseGoalDetails = () => {
@@ -142,27 +186,34 @@ const Goals = () => {
             <div className="goal-form-overlay">
                 <div className="single-goal-form-container">
                     <button onClick={handleCloseGoalDetails} className="grat-close-button"><b>X</b></button>
-                    <h2>Goal Details</h2>
-                    <p><strong>Goal:</strong> {selectedGoal.goal}</p>
-                    <p><strong>Target Date:</strong> {formatDate(selectedGoal.goal_target_date)}</p>
-
-                    <div>
+                    <h2>{selectedGoal.goal}</h2>
+                    <div className="goal-tasks">
                         <h3>Tasks for this Goal</h3>
                         <ul>
-                            {/*{selectedGoal.tasks && selectedGoal.tasks.map((task, index) => (
-                                <li key={index}>{task.description} - {task.completed ? 'Done' : 'Pending'}</li>
-                            ))}*/}
+                            {tasks
+                            .filter(task => task.is_complete === 0) // Incomplete tasks
+                            .map((task, index) => (
+                            <li key={index} style={{ textDecoration: 'none' }}>
+                                {task.goal_task}
+                                <button onClick={() => handleCompleteGoalTask(task.goal_id, task.goal_task_id)}>Complete</button>
+                            </li>
+                            ))}
+                            
+                            {tasks
+                            .filter(task => task.is_complete === 1) // Completed tasks
+                            .map((task, index) => (
+                            <li key={index} style={{ textDecoration: 'line-through' }}>
+                                {task.goal_task}
+                            </li>
+                            ))}
                         </ul>
-                        <form onSubmit={handleAddGoalTask}>
-                            <input type="text" placeholder="Enter new task" value={goalTask} onChange={(e) => setGoalTask(e.target.value)} />
-                            <button type="submit">Add Task</button>
-                        </form>
-                        {/*<form>
-                            <input type="text" placeholder="Enter new task" />
-                            <button type="submit">Add Task</button>
-                        </form>*/}
                     </div>
-                    
+                    <form onSubmit={handleAddGoalTask}>
+                        <input type="text" placeholder="Enter new task" value={goalTask} onChange={(e) => setGoalTask(e.target.value)} />
+                        <button type="submit">Add Task</button>
+                    </form>
+                    <p><strong>Target Date:</strong> {formatDate(selectedGoal.goal_target_date)}</p>
+
                     <div className="goal-complete-button">
                         <button
                         onClick={() => handleCompleteGoal(selectedGoal.goal_id)}

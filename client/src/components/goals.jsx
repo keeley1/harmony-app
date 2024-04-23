@@ -195,7 +195,7 @@ const Goals = () => {
                             <li key={index} style={{ textDecoration: 'none' }}>
                                 <div className="goal-tasks-flex">
                                     {task.goal_task}
-                                    <button onClick={() => handleCompleteGoalTask(task.goal_id, task.goal_task_id)} className="goal-tasks-button">Tick</button>
+                                    <span onClick={() => handleCompleteGoalTask(task.goal_id, task.goal_task_id)} className="goal-tasks-button">&#x2705;</span>
                                 </div>
                             </li>
                             ))}

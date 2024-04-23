@@ -14,7 +14,12 @@ body {
 
 .nav-container {
     display: flex;
+    justify-content: space-between;
     padding: 10px;
+}
+
+.nav-inner-1, .nav-inner-2 {
+  display: flex;
 }
 
 .nav-flex {
@@ -162,7 +167,7 @@ body {
     background-color: white;
     border: none;
     border-radius: 3px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 8px 5px 8px;
     transition: 0.4s ease;
     order: 1;
   }
@@ -170,6 +175,17 @@ body {
   .delete-button:hover {
     background-color: #e2e1e1;
     cursor: pointer;
+  }
+
+  .tick-button {
+    cursor: pointer;
+    transition: 0.4s ease;
+    font-size: large;
+  }
+
+  .tick-button:hover {
+    background-color: #e2e1e1;
+    opacity: 50%;
   }
 
   .view-all-button {
@@ -252,7 +268,7 @@ body {
 
 .timer-flex {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
 }
 
 .timer-flex select {
@@ -270,9 +286,9 @@ body {
 }
 
 .timer-dropdown {
-  margin-left: 380px;
-  align-self: center;
   padding: 5px;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 
 .timer-controls {
@@ -834,4 +850,14 @@ body {
 .goal-task-bottom-flex button {
   height: 30px;
   margin-top: 10px;
+}
+
+.goal-tasks-button {
+  cursor: pointer;
+  transition: 0.4s ease;
+  font-size: large;
+}
+
+.goal-tasks-button:hover {
+  opacity: 50%;
 }

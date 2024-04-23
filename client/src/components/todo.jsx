@@ -96,8 +96,8 @@ const Todo = () => {
                     <li key={index} className="todo-list-item">
                         {item.task}
                         <div className="todo-list-item-buttons">
-                            <button onClick={() => handleDeleteItem(item.task_id)} className="delete-button">X</button>
-                            <button onClick={() => handleCompleteItem(item.task_id)}>Tick</button>
+                            {/*<button onClick={() => handleDeleteItem(item.task_id)} className="delete-button"><b>X</b></button>*/}
+                            <span className="tick-button" onClick={() => handleCompleteItem(item.task_id)}>&#x2705;</span>
                         </div>
                     </li>
                 </li>

@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import countdownEnd from '../sounds/countdownEnd.mp3';
 
 const Timer = () => {
     const [time, setTime] = useState(0);
@@ -36,11 +37,15 @@ const Timer = () => {
     };
 
     const handleCountdownComplete = () => {
+        const audio = new Audio(countdownEnd);
+        audio.play()
+        //alert('Countdown Complete');
+        /*
         if ('Notification' in window && Notification.permission === 'granted') {
             new Notification('Countdown Complete');
         } else {
             alert('Countdown Complete');
-        }
+        }*/
     };
 
     // Request permission for notifications when component mounts
@@ -58,24 +63,30 @@ const Timer = () => {
     }, [time, timerRunning]);
 
     const timerOptions = [
-        { label: '1 min', value: 60 },
         { label: '5 mins', value: 300 },
         { label: '10 mins', value: 600 },
         { label: '15 mins', value: 900 },
         { label: '20 mins', value: 1200 },
         { label: '25 mins', value: 1500 },
+        { label: '30 mins', value: 1800 },
+        { label: '45 mins', value: 2700 },
+        { label: '1 hour', value: 3600 },
+        { label: '1.5 hours', value: 5400 },
+        { label: '2 hours', value: 7200 }
     ];
 
     return (
         <div className="timer-container">
             <div className="timer-flex">
                 <h3>Countdown</h3>
-                <select value={time} onChange={handleTimeChange} className="timer-dropdown">
-                    <option value="">--Select a time--</option>
-                    {timerOptions.map(option => (
+                <div className="timer-input">
+                    <select value={time} onChange={handleTimeChange} className="timer-dropdown">
+                        <option value="">--Select a time--</option>
+                        {timerOptions.map(option => (
                         <option key={option.value} value={option.value}>{option.label}</option>
-                    ))}
-                </select><br/>
+                        ))}
+                    </select>
+                </div>
             </div>
             <h1 className="timer-time">{formatTime(time)}</h1>
             <div className="timer-controls">

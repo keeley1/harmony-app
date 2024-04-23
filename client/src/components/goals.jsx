@@ -67,12 +67,11 @@ const Goals = () => {
                 userId
             });
             if (response.status === 200) {
-                alert('Goal marked as complete!');
+                setShowGoalDetails(false);
                 fetchGoals();
             }
         } catch (error) {
             console.error('Error completing goal:', error);
-            alert('Failed to mark goal as complete.');
         }
     };
 
@@ -109,6 +108,7 @@ const Goals = () => {
             const response = await axios.post('http://localhost:8000/addgoaltask', { goalId: selectedGoal.goal_id, goal_task: goalTask, userId });
             if (response.status === 200) {
                 fetchGoalTasks(selectedGoal.goal_id);
+                setGoalTask('');
                 console.log('task added');
             }
         } catch (error) {
@@ -127,12 +127,10 @@ const Goals = () => {
                 userId
             });
             if (response.status === 200) {
-                alert('Task marked as complete!');
                 fetchGoalTasks(goalId);
             }
         } catch (error) {
             console.error('Error completing goal:', error);
-            alert('Failed to mark goal as complete.');
         }
     };
 
@@ -191,11 +189,14 @@ const Goals = () => {
                         <h3>Tasks for this Goal</h3>
                         <ul>
                             {tasks
+                            .sort((a, b) => b.goal_task_id - a.goal_task_id)
                             .filter(task => task.is_complete === 0) // Incomplete tasks
                             .map((task, index) => (
                             <li key={index} style={{ textDecoration: 'none' }}>
-                                {task.goal_task}
-                                <button onClick={() => handleCompleteGoalTask(task.goal_id, task.goal_task_id)}>Complete</button>
+                                <div className="goal-tasks-flex">
+                                    {task.goal_task}
+                                    <button onClick={() => handleCompleteGoalTask(task.goal_id, task.goal_task_id)} className="goal-tasks-button">Tick</button>
+                                </div>
                             </li>
                             ))}
                             
@@ -208,20 +209,20 @@ const Goals = () => {
                             ))}
                         </ul>
                     </div>
-                    <form onSubmit={handleAddGoalTask}>
-                        <input type="text" placeholder="Enter new task" value={goalTask} onChange={(e) => setGoalTask(e.target.value)} />
-                        <button type="submit">Add Task</button>
+                    <form onSubmit={handleAddGoalTask} className="goal-task-flex">
+                        <input type="text" className="goal-task-bar" placeholder="Enter new task" value={goalTask} onChange={(e) => setGoalTask(e.target.value)} />
+                        <button type="submit" className="goal-task-button">Add Task</button>
                     </form>
-                    <p><strong>Target Date:</strong> {formatDate(selectedGoal.goal_target_date)}</p>
 
-                    <div className="goal-complete-button">
+                    <div className="goal-task-bottom-flex">
+                        <p><strong>Target Date:</strong> {formatDate(selectedGoal.goal_target_date)}</p>
                         <button
-                        onClick={() => handleCompleteGoal(selectedGoal.goal_id)}
-                        className="add-goal-button"
-                        disabled={selectedGoal.is_complete}
-                        >
-                        Mark goal as complete
-                        </button>
+                            onClick={() => handleCompleteGoal(selectedGoal.goal_id)}
+                            className="add-goal-button"
+                            disabled={selectedGoal.is_complete}
+                            >
+                            Mark goal as complete
+                            </button>
                     </div>
                 </div>
             </div>

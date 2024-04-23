@@ -22,6 +22,7 @@ CREATE TABLE daily_tasks (
   task_id INT NOT NULL UNIQUE AUTO_INCREMENT,
   task VARCHAR(1000) NOT NULL,
   task_date DATE NOT NULL,
+  is_complete TINYINT(1),
   user_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(task_id)
 );

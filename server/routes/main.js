@@ -146,8 +146,10 @@ module.exports = function(app) {
         // Extract the task text, date, and userId from the request body
         const { text, date, userId } = req.body;
 
-        let sqlquery = "INSERT INTO daily_tasks (task, task_date, user_id) VALUES (?, ?, ?)";
-        let newrecord = [text, date, userId];
+        let isComplete = 0;
+
+        let sqlquery = "INSERT INTO daily_tasks (task, task_date, is_complete, user_id) VALUES (?, ?, ?, ?)";
+        let newrecord = [text, date, isComplete, userId];
 
         console.log(newrecord);
       
@@ -174,6 +176,23 @@ module.exports = function(app) {
             else {
                 console.log('Item deleted successfully');
                 res.status(200).send('Item deleted successfully');
+            }
+        });
+    });
+    app.post('/completeitem', (req, res) => {
+        const { taskId, isComplete, userId } = req.body;
+        console.log('User:', userId, 'Goal ID:', taskId, 'Complete:', isComplete);
+    
+        let sqlQuery = "UPDATE daily_tasks SET is_complete = ? WHERE task_id = ? AND user_id = ?";
+        let values = [isComplete, taskId, userId];
+    
+        db.query(sqlQuery, values, (err, result) => {
+            if (err) {
+                console.log('Error updating task:', err);
+                res.status(500).send('Error updating task');
+            } else {
+                console.log('Task updated successfully');
+                res.status(200).send('Task updated successfully');
             }
         });
     });
@@ -209,7 +228,7 @@ module.exports = function(app) {
         console.log('retrieve items for date:', date, 'and user ID:', userId);
     
         // Construct the SQL query with parameters
-        let sqlquery = "SELECT task, task_id FROM daily_tasks WHERE task_date = ? AND user_id = ?";
+        let sqlquery = "SELECT task, task_id, is_complete FROM daily_tasks WHERE task_date = ? AND user_id = ?";
         let newrecord = [date, userId];
     
         // Execute the SQL query with parameters

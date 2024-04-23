@@ -40,6 +40,7 @@ const Todo = () => {
     };
 
     const handleAddItem = async () => {
+        console.log(newItem);
         try {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
@@ -67,18 +68,49 @@ const Todo = () => {
         }
     };
 
+    const handleCompleteItem = async (taskId) => {
+        try {
+            const response = await axios.post('http://localhost:8000/completeitem', {
+                taskId,
+                isComplete: 1,
+                userId
+            });
+            if (response.status === 200) {
+                fetchItems();
+            }
+        } catch (error) {
+            console.error('Error completing goal:', error);
+        }
+    };
+
     return (
         <>
         <div className="todo-container">
             <h2 className="todo-title">Today's Tasks</h2>
-
             <ul className="todo-list">
-                {items.map((item, index) => (
+                {items
+                .sort((a, b) => b.task_id - a.task_id)
+                .filter(item => item.is_complete === 0) // Incomplete tasks
+                .map((item, index) => (
+                <li key={index} style={{ textDecoration: 'none' }}>
                     <li key={index} className="todo-list-item">
-                        {console.log(item.task_id)}
                         {item.task}
-                        <button onClick={() => handleDeleteItem(item.task_id)} className="delete-button">X</button>
+                        <div className="todo-list-item-buttons">
+                            <button onClick={() => handleDeleteItem(item.task_id)} className="delete-button">X</button>
+                            <button onClick={() => handleCompleteItem(item.task_id)}>Tick</button>
+                        </div>
                     </li>
+                </li>
+                ))}
+                            
+                {items
+                .filter(item => item.is_complete === 1) // Completed tasks
+                .map((item, index) => (
+                <li key={index} style={{ textDecoration: 'line-through' }}>
+                    <li key={index} className="todo-list-item">
+                        {item.task}
+                    </li>
+                </li>
                 ))}
             </ul>
             <p><NavLink to="/todo" className="view-all-button"><b>View all</b></NavLink></p>

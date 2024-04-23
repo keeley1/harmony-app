@@ -695,16 +695,12 @@ body {
   flex-direction: column;
   align-items: center;
   width: 550px;
-  height: 350px;
+  height: 430px;
 }
 
 .single-goal-form-container h2 {
   text-align: center; 
   margin-bottom: 20px;
-}
-
-.goal-complete-button {
-  text-align: right;
 }
 
 .completed-goal-container {
@@ -775,10 +771,6 @@ body {
   background-color: #c9d1fb;
 }
 
-.goal-add-date {
-
-}
-
 .button-container {
   display: flex;
   justify-content: space-between;
@@ -792,6 +784,54 @@ body {
 }
 
 .goal-tasks ul {
-  height: 50px;
+  height: 150px;
   overflow-y: auto;
+}
+
+.goal-tasks li {
+  list-style: none;
+  margin-left: -30px;
+  margin-bottom: 10px;
+}
+
+.goal-tasks-button {
+  margin-right: 10px;
+}
+
+.goal-task-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.goal-task-bar {
+  height: 30px;
+  padding: 3px;
+  word-wrap: break-word;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 83%;
+}
+
+.goal-task-button {
+  border-radius: 25px;
+  border: none;
+  background-color: #AFBBF4;
+  transition: 0.4s ease;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.goal-task-button:hover {
+  background-color: #c9d1fb;
+}
+
+.goal-task-bottom-flex {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.goal-task-bottom-flex button {
+  height: 30px;
+  margin-top: 10px;
 }

@@ -8,10 +8,10 @@ const Navbar = () => {
     const { loading, loggedIn } = useAuth();
 
     const handleLogout = () => {
-        Axios.get("http://localhost:8000/logout", { withCredentials: true })
+        Axios.get("https://www.doc.gold.ac.uk/usr/201//logout", { withCredentials: true })
             .then(() => {
                 // Reload the page upon successful logout
-                navigate("/");
+                navigate("/usr/201/");
                 window.location.reload();
             })
             .catch(error => {
@@ -26,10 +26,10 @@ const Navbar = () => {
                     <div className="nav-container">
                         <div className="nav-inner-1">
                             <div className="nav-title">
-                                <li><NavLink to="/" className="nav-item"><b>Harmony</b></NavLink></li>
+                                <li><NavLink to="/usr/201/" className="nav-item"><b>Harmony</b></NavLink></li>
                             </div>
                             <div className="nav-flex">
-                                <li><NavLink to="/" className="nav-item">User Test</NavLink></li>
+                                <li><NavLink to="/usr/201/usertest" className="nav-item">User Test</NavLink></li>
                             </div>
                         </div>
                         {/*<div className="nav-title">
@@ -42,7 +42,7 @@ const Navbar = () => {
                             <>
                             <div className="nav-inner-2">
                                 <div className="nav-flex">
-                                    <li><NavLink className="logout-button" onClick={handleLogout}>Logout</NavLink></li>
+                                    <li><NavLink className="logout-button" onClick={handleLogout}>Log out</NavLink></li>
                                 </div>
                             </div>
                                 {/*<div className="nav-flex">
@@ -56,7 +56,7 @@ const Navbar = () => {
                                     <li><NavLink to="/about" className="nav-item">About</NavLink></li>
                         </div>*/}
                                 <div className="nav-flex">
-                                    <li><NavLink to="/login" className="nav-item" id="nav-item-login">Log in</NavLink></li>
+                                    <li><NavLink to="/usr/201/login" className="nav-item" id="nav-item-login">Log in</NavLink></li>
                                 </div>
                             </div>
                                 {/*<div className="nav-flex">

@@ -78,7 +78,7 @@ const Timer = () => {
     return (
         <div className="timer-container">
             <div className="timer-flex">
-                <h3>Countdown</h3>
+                <h3>Task Timer</h3>
                 <div className="timer-input">
                     <select value={time} onChange={handleTimeChange} className="timer-dropdown">
                         <option value="">--Select a time--</option>

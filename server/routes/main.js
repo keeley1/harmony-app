@@ -53,12 +53,12 @@ module.exports = function(app) {
         
                 db.query(sqlquery, newrecord, (err, result) => {
                     if (err) {
-                        console.log('Error registering user', err);
+                        //console.log('Error registering user', err);
                         res.status(500).send('Error registering user');
                     }
                     else {
                         let userName = req.body.username;
-                        console.log('User registered successfully');
+                        //console.log('User registered successfully');
                         res.status(200).send('User registered successfully');
                     }
                 });
@@ -90,9 +90,9 @@ module.exports = function(app) {
                             // save user session here, when login is successful 
                             req.session.userId = req.body.username; 
                             console.log('logged in');
-                            console.log(result);
-                            console.log(req.session.userId);
-                            console.log(req.session);
+                            //console.log(result);
+                            //console.log(req.session.userId);
+                            //console.log(req.session);
                             res.send(result);
                         } else {
                             res.send('Error');
@@ -113,8 +113,8 @@ module.exports = function(app) {
         });
     });
     app.get('/auth', (req, res) => {
-        console.log(req.session);
-        console.log(req.session.userId);
+        //console.log(req.session);
+        //console.log(req.session.userId);
         if (req.session.userId) {
             // user is logged in
             res.json({ loggedIn: true, userId: req.session.userId });
@@ -124,24 +124,24 @@ module.exports = function(app) {
         }
     });
     app.get('/getitems', (req, res) => {
-        console.log("get " + req.session.userId);
-        console.log(req.session)
+        //console.log("get " + req.session.userId);
+        //console.log(req.session)
         let sqlquery = "SELECT task, task_id FROM daily_tasks";
 
         db.query(sqlquery, (err, result) => {
             if (err) {
-                console.log('Error getting items', err);
+                //console.log('Error getting items', err);
                 res.status(500).send('Error getting items');
             }
             else {
-                console.log('Items successfully received');
+                //console.log('Items successfully received');
                 res.json({ items: result });
             }
         });
     });
     app.post('/additem', (req, res) => {
-        console.log('Post item id:' + req.session.userId);
-        console.log(req.body);
+        //console.log('Post item id:' + req.session.userId);
+        //console.log(req.body);
 
         // Extract the task text, date, and userId from the request body
         const { text, date, userId } = req.body;
@@ -151,15 +151,15 @@ module.exports = function(app) {
         let sqlquery = "INSERT INTO daily_tasks (task, task_date, is_complete, user_id) VALUES (?, ?, ?, ?)";
         let newrecord = [text, date, isComplete, userId];
 
-        console.log(newrecord);
+        //console.log(newrecord);
       
         db.query(sqlquery, newrecord, (err, result) => {
           if (err) {
-            console.log('Error adding item:', err);
+            //console.log('Error adding item:', err);
             res.status(500).send('Error adding item');
           } 
           else {
-            console.log('Item added successfully');
+            //console.log('Item added successfully');
             res.status(200).send('Item added successfully');
           }
         });
@@ -170,35 +170,35 @@ module.exports = function(app) {
 
         db.query(sqlquery, [itemId], (err, result) => {
             if (err) {
-                console.log('Error deleting item:', err);
+                //console.log('Error deleting item:', err);
                 res.status(500).send('Error deleting item');
             } 
             else {
-                console.log('Item deleted successfully');
+                //console.log('Item deleted successfully');
                 res.status(200).send('Item deleted successfully');
             }
         });
     });
     app.post('/completeitem', (req, res) => {
         const { taskId, isComplete, userId } = req.body;
-        console.log('User:', userId, 'Goal ID:', taskId, 'Complete:', isComplete);
+        //console.log('User:', userId, 'Goal ID:', taskId, 'Complete:', isComplete);
     
         let sqlQuery = "UPDATE daily_tasks SET is_complete = ? WHERE task_id = ? AND user_id = ?";
         let values = [isComplete, taskId, userId];
     
         db.query(sqlQuery, values, (err, result) => {
             if (err) {
-                console.log('Error updating task:', err);
+                //console.log('Error updating task:', err);
                 res.status(500).send('Error updating task');
             } else {
-                console.log('Task updated successfully');
+                //console.log('Task updated successfully');
                 res.status(200).send('Task updated successfully');
             }
         });
     });
     app.get('/getdate', (req, res) => {
         let currentDate = new Date();
-        console.log(currentDate);
+        //console.log(currentDate);
     
         // Extract date components
         let dayOfWeek = currentDate.toLocaleDateString('en-GB', { weekday: 'long' });
@@ -222,10 +222,10 @@ module.exports = function(app) {
     app.get('/retrieveitems', (req, res) => {
         // Get the date and userID from query parameters
         const { date, userId } = req.query;
-        console.log('Date: ' + date);
-        console.log('user: ' + userId);
+        //console.log('Date: ' + date);
+        //console.log('user: ' + userId);
     
-        console.log('retrieve items for date:', date, 'and user ID:', userId);
+        //console.log('retrieve items for date:', date, 'and user ID:', userId);
     
         // Construct the SQL query with parameters
         let sqlquery = "SELECT task, task_id, is_complete FROM daily_tasks WHERE task_date = ? AND user_id = ?";
@@ -234,10 +234,10 @@ module.exports = function(app) {
         // Execute the SQL query with parameters
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-                console.log('Error getting items', err);
+                //console.log('Error getting items', err);
                 res.status(500).send('Error getting items');
             } else {
-                console.log('Items successfully received');
+                //console.log('Items successfully received');
                 res.json({ items: result });
             }
         });
@@ -248,25 +248,25 @@ module.exports = function(app) {
         let sqlquery = "INSERT INTO gratitude (item, gratitude_date, user_id) VALUES (?, ?, ?)";
         let newrecord = [text, date, userId];
 
-        console.log(newrecord);
+        //console.log(newrecord);
       
         db.query(sqlquery, newrecord, (err, result) => {
           if (err) {
-            console.log('Error adding item:', err);
+            //console.log('Error adding item:', err);
             res.status(500).send('Error adding item');
           } 
           else {
-            console.log('Item added successfully');
+            //console.log('Item added successfully');
             res.status(200).send('Item added successfully');
           }
         });
     });
     app.get('/getgratitude', (req, res) => {
         const { date, userId } = req.query;
-        console.log('Date: ' + date);
-        console.log('user: ' + userId);
+        //console.log('Date: ' + date);
+        //console.log('user: ' + userId);
     
-        console.log('retrieve items for date:', date, 'and user ID:', userId);
+        //console.log('retrieve items for date:', date, 'and user ID:', userId);
     
         // Construct the SQL query with parameters
         let sqlquery = "SELECT item, gratitude_id FROM gratitude WHERE gratitude_date = ? AND user_id = ?";
@@ -275,40 +275,40 @@ module.exports = function(app) {
         // Execute the SQL query with parameters
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-                console.log('Error getting items', err);
+                //console.log('Error getting items', err);
                 res.status(500).send('Error getting items');
             } else {
-                console.log('Items successfully received');
+                //console.log('Items successfully received');
                 res.json({ items: result });
             }
         });
     });
     app.post('/postcheckin', (req, res) => {
-        console.log('post check in');
+        //console.log('post check in');
         const { mood_rating, date, emotion_one, emotion_two, emotion_three, userId } = req.body;
 
         let sqlquery = "INSERT INTO checkin (mood_rating, checkin_date, emotion_one, emotion_two, emotion_three, user_id) VALUES (?, ?, ?, ?, ?, ?)";
         let newrecord = [mood_rating, date, emotion_one, emotion_two, emotion_three, userId];
 
-        console.log(emotion_one);
+        //console.log(emotion_one);
 
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-              console.log('Error adding checkin:', err);
+              //console.log('Error adding checkin:', err);
               res.status(500).send('Error adding checkin');
             } 
             else {
-              console.log('Checkin added successfully');
+              //console.log('Checkin added successfully');
               res.status(200).send('Checkin added successfully');
             }
         });
     });
     app.get('/checkinresponse', (req, res) => {
         const { date, userId } = req.query;
-        console.log('Date: ' + date);
-        console.log('user: ' + userId);
+        //console.log('Date: ' + date);
+        //console.log('user: ' + userId);
     
-        console.log('retrieve items for date:', date, 'and user ID:', userId);
+        //console.log('retrieve items for date:', date, 'and user ID:', userId);
 
         // Construct the SQL query with parameters
         let sqlquery = "SELECT mood_rating FROM checkin WHERE checkin_date = ? AND user_id = ?";
@@ -317,17 +317,17 @@ module.exports = function(app) {
         // Execute the SQL query with parameters
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-                console.log('Error getting check-in', err);
+                //console.log('Error getting check-in', err);
                 res.status(500).send('Error getting check-in');
             } else {
-                console.log('Check-in successfully received');
+                //console.log('Check-in successfully received');
                 console.log('check in data:' + result)
 
             // Convert result to an array of mood ratings
             const moodRatings = result.map(entry => entry.mood_rating);
 
             if (moodRatings.length === 0) {
-                console.log('No check-in data found');
+                //console.log('No check-in data found');
                 res.json({ mood_rating: 0 }); // Return empty array for no check-in data
             } else {
                 res.json({ mood_rating: moodRatings[0] });
@@ -336,31 +336,31 @@ module.exports = function(app) {
         });
     });
     app.post('/postgoal', (req, res) => {
-        console.log('post goal');
+        //console.log('post goal');
         const { goal, goal_target_date, userId } = req.body;
         let is_complete = 0;
 
         let sqlquery = "INSERT INTO goals (goal, is_complete, goal_target_date, user_id) VALUES (?, ?, ?, ?)";
         let newrecord = [goal, is_complete, goal_target_date, userId];
 
-        console.log(is_complete);
+        //console.log(is_complete);
 
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-              console.log('Error adding goal:', err);
+              //console.log('Error adding goal:', err);
               res.status(500).send('Error adding goal');
             } 
             else {
-              console.log('Goal added successfully');
+              //console.log('Goal added successfully');
               res.status(200).send('Goal added successfully');
             }
         });
     });
     app.get('/getgoals', (req, res) => {
         const { userId } = req.query;
-        console.log('user: ' + userId);
+        //console.log('user: ' + userId);
     
-        console.log('retrieve goals for user:', userId);
+        //console.log('retrieve goals for user:', userId);
     
         // Construct the SQL query with parameters
         let sqlquery = "SELECT goal_id, goal, is_complete, goal_target_date FROM goals WHERE user_id = ?";
@@ -369,57 +369,57 @@ module.exports = function(app) {
         // Execute the SQL query with parameters
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-                console.log('Error getting goals', err);
+                //console.log('Error getting goals', err);
                 res.status(500).send('Error getting goals');
             } else {
-                console.log('Goals successfully received');
+                //console.log('Goals successfully received');
                 res.json({ items: result });
             }
         });
     });
     app.post('/completegoal', (req, res) => {
         const { goalId, isComplete, userId } = req.body;
-        console.log('User:', userId, 'Goal ID:', goalId, 'Complete:', isComplete);
+        //console.log('User:', userId, 'Goal ID:', goalId, 'Complete:', isComplete);
     
         let sqlQuery = "UPDATE goals SET is_complete = ? WHERE goal_id = ? AND user_id = ?";
         let values = [isComplete, goalId, userId];
     
         db.query(sqlQuery, values, (err, result) => {
             if (err) {
-                console.log('Error updating goal:', err);
+                //console.log('Error updating goal:', err);
                 res.status(500).send('Error updating goal');
             } else {
-                console.log('Goal updated successfully');
+                //console.log('Goal updated successfully');
                 res.status(200).send('Goal updated successfully');
             }
         });
     });
     app.post('/addgoaltask', (req, res) => {
-        console.log('post goal');
+        //console.log('post goal');
         const { goalId, goal_task, userId } = req.body;
         let is_complete = 0;
 
         let sqlquery = "INSERT INTO goal_tasks (goal_task, is_complete, user_id, goal_id) VALUES (?, ?, ?, ?)";
         let newrecord = [goal_task, is_complete, userId, goalId];
 
-        console.log(is_complete);
+        //console.log(is_complete);
 
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-              console.log('Error adding task:', err);
+              //console.log('Error adding task:', err);
               res.status(500).send('Error adding task');
             } 
             else {
-              console.log('Task added successfully');
+              //console.log('Task added successfully');
               res.status(200).send('Task added successfully');
             }
         });
     });
     app.get('/getgoaltasks', (req, res) => {
         const { goalId, userId } = req.query;
-        console.log('goal: ' + goalId);
+        //console.log('goal: ' + goalId);
     
-        console.log('retrieve tasks for user:', userId);
+        //console.log('retrieve tasks for user:', userId);
     
         // Construct the SQL query with parameters
         let sqlquery = "SELECT goal_id, goal_task_id, goal_task, is_complete FROM goal_tasks WHERE goal_id = ? AND user_id = ?";
@@ -428,27 +428,27 @@ module.exports = function(app) {
         // Execute the SQL query with parameters
         db.query(sqlquery, newrecord, (err, result) => {
             if (err) {
-                console.log('Error getting goal tasks', err);
+                //console.log('Error getting goal tasks', err);
                 res.status(500).send('Error getting goal tasks');
             } else {
-                console.log('Goal tasks successfully received');
+                //console.log('Goal tasks successfully received');
                 res.json({ tasks: result });
             }
         });
     });
     app.post('/completegoaltask', (req, res) => {
         const { goalId, goalTaskId, isComplete, userId } = req.body;
-        console.log('User:', userId, 'Goal ID:', goalTaskId, 'Complete:', isComplete);
+        //console.log('User:', userId, 'Goal ID:', goalTaskId, 'Complete:', isComplete);
     
         let sqlQuery = "UPDATE goal_tasks SET is_complete = ? WHERE goal_id = ? AND goal_task_id = ? AND user_id = ?";
         let values = [isComplete, goalId, goalTaskId, userId];
     
         db.query(sqlQuery, values, (err, result) => {
             if (err) {
-                console.log('Error updating goal:', err);
+                //console.log('Error updating goal:', err);
                 res.status(500).send('Error updating goal');
             } else {
-                console.log('Goal updated successfully');
+                //console.log('Goal updated successfully');
                 res.status(200).send('Goal updated successfully');
             }
         });

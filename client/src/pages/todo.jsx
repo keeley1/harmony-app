@@ -23,7 +23,7 @@ const TodoPage = () => {
             console.log(userId);
             console.log(formattedDate);
             // Make the GET request with the date and user ID as query parameters
-            const response = await axios.get(`http://localhost:8000/retrieveitems?date=${formattedDate}&userId=${userId}`);
+            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/retrieveitems?date=${formattedDate}&userId=${userId}`);
     
             if (response.data.items) {
                 setItems(response.data.items);
@@ -44,7 +44,7 @@ const TodoPage = () => {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
 
-            const response = await axios.post('http://localhost:8000/additem', { text: newItem, date: formattedDate, userId: userId });
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/additem', { text: newItem, date: formattedDate, userId: userId });
             if (response.status === 200) {
                 console.log('Item added successfully');
                 fetchItems();
@@ -57,7 +57,7 @@ const TodoPage = () => {
 
     const handleDeleteItem = async (itemId) => {
         try {
-            const response = await axios.post('http://localhost:8000/deleteitem', { itemId });
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/deleteitem', { itemId });
             if (response.status === 200) {
                 console.log('Item deleted successfully');
                 fetchItems();
@@ -70,7 +70,7 @@ const TodoPage = () => {
     return (
         <>
         <h1>Tasks Full Page</h1>
-        <p><NavLink to="/">Back</NavLink></p>
+        <p><NavLink to="/usr/201/">Back</NavLink></p>
         <div className="todo-container">
             <h2 className="todo-title">Today's Tasks</h2>
 

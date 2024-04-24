@@ -31,7 +31,7 @@ const Goals = () => {
 
     const fetchGoals = async () => {
         try {
-            const response = await axios.get(`http://localhost:8000/getgoals?userId=${userId}`);
+            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/getgoals?userId=${userId}`);
             if (response.data.items) {
                 const allGoals = response.data.items;
                 const incompleteGoals = allGoals.filter(item => item.is_complete === 0);
@@ -49,7 +49,7 @@ const Goals = () => {
 
     const handleAddGoal = async () => {
         try {
-            const response = await axios.post('http://localhost:8000/postgoal', { goal, goal_target_date: goalTargetDate, userId });
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/postgoal', { goal, goal_target_date: goalTargetDate, userId });
             if (response.status === 200) {
                 fetchGoals();
                 setShowAddGoal(false);
@@ -61,7 +61,7 @@ const Goals = () => {
 
     const handleCompleteGoal = async (goalId) => {
         try {
-            const response = await axios.post('http://localhost:8000/completegoal', {
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/completegoal', {
                 goalId,
                 isComplete: 1,
                 userId
@@ -81,7 +81,7 @@ const Goals = () => {
 
     const fetchGoalTasks = async (goalId) => {
         try {
-            const response = await axios.get(`http://localhost:8000/getgoaltasks?goalId=${goalId}&userId=${userId}`);
+            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/getgoaltasks?goalId=${goalId}&userId=${userId}`);
             if (response.data.tasks) {
                 setTasks(response.data.tasks); // Update state with received data directly
                 scrollToBottom();
@@ -105,7 +105,7 @@ const Goals = () => {
     const handleAddGoalTask = async (event) => {
         event.preventDefault();
         try {
-            const response = await axios.post('http://localhost:8000/addgoaltask', { goalId: selectedGoal.goal_id, goal_task: goalTask, userId });
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/addgoaltask', { goalId: selectedGoal.goal_id, goal_task: goalTask, userId });
             if (response.status === 200) {
                 fetchGoalTasks(selectedGoal.goal_id);
                 setGoalTask('');
@@ -120,7 +120,7 @@ const Goals = () => {
         console.log('goal id' + goalId);
         console.log(goalTaskId);
         try {
-            const response = await axios.post('http://localhost:8000/completegoaltask', {
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/completegoaltask', {
                 goalId,
                 goalTaskId,
                 isComplete: 1,

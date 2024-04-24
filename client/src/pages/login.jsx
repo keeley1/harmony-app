@@ -10,7 +10,7 @@ const Login = () => {
     const [password, setPassword] = useState ("");
 
     const LoginUser = () => {
-        Axios.post("http://localhost:8000/loginuser", {
+        Axios.post("https://www.doc.gold.ac.uk/usr/201/loginuser", {
             username: username,
             password: password,
         }, { withCredentials: true })
@@ -21,7 +21,7 @@ const Login = () => {
             } else {
                 setLoginStatus('Login Successful');
                 // Redirect the user to the home page
-                navigate("/");
+                navigate("usr/201/");
             }
         }).catch((error) => {
             console.error("Login failed:", error);
@@ -56,7 +56,7 @@ const Login = () => {
             </div>
                 
             <button onClick={LoginUser} className="form-submit-button">Login</button>
-            <p>Don't have an account? <NavLink to="/register" className="form-bold-link"><b>Register</b></NavLink> for Harmony</p>
+            <p>Don't have an account? <NavLink to="/usr/201/register" className="form-bold-link"><b>Register</b></NavLink> for Harmony</p>
         </div>
         <p>{loginStatus}</p>
     </div>

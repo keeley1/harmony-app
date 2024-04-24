@@ -526,6 +526,10 @@ body {
   margin-left: 10px;
 }
 
+.check-in-feeling {
+  text-align: center;
+}
+
 /*temp affirmation form*/
 .affirmation-form-overlay {
   position: fixed;
@@ -625,10 +629,10 @@ body {
 }
 
 .affirmations-close {
-  position: absolute; /* Position the button absolutely */
-  bottom: 20px; /* Adjust the distance from the bottom as needed */
-  left: 50%; /* Move the button to the center horizontally */
-  transform: translateX(-50%); /* Adjust horizontally to center */
+  position: absolute; 
+  bottom: 20px; 
+  left: 50%; 
+  transform: translateX(-50%);
   background-color: #AFBBF4;
   border: none;
   transition: 0.4s ease;

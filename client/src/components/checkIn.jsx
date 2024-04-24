@@ -70,7 +70,7 @@ for (let i = 1; i <= 5; i++) {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
     
-            const response = await axios.get(`http://localhost:8000/checkinresponse?date=${formattedDate}&userId=${userId}`);
+            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/checkinresponse?date=${formattedDate}&userId=${userId}`);
             if (response.data.mood_rating) {
                 const moodRatingFromResponse = response.data.mood_rating;
                 console.log('mood rating:' + moodRatingFromResponse);
@@ -86,15 +86,15 @@ for (let i = 1; i <= 5; i++) {
     const getCheckinText = (moodRating) => {
         switch (moodRating) {
             case 1:
-                return 'You seem to be having a tough day. Is there anything I can do to help?';
+                return 'Mood check-in complete. You seem to be having a tough day. Is there anything I can do to help?';
             case 2:
-                return 'Seems like you are not feeling very well. Would you like to talk about it?';
+                return 'Mood check-in complete. Seems like you are not feeling very well. Would you like to talk about it?';
             case 3:
-                return 'It looks like your mood is neutral today. Anything on your mind?';
+                return 'Mood check-in complete. It looks like your mood is neutral today. Anything on your mind?';
             case 4:
-                return 'You seem to be in a good mood today! What\'s making you happy?';
+                return 'Mood check-in complete. You seem to be in a good mood today!';
             case 5:
-                return 'Looks like you\'re having a great day! Keep up the good work!';
+                return 'Mood check-in complete. Looks like you\'re having a great day! Keep up the good work!';
             default:
                 return 'How are you feeling today?';
         }
@@ -116,7 +116,7 @@ for (let i = 1; i <= 5; i++) {
                 userId: userId
             };
 
-            const response = await axios.post('http://localhost:8000/postcheckin', checkinData);
+            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/postcheckin', checkinData);
             if (response.status === 200) {
                 console.log('Check-in saved successfully');
                 setShowCheckin(false);
@@ -144,11 +144,13 @@ for (let i = 1; i <= 5; i++) {
                 <button className="grat-close-button" onClick={handleCloseCheckin}>X</button>
                 <h2>Complete check in</h2>
                 <form onSubmit={(e) => e.preventDefault()}>
-                    <label>Mood Rating:</label>
+                    <label>Please Rate Your Mood:</label>
                     <div className="moodbuttons-container">
                         {moodButtons}
                     </div>
+                    <p>1 = low mood, 5 = good mood</p>
 
+                    <h3 className="check-in-feeling">How are you feeling?</h3>
                     <label>Emotion One:</label>
                     <select value={emotionOne} onChange={e => setEmotionOne(e.target.value)}>
                         <option value="">--Please choose an emotion--</option>

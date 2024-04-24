@@ -21,7 +21,7 @@ const Login = () => {
             } else {
                 setLoginStatus('Login Successful');
                 // Redirect the user to the home page
-                navigate("usr/201/");
+                navigate("/usr/201/");
             }
         }).catch((error) => {
             console.error("Login failed:", error);

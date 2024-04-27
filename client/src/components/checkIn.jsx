@@ -70,7 +70,7 @@ for (let i = 1; i <= 5; i++) {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
     
-            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/checkinresponse?date=${formattedDate}&userId=${userId}`);
+            const response = await axios.get(`http://localhost:8000/checkinresponse?date=${formattedDate}&userId=${userId}`);
             if (response.data.mood_rating) {
                 const moodRatingFromResponse = response.data.mood_rating;
                 console.log('mood rating:' + moodRatingFromResponse);
@@ -116,7 +116,7 @@ for (let i = 1; i <= 5; i++) {
                 userId: userId
             };
 
-            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/postcheckin', checkinData);
+            const response = await axios.post('http://localhost:8000/postcheckin', checkinData);
             if (response.status === 200) {
                 console.log('Check-in saved successfully');
                 setShowCheckin(false);

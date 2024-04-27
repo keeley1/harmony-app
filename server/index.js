@@ -8,21 +8,21 @@ const path = require('path');
 const app = express();
 const port = 8000;
 
-/*
+
 app.use(cors({
     origin: 'http://localhost:3000', 
     credentials: true, 
-}));*/
+}));
 
-
+/*
 app.use(cors({
     origin: true, 
     credentials: true, 
-}));
+}));*/
 
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, 'build')));
+//app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(session({
     secret: 'somerandomstuff',

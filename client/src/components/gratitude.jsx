@@ -31,7 +31,7 @@ const Gratitude = () => {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
 
-            const response = await axios.get(`https://www.doc.gold.ac.uk/usr/201/getgratitude?date=${formattedDate}&userId=${userId}`);
+            const response = await axios.get(`http://localhost:8000/getgratitude?date=${formattedDate}&userId=${userId}`);
             if (response.data.items.length > 0) {
                 setGratitudeItem(response.data.items[0].item);
             }
@@ -50,7 +50,7 @@ const Gratitude = () => {
             console.log(userId);
             
             // Send gratitude data to server
-            const response = await axios.post('https://www.doc.gold.ac.uk/usr/201/savegratitude', { text: gratitudeText, date: formattedDate, userId: userId });
+            const response = await axios.post('http://localhost:8000/savegratitude', { text: gratitudeText, date: formattedDate, userId: userId });
     
             if (response.status === 200) {
                 console.log('Gratitude item saved successfully');

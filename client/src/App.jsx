@@ -10,6 +10,7 @@ import ProtectedRoute from "./hooks/protectedRoute";
 import TodoPage from "./pages/todo";
 import GoalPage from "./pages/goals";
 import UserTest from "./pages/userTest";
+import Projects from "./pages/projects";
 
 const App = () => {
   return (
@@ -17,15 +18,16 @@ const App = () => {
     <Navbar />
     <Routes>
     <Route element={<ProtectedRoute />}>
-      <Route path="/usr/201/" element={<Home />} />
+      <Route path="/" element={<Home />} />
     </Route>
-    <Route path="/usr/201/about" element={<About />}/>
-    <Route path="/usr/201/tasks" element={<Tasks />}/>
-    <Route path="/usr/201/register" element={<Register />}/>
-    <Route path="/usr/201/login" element={<Login />}/>
-    <Route path="/usr/201/todo" element={<TodoPage />}/>
-    <Route path="/usr/201/goals" element={<GoalPage />}/>
-    <Route path="/usr/201/usertest" element={<UserTest />}/>
+    <Route path="/about" element={<About />}/>
+    <Route path="/tasks" element={<Tasks />}/>
+    <Route path="/register" element={<Register />}/>
+    <Route path="/login" element={<Login />}/>
+    <Route path="/todo" element={<TodoPage />}/>
+    <Route path="/goals" element={<GoalPage />}/>
+    <Route path="/usertest" element={<UserTest />}/>
+    <Route path="/projects" element={<Projects />}/>
     </Routes>
     </>
   );

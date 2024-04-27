@@ -865,3 +865,13 @@ body {
 .goal-tasks-button:hover {
   opacity: 50%;
 }
+
+/*to do full page*/
+.todo-top-flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-back-button {
+  margin-left: 20px;
+}

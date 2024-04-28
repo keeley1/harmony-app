@@ -453,4 +453,60 @@ module.exports = function(app) {
             }
         });
     });
+    app.post('/postproject', (req, res) => {
+        //console.log('post goal');
+        const { project_name, project_description, userId } = req.body;
+
+        let sqlquery = "INSERT INTO projects (project_name, project_description, user_id) VALUES (?, ?, ?)";
+        let newrecord = [project_name, project_description, userId];
+
+        console.log(project_name);
+
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+              console.log('Error adding project:', err);
+              res.status(500).send('Error adding project');
+            } 
+            else {
+              console.log('Project added successfully');
+              res.status(200).send('Project added successfully');
+            }
+        });
+    });
+    app.get('/getprojects', (req, res) => {
+        const { userId } = req.query;
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT project_id, project_name, project_description FROM projects WHERE user_id = ?";
+        let newrecord = [userId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting projects', err);
+                res.status(500).send('Error getting projects');
+            } else {
+                console.log('Projects successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
+    app.get('/getprojectlists/:projectId', (req, res) => {
+        const { projectId } = req.params;
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT p.project_name, p.project_description, pl.project_list_id, pl.project_list_name FROM projects p JOIN project_lists pl ON p.project_id = pl.project_id WHERE p.project_id = ?";
+        let newrecord = [projectId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting project lists', err);
+                res.status(500).send('Error getting project lists');
+            } else {
+                console.log('Project lists successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
 }

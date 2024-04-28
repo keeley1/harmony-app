@@ -67,3 +67,23 @@ CREATE TABLE goal_tasks (
   goal_id VARCHAR(15) NOT NULL,
   PRIMARY KEY(goal_task_id)
 );
+
+DROP TABLE IF EXISTS projects;
+CREATE TABLE projects (
+  project_id INT NOT NULL UNIQUE AUTO_INCREMENT,
+  project_name VARCHAR(500) NOT NULL,
+  project_description VARCHAR(1000),
+  user_id VARCHAR(15) NOT NULL,
+  PRIMARY KEY(project_id)
+);
+
+DROP TABLE IF EXISTS project_lists;
+CREATE TABLE project_lists (
+    project_list_id INT NOT NULL AUTO_INCREMENT,
+    project_list_name VARCHAR(500) NOT NULL,
+    project_id INT NOT NULL,
+    PRIMARY KEY(project_list_id),
+    FOREIGN KEY(project_id) REFERENCES projects(project_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

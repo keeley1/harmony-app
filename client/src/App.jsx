@@ -11,6 +11,7 @@ import TodoPage from "./pages/todo";
 import GoalPage from "./pages/goals";
 import UserTest from "./pages/userTest";
 import Projects from "./pages/projects";
+import IndividualProject from "./pages/individualProject";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
     <Route path="/goals" element={<GoalPage />}/>
     <Route path="/usertest" element={<UserTest />}/>
     <Route path="/projects" element={<Projects />}/>
+    <Route path="/individualproject/:projectId" element={<IndividualProject />}/>
     </Routes>
     </>
   );

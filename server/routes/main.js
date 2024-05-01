@@ -491,11 +491,29 @@ module.exports = function(app) {
             }
         });
     });
-    app.get('/getprojectlists/:projectId', (req, res) => {
-        const { projectId } = req.params;
+    app.get('/getproject', (req, res) => {
+        const { userId, projectId } = req.query;
     
         // Construct the SQL query with parameters
-        let sqlquery = "SELECT p.project_name, p.project_description, pl.project_list_id, pl.project_list_name FROM projects p JOIN project_lists pl ON p.project_id = pl.project_id WHERE p.project_id = ?";
+        let sqlquery = "SELECT project_id, project_name, project_description FROM projects WHERE user_id = ? AND project_id = ?";
+        let newrecord = [userId, projectId];
+    
+        // Execute the SQL query with parameters
+        db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error getting project', err);
+                res.status(500).send('Error getting project');
+            } else {
+                console.log('Project successfully received');
+                res.json({ items: result });
+            }
+        });
+    });
+    app.get('/getprojectlists', (req, res) => {
+        const { projectId } = req.query;
+    
+        // Construct the SQL query with parameters
+        let sqlquery = "SELECT project_list_id, project_list_name FROM project_lists WHERE project_id = ?";
         let newrecord = [projectId];
     
         // Execute the SQL query with parameters
@@ -509,4 +527,60 @@ module.exports = function(app) {
             }
         });
     });
+    // Add a new project list
+app.post('/addprojectlist', (req, res) => {
+    const { project_list_name, project_id } = req.body;
+
+    if (!project_list_name || !project_id) {
+        return res.status(400).send('Project list name and project ID are required');
+    }
+
+    let sqlquery = "INSERT INTO project_lists (project_list_name, project_id) VALUES (?, ?)";
+    let values = [project_list_name, project_id];
+
+    db.query(sqlquery, values, (err, result) => {
+        if (err) {
+            console.log('Error adding project list', err);
+            res.status(500).send('Error adding project list');
+        } else {
+            console.log('Project list added successfully');
+            res.status(201).send('Project list added successfully');
+        }
+    });
+});
+app.get('/getprojecttasks', (req, res) => {
+    const { projectListId } = req.query;
+
+    // Construct the SQL query with parameters
+    let sqlquery = "SELECT project_task_id, project_task_name, project_task_description, project_task_due_date, project_task_is_complete FROM project_list_tasks WHERE project_list_id = ?";
+    let newrecord = [projectListId];
+
+    // Execute the SQL query with parameters
+    db.query(sqlquery, newrecord, (err, result) => {
+        if (err) {
+            console.log('Error getting project lists', err);
+            res.status(500).send('Error getting project lists');
+        } else {
+            console.log('Project lists successfully received');
+            res.json({ items: result });
+        }
+    });
+});
+app.post('/addprojecttask', (req, res) => {
+    const { projectTaskName, projectTaskDescription, projectTaskDate, projectListId } = req.body;
+    const isComplete = 0;
+
+    let sqlquery = "INSERT INTO project_list_tasks (project_task_name, project_task_description, project_task_due_date, project_task_is_complete, project_list_id) VALUES (?, ?, ?, ?, ?)";
+    let values = [projectTaskName, projectTaskDescription, projectTaskDate, isComplete, projectListId];
+
+    db.query(sqlquery, values, (err, result) => {
+        if (err) {
+            console.log('Error adding project task', err);
+            res.status(500).send('Error adding project task');
+        } else {
+            console.log('Project task added successfully');
+            res.status(201).send('Project task added successfully');
+        }
+    });
+});
 }

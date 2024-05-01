@@ -60,7 +60,7 @@ const Projects = () => {
                 <ul ref={listRef}>
                     {items.map((item, index) => (
                         <li key={index}>
-                            <NavLink to={`/individualproject/:${item.project_id}`}>
+                            <NavLink to={`/individualproject/${item.project_id}`}>
                                 {item.project_name}
                             </NavLink>
                         </li>

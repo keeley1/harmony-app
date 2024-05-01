@@ -87,3 +87,17 @@ CREATE TABLE project_lists (
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
+
+DROP TABLE IF EXISTS project_list_tasks;
+CREATE TABLE project_list_tasks (
+    project_task_id INT NOT NULL AUTO_INCREMENT,
+    project_task_name VARCHAR(500) NOT NULL,
+    project_task_description VARCHAR(500),
+    project_task_due_date DATE,
+    project_task_is_complete TINYINT(1),
+    project_list_id INT NOT NULL,
+    PRIMARY KEY(project_task_id),
+    FOREIGN KEY(project_list_id) REFERENCES project_lists(project_list_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
+);

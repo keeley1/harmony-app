@@ -131,6 +131,37 @@ const fetchProjectTasks = async (projectListId) => {
     }
 };
 
+const handleDeleteProjectTask = async (projectTaskId, projectListId) => {
+    try {
+        const response = await axios.post('http://localhost:8000/deleteprojecttask', { projectTaskId });
+        if (response.status === 200) {
+            console.log('Item deleted successfully');
+            fetchProjectLists(); 
+            fetchProjectTasks(projectListId); 
+            closeTaskDetails(); 
+        }
+    } catch (error) {
+        console.error('Error deleting item:', error);
+    }
+};
+
+const handleCompleteProjectTask = async (projectTaskId, projectListId) => {
+    try {
+        const response = await axios.post('http://localhost:8000/completeprojecttask', {
+            projectTaskId,
+            isComplete: 1,
+        });
+        if (response.status === 200) {
+            fetchProjectLists(); 
+            fetchProjectTasks(projectListId); 
+            closeTaskDetails(); 
+        }
+    } catch (error) {
+        console.error('Error completing goal:', error);
+    }
+};
+
+
 const toggleAddProjectTask = (listId) => {
     if (activeListId === listId) {
         setActiveListId(null);  // Hide the form if it's already visible for this list
@@ -142,6 +173,16 @@ const toggleAddProjectTask = (listId) => {
 const handleCloseAddProjectTask = () => {
     setActiveListId(null); // Hide the form by setting the active list ID to null
 };
+
+const openTaskDetails = (taskId) => {
+    setActiveTaskId(taskId);
+};
+
+const closeTaskDetails = (e) => {
+    e.stopPropagation();
+    setActiveTaskId(null);
+}; 
+
 
 const toggleTaskDetails = (taskId) => {
     setActiveTaskId(taskId === activeTaskId ? null : taskId);
@@ -172,23 +213,25 @@ const toggleTaskDetails = (taskId) => {
                     <button onClick={() => toggleAddProjectTask(list.project_list_id)} className="btn-add-task">+</button>
                     
                     <ul className="task-list">
-                        {projectTasks && projectTasks[list.project_list_id] && projectTasks[list.project_list_id].map((task, taskIndex) => (
-                            
-                            <li key={taskIndex} className="task-item" onClick={() => toggleTaskDetails(task.project_task_id)}>
+                    {projectTasks && projectTasks[list.project_list_id] && projectTasks[list.project_list_id].map((task, taskIndex) => (
+                        <li key={taskIndex} className="task-item" onClick={() => openTaskDetails(task.project_task_id)}>
                             {task.project_task_name}
                             {activeTaskId === task.project_task_id && (
-                                <div className="task-details-popup">
-                                    <div className="task-details-container">
-                                        <p onClick={() => setActiveTaskId(null)} className="close-task-details">X</p>
-                                        <h2>{task.project_task_name}</h2>
-                                        <p>{task.project_task_description}</p>
-                                        <p>Due Date: {task.project_task_due_date}</p>
+                            <div className="task-details-popup">
+                                <div className="task-details-container">
+                                    <p onClick={closeTaskDetails} className="close-task-details">X</p>
+                                    <h2>{task.project_task_name}</h2>
+                                    <p>{task.project_task_description}</p>
+                                    <p>Due Date: {task.project_task_due_date}</p>
+                                    <div className="task-details-buttons">
+                                        <p onClick={() => handleDeleteProjectTask(task.project_task_id, list.project_list_id)}>&#128465; Delete task</p>
+                                        <p onClick={() => alert('complete.')}>&#x2705; Mark as complete</p>
                                     </div>
                                 </div>
-                            )}
-                            </li>
-
-                        ))}
+                            </div>
+                        )}
+                        </li>
+                    ))}
                     </ul>
                     
                     {activeListId === list.project_list_id && (

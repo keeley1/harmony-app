@@ -96,7 +96,7 @@
     margin-bottom: 15px;
     flex: 0 0 auto; 
     width: 300px; 
-    background-color: #f9f9f9;
+    background-color: #f4f4f4;
     padding: 15px;
     border-radius: 5px;
     box-sizing: border-box; 
@@ -115,15 +115,21 @@
 }
 
 .task-item {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     margin-left: -15px;
     margin-right: 5px;
     color: black;
     list-style: none;
     cursor: pointer;
     transition: 0.4s ease;
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
+    background-color: white;
+    max-height: 3.6em;  
+    line-height: 1.2em;  
+    white-space: normal; 
+    overflow-y: auto;    
+    text-overflow: ellipsis; 
 }
 
 .task-item:hover {
@@ -148,6 +154,16 @@
     background-color: white;
     padding: 20px;
     border-radius: 10px;
+    width: 45%;
+}
+
+.task-details-container h2 {
+    margin-top: 25px;
+}
+
+.task-details-buttons {
+    display: flex;
+    justify-content: space-between;
 }
 
 .close-task-details {

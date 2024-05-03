@@ -583,4 +583,36 @@ app.post('/addprojecttask', (req, res) => {
         }
     });
 });
+app.post('/deleteprojecttask', (req, res) => {
+    const { projectTaskId } = req.body;
+
+    let sqlquery = "DELETE FROM project_list_tasks WHERE project_task_id = ?";
+    let values = [projectTaskId];
+
+    db.query(sqlquery, values, (err, result) => {
+        if (err) {
+            console.log('Error deleting project task', err);
+            res.status(500).send('Error deleting project task');
+        } else {
+            console.log('Project task deleted successfully');
+            res.status(200).send('Project task deleted successfully');
+        }
+    });
+});
+app.post('/completeprojecttask', (req, res) => {
+    const { isComplete, projectTaskId } = req.body;
+
+    let sqlquery = "UPDATE project_list_tasks SET is_complete = ? WHERE task_id = ? AND user_id = ?";
+    let values = [isComplete, projectTaskId];
+
+    db.query(sqlquery, values, (err, result) => {
+        if (err) {
+            console.log('Error updating project task', err);
+            res.status(500).send('Error updating project task');
+        } else {
+            console.log('Project task updated successfully');
+            res.status(200).send('Project task updated successfully');
+        }
+    });
+});
 }

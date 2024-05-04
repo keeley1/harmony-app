@@ -3,6 +3,7 @@ import { useParams, NavLink } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
 import "../appTwo.css";
+import autoResizeTextarea from '../components/autoResizeTextArea';
 
 const IndividualProject = () => {
   const { projectId } = useParams();
@@ -131,6 +132,20 @@ const fetchProjectTasks = async (projectListId) => {
     }
 };
 
+const handleDeleteProjectList = async (projectListId) => {
+    try {
+        const response = await axios.post('http://localhost:8000/deleteprojectlist', { projectListId });
+        if (response.status === 200) {
+            console.log('List deleted successfully');
+            fetchProjectLists(); 
+            //fetchProjectTasks(projectListId); 
+            //closeTaskDetails(); 
+        }
+    } catch (error) {
+        console.error('Error deleting list:', error);
+    }
+};
+
 const handleDeleteProjectTask = async (projectTaskId, projectListId) => {
     try {
         const response = await axios.post('http://localhost:8000/deleteprojecttask', { projectTaskId });
@@ -179,9 +194,11 @@ const openTaskDetails = (taskId) => {
 };
 
 const closeTaskDetails = (e) => {
-    e.stopPropagation();
+    if (e) {
+        e.stopPropagation();
+    }
     setActiveTaskId(null);
-}; 
+};
 
 
 const toggleTaskDetails = (taskId) => {
@@ -210,10 +227,14 @@ const toggleTaskDetails = (taskId) => {
                         <h3>{list.project_list_name}</h3>
                     </div>
                     
-                    <button onClick={() => toggleAddProjectTask(list.project_list_id)} className="btn-add-task">+</button>
+                    <button onClick={() => handleDeleteProjectTask(list.project_list_id)} className="btn-add-task">&#128465;</button>
                     
+                    <div className="project-tasks">
                     <ul className="task-list">
-                    {projectTasks && projectTasks[list.project_list_id] && projectTasks[list.project_list_id].map((task, taskIndex) => (
+                    {projectTasks && projectTasks[list.project_list_id] && projectTasks[list.project_list_id]
+                    .sort((a, b) => b.project_task_id - a.project_task_id)
+                    .filter(task => task.project_task_is_complete === 0)
+                    .map((task, taskIndex) => (
                         <li key={taskIndex} className="task-item" onClick={() => openTaskDetails(task.project_task_id)}>
                             {task.project_task_name}
                             {activeTaskId === task.project_task_id && (
@@ -221,18 +242,45 @@ const toggleTaskDetails = (taskId) => {
                                 <div className="task-details-container">
                                     <p onClick={closeTaskDetails} className="close-task-details">X</p>
                                     <h2>{task.project_task_name}</h2>
+                                    <p><b>Description</b></p>
                                     <p>{task.project_task_description}</p>
-                                    <p>Due Date: {task.project_task_due_date}</p>
+                                    <p><b>Due Date:</b></p>
+                                    <p>{task.project_task_due_date}</p>
                                     <div className="task-details-buttons">
-                                        <p onClick={() => handleDeleteProjectTask(task.project_task_id, list.project_list_id)}>&#128465; Delete task</p>
-                                        <p onClick={() => alert('complete.')}>&#x2705; Mark as complete</p>
+                                        <p onClick={() => handleDeleteProjectTask(task.project_task_id, list.project_list_id)} className="complete-delete-button">&#128465; Delete task</p>
+                                        <p onClick={() => handleCompleteProjectTask(task.project_task_id, list.project_list_id)} className="complete-delete-button">&#x2705; Mark as complete</p>
                                     </div>
                                 </div>
                             </div>
                         )}
                         </li>
                     ))}
+                    
+                    {projectTasks && projectTasks[list.project_list_id] && projectTasks[list.project_list_id]
+                    .filter(task => task.project_task_is_complete === 1)
+                    .map((task, taskIndex) => (
+                    <li key={taskIndex} className="task-item" onClick={() => openTaskDetails(task.project_task_id)}>
+                        <span style={{ opacity: '50%' }}>{task.project_task_name}</span>
+                        {activeTaskId === task.project_task_id && (
+                        <div className="task-details-popup">
+                            <div className="task-details-container">
+                                <p onClick={closeTaskDetails} className="close-task-details">X</p>
+                                <h2>{task.project_task_name}</h2>
+                                <p><b>Description</b></p>
+                                <p>{task.project_task_description}</p>
+                                <p><b>Due Date:</b></p>
+                                <p>{task.project_task_due_date}</p>
+                                <div className="task-details-buttons">
+                                    <p onClick={() => handleDeleteProjectTask(task.project_task_id, list.project_list_id)} className="complete-delete-button">&#128465; Delete task</p>
+                                </div>
+                            </div>
+                        </div>
+                        )}
+                    </li>
+                    ))}
                     </ul>
+                    </div>
+                    <p onClick={() => toggleAddProjectTask(list.project_list_id)} className="task-add-card">+ Add Card</p>
                     
                     {activeListId === list.project_list_id && (
                         <form onSubmit={(e) => {
@@ -242,27 +290,47 @@ const toggleTaskDetails = (taskId) => {
                             <div className="task-form-container">
                             <p onClick={handleCloseAddProjectTask} className="btn-close-form">X</p>
                             
-                            <h2>New Task</h2>
+                            <h2>New Card</h2>
 
-                            <label className="task-form-label">Task:</label>
-                            <input
+                            <label className="task-form-label">Card title:</label>
+                            {/*<input
                                 type="text"
                                 value={newTaskName}
                                 onChange={(e) => setNewTaskName(e.target.value)}
                                 placeholder="Enter task name"
                                 className="input-task-name"
-                            />
+                    />*/}
+                            <textarea
+                            className='input-task-name'
+                            value={newTaskName}
+                            onChange={(e) => {
+                                setNewTaskName(e.target.value);
+                                autoResizeTextarea(e);
+                            }}
+                            placeholder="Enter card name"
+                            rows="1"
+                            ></textarea>
                             
-                            <label className="task-form-label">Task description:</label>
-                            <input
+                            <label className="task-form-label">Card details:</label>
+                            {/*<input
                                 type="text"
                                 value={newTaskDescription}
                                 onChange={(e) => setNewTaskDescription(e.target.value)}
                                 placeholder="Enter task description"
                                 className="input-task-description"
-                            />
+                        />*/}
+                            <textarea
+                            className='input-task-name'
+                            value={newTaskDescription}
+                            onChange={(e) => {
+                                setNewTaskDescription(e.target.value);
+                                autoResizeTextarea(e);
+                            }}
+                            placeholder="Enter card details"
+                            rows="1"
+                            ></textarea>
                             
-                            <label className="task-form-label">Task due date:</label>
+                            <label className="task-form-label">Card due date:</label>
                             <input
                                 type="date"
                                 value={newTaskDate}
@@ -278,18 +346,39 @@ const toggleTaskDetails = (taskId) => {
                 </div>
             ))}
             <div className="new-list-container">
-                <input
-                type="text"
+                <div className="project-list-name">
+                    <h3>Add New List</h3>
+                </div>
+                <textarea
                 className='input-new-list-name'
                 value={newListName}
-                onChange={(e) => setNewListName(e.target.value)}
+                onChange={(e) => {
+                    setNewListName(e.target.value);
+                    autoResizeTextarea(e);
+                }}
                 placeholder="Enter new project list name"
-                /><br/>
-                <button onClick={addProjectList} className="btn-add-list">+</button>
+                rows="1"
+                ></textarea><br/>
+                <button onClick={addProjectList} className="btn-add-list">+ Add List</button>
             </div>
         </div>
         ) : (
-        <p>No project lists</p>
+        <div className="new-list-container">
+            <div className="project-list-name">
+                <h3>Add New List</h3>
+            </div>
+            <textarea
+            className='input-new-list-name'
+            value={newListName}
+            onChange={(e) => {
+                setNewListName(e.target.value);
+                autoResizeTextarea(e);
+            }}
+            placeholder="Enter new project list name"
+            rows="1"
+            ></textarea><br/>
+            <button onClick={addProjectList} className="btn-add-list">+ Add List</button>
+        </div>
         )}
     </div>
 </>

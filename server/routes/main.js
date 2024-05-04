@@ -548,6 +548,22 @@ app.post('/addprojectlist', (req, res) => {
         }
     });
 });
+app.post('/deleteprojectlist', (req, res) => {
+    const { projectListId } = req.body;
+
+    let sqlquery = "DELETE FROM project_lists WHERE project_list_id = ?";
+    let values = [projectListId];
+
+    db.query(sqlquery, values, (err, result) => {
+        if (err) {
+            console.log('Error deleting project list', err);
+            res.status(500).send('Error deleting project list');
+        } else {
+            console.log('Project list deleted successfully');
+            res.status(201).send('Project list deleted successfully');
+        }
+    });
+});
 app.get('/getprojecttasks', (req, res) => {
     const { projectListId } = req.query;
 
@@ -602,7 +618,7 @@ app.post('/deleteprojecttask', (req, res) => {
 app.post('/completeprojecttask', (req, res) => {
     const { isComplete, projectTaskId } = req.body;
 
-    let sqlquery = "UPDATE project_list_tasks SET is_complete = ? WHERE task_id = ? AND user_id = ?";
+    let sqlquery = "UPDATE project_list_tasks SET project_task_is_complete = ? WHERE project_task_id = ?";
     let values = [isComplete, projectTaskId];
 
     db.query(sqlquery, values, (err, result) => {

@@ -346,3 +346,63 @@
 .board-container {
     padding: 20px;
 }
+
+/* all projects styling */
+.projects-container {
+    margin: 20px;
+}
+
+.projects-title {
+    margin-bottom: 20px;
+}
+
+.project-flex ul {
+    display: flex;   
+    flex-wrap: wrap;     
+    padding: 0;              
+    margin: 0;                
+    list-style: none;  
+    max-height: 550px;
+    max-width: 550px;
+}
+
+.project-flex ul li {
+    margin-top: 15px; 
+}
+
+.project-item {
+    margin: 10px;
+    padding: 20px;
+    background-color: #AFF4C6;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    width: 200px;
+    transition: 0.4s ease;
+}
+
+.project-item:hover {
+    background-color: #9febb8;
+}
+
+.project-button-container {
+    margin-left: 10px;
+    margin-top: 35px;
+}
+
+.add-project-button {
+    background-color: #f8cfea;
+    border: none;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 30px;
+    transition: 0.4s ease;
+}
+
+.add-project-button:hover {
+    background-color: #f3b8e0;
+}

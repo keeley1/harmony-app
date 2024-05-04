@@ -55,19 +55,22 @@ const Projects = () => {
 
     return (
         <>
-            <div className="goals-container">
-                <h3>Projects</h3>
-                <ul ref={listRef}>
-                    {items.map((item, index) => (
+            <div className="projects-container">
+                <h2 className="projects-title">Projects</h2>
+                <div className="project-flex">
+                    <ul ref={listRef}>
+                        {items.map((item, index) => (
                         <li key={index}>
-                            <NavLink to={`/individualproject/${item.project_id}`}>
+                            <NavLink to={`/individualproject/${item.project_id}`} className="project-item">
                                 {item.project_name}
                             </NavLink>
                         </li>
-                    ))}
-                </ul>
-                <div className="button-container">
-                    <button onClick={toggleAddProject} className="add-goal-button">Add project</button>
+                        ))}
+                    </ul>
+                </div>
+
+                <div className="project-button-container">
+                    <button onClick={toggleAddProject} className="add-project-button">Add project</button>
                 </div>
             </div>
 

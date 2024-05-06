@@ -3,26 +3,18 @@ const cors = require('cors');
 const mysql = require('mysql');
 const session = require('express-session');
 var validator = require ('express-validator');
+const sanitiser = require('express-sanitizer'); 
 const path = require('path');
 
 const app = express();
 const port = 8000;
-
 
 app.use(cors({
     origin: 'http://localhost:3000', 
     credentials: true, 
 }));
 
-/*
-app.use(cors({
-    origin: true, 
-    credentials: true, 
-}));*/
-
 app.use(express.json());
-
-//app.use(express.static(path.join(__dirname, 'build')));
 
 app.use(session({
     secret: 'somerandomstuff',
@@ -34,6 +26,7 @@ app.use(session({
     }
 }));
 
+// create database connection
 const db = mysql.createConnection ({
       host: 'localhost',
       user: 'appuser',

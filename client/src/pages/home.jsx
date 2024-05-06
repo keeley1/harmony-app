@@ -1,11 +1,11 @@
-import React from "react";
-import Todo from "../components/todo";
+import React from 'react';
+import Todo from '../components/todo';
 import DisplayDate from '../components/displayDate';
-import Gratitude from "../components/gratitude";
-import Affirmations from "../components/affirmations";
+import Gratitude from '../components/gratitude';
+import Affirmations from '../components/affirmations';
 import Timer from '../components/timer';
-import CheckIn from "../components/checkIn";
-import Goals from "../components/goals";
+import CheckIn from '../components/checkIn';
+import Goals from '../components/goals';
 
 const Home = () => {
     return (

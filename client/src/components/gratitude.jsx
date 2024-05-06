@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import useAuth from "../hooks/useAuth";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import useAuth from '../hooks/useAuth';
 
 const Gratitude = () => {
     const [showGratForm, setShowGratForm] = useState(false);
@@ -28,37 +28,37 @@ const Gratitude = () => {
 
     const fetchGratitude = async () => {
         try {
+            // get current date and format
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
 
+            // get gratitude from server route
             const response = await axios.get(`http://localhost:8000/getgratitude?date=${formattedDate}&userId=${userId}`);
             if (response.data.items.length > 0) {
                 setGratitudeItem(response.data.items[0].item);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error fetching gratitude item:', error);
         }
     };
 
     const handleSubmitGratitude = async (event) => {
         event.preventDefault();
-        
         try {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
-    
-            console.log(userId);
             
-            // Send gratitude data to server
+            // send gratitude data to server
             const response = await axios.post('http://localhost:8000/savegratitude', { text: gratitudeText, date: formattedDate, userId: userId });
     
             if (response.status === 200) {
-                console.log('Gratitude item saved successfully');
                 setShowGratForm(false);
                 // Fetch the updated gratitude item after saving
                 fetchGratitude();
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error saving gratitude item:', error);
         }
     };
@@ -80,6 +80,7 @@ const Gratitude = () => {
             <div className="grat-form-container">
                 <button className="grat-close-button" onClick={handleCloseGratForm}><b>X</b></button>
                 <h2>What are you grateful for today?</h2>
+                
                 <form onSubmit={handleSubmitGratitude}>
                     <label>I am grateful for...</label><br/>
                     <input 
@@ -94,7 +95,7 @@ const Gratitude = () => {
         </div>
         )}
         </>
-    )
-}
+    );
+};
 
 export default Gratitude;

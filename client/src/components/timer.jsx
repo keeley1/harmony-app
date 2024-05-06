@@ -39,21 +39,7 @@ const Timer = () => {
     const handleCountdownComplete = () => {
         const audio = new Audio(countdownEnd);
         audio.play()
-        //alert('Countdown Complete');
-        /*
-        if ('Notification' in window && Notification.permission === 'granted') {
-            new Notification('Countdown Complete');
-        } else {
-            alert('Countdown Complete');
-        }*/
     };
-
-    // Request permission for notifications when component mounts
-    React.useEffect(() => {
-        if ('Notification' in window && Notification.permission !== 'granted') {
-            Notification.requestPermission();
-        }
-    }, []);
 
     React.useEffect(() => {
         if (time === 0 && timerRunning) {
@@ -76,6 +62,7 @@ const Timer = () => {
     ];
 
     return (
+        <>
         <div className="timer-container">
             <div className="timer-flex">
                 <h3>Task Timer</h3>
@@ -88,13 +75,16 @@ const Timer = () => {
                     </select>
                 </div>
             </div>
+
             <h1 className="timer-time">{formatTime(time)}</h1>
+            
             <div className="timer-controls">
                 <button onClick={startTimer} className="timer-button">Start</button>
                 <button onClick={pauseTimer} className="timer-button">Pause</button>
                 <button onClick={resetTimer} className="timer-button">Reset</button>
             </div>
         </div>
+        </>
     );
 };
 

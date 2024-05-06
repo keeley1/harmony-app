@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 const autoResizeTextarea = (event) => {
     const textarea = event.target;
-    textarea.style.height = 'auto'; // Reset height to recalculate
-    textarea.style.height = textarea.scrollHeight + 'px'; // Set new height
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
 } 
 
 export default autoResizeTextarea;

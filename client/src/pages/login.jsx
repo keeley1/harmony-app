@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import "../app.css";
-import Axios from "axios";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import '../app.css';
+import Axios from 'axios';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
-    const [loginStatus, setLoginStatus] = useState("");
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState ("");
+    const [loginStatus, setLoginStatus] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState ('');
 
     const LoginUser = () => {
         Axios.post("http://localhost:8000/loginuser", {
@@ -16,16 +16,15 @@ const Login = () => {
         }, { withCredentials: true })
         .then((response) => {
             if (response.data.message) { 
-                // If there is a message in the response, it means an error occurred
                 setLoginStatus(response.data.message);
             } else {
                 setLoginStatus('Login Successful');
-                // Redirect the user to the home page
+                // redirect the user to the home page
                 navigate("/");
             }
-        }).catch((error) => {
+        })
+        .catch((error) => {
             console.error("Login failed:", error);
-            // Handle the error, maybe set a loginStatus to display the error
         });
     };
 

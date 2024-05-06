@@ -64,8 +64,11 @@ CREATE TABLE goal_tasks (
   goal_task VARCHAR(500) NOT NULL,
   is_complete TINYINT(1),
   user_id VARCHAR(15) NOT NULL,
-  goal_id VARCHAR(15) NOT NULL,
-  PRIMARY KEY(goal_task_id)
+  goal_id INT NOT NULL,
+  PRIMARY KEY(goal_task_id),
+  FOREIGN KEY(goal_id) REFERENCES goals(goal_id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE
 );
 
 DROP TABLE IF EXISTS projects;

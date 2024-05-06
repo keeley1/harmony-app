@@ -1,12 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { NavLink } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { NavLink } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
 
 const Todo = () => {
     const { userId, loading } = useAuth();
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
+
+    const handleNewItemChange = (event) => {
+        setNewItem(event.target.value);
+    };
 
     useEffect(() => {
         if (!loading && userId) {
@@ -16,42 +20,37 @@ const Todo = () => {
 
     const fetchItems = async () => {
         try {
-            // Get the current date
+            // get current date
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
     
-            console.log(userId);
-            console.log(formattedDate);
-            // Make the GET request with the date and user ID as query parameters
+            // make request to server route with the date and user ID as query parameters
             const response = await axios.get(`http://localhost:8000/retrieveitems?date=${formattedDate}&userId=${userId}`);
     
             if (response.data.items) {
                 setItems(response.data.items);
-            } else {
+            } 
+            else {
                 console.error('Error retrieving items:', response.data.error);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error retrieving items:', error);
         }
     };    
 
-    const handleNewItemChange = (event) => {
-        setNewItem(event.target.value);
-    };
-
     const handleAddItem = async () => {
-        console.log(newItem);
         try {
             const currentDate = new Date();
-            const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
+            const formattedDate = currentDate.toISOString().split('T')[0];
 
             const response = await axios.post('http://localhost:8000/additem', { text: newItem, date: formattedDate, userId: userId });
             if (response.status === 200) {
-                console.log('Item added successfully');
                 fetchItems();
                 setNewItem('');
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error adding item:', error);
         }
     };
@@ -63,7 +62,8 @@ const Todo = () => {
                 console.log('Item deleted successfully');
                 fetchItems();
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error deleting item:', error);
         }
     };
@@ -71,6 +71,7 @@ const Todo = () => {
     const handleCompleteItem = async (taskId) => {
         try {
             const response = await axios.post('http://localhost:8000/completeitem', {
+                // set task to complete in body parameter
                 taskId,
                 isComplete: 1,
                 userId
@@ -78,7 +79,8 @@ const Todo = () => {
             if (response.status === 200) {
                 fetchItems();
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error completing goal:', error);
         }
     };
@@ -89,14 +91,14 @@ const Todo = () => {
             <h2 className="todo-title">Today's Tasks</h2>
             <ul className="todo-list">
                 {items
+                // sort by task id and select incomplete tasks
                 .sort((a, b) => b.task_id - a.task_id)
-                .filter(item => item.is_complete === 0) // Incomplete tasks
+                .filter(item => item.is_complete === 0) 
                 .map((item, index) => (
                 <li key={index} style={{ textDecoration: 'none' }}>
                     <li key={index} className="todo-list-item">
                         {item.task}
                         <div className="todo-list-item-buttons">
-                            {/*<button onClick={() => handleDeleteItem(item.task_id)} className="delete-button"><b>X</b></button>*/}
                             <span className="tick-button" onClick={() => handleCompleteItem(item.task_id)}>&#x2705;</span>
                         </div>
                     </li>
@@ -104,7 +106,8 @@ const Todo = () => {
                 ))}
                             
                 {items
-                .filter(item => item.is_complete === 1) // Completed tasks
+                // sort by task id and select complete tasks
+                .filter(item => item.is_complete === 1)
                 .map((item, index) => (
                 <li key={index} style={{ textDecoration: 'line-through' }}>
                     <li key={index} className="todo-list-item">
@@ -113,6 +116,7 @@ const Todo = () => {
                 </li>
                 ))}
             </ul>
+
             <p><NavLink to="/todo" className="view-all-button"><b>View all</b></NavLink></p>
             <div>
                 <input

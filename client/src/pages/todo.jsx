@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { NavLink } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import DisplayDate from "../components/displayDate";
+import { NavLink } from 'react-router-dom';
+import useAuth from '../hooks/useAuth';
+import DisplayDate from '../components/displayDate';
 
 const TodoPage = () => {
     const { userId, loading } = useAuth();
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
+
+    const handleNewItemChange = (event) => {
+        setNewItem(event.target.value);
+    };
 
     useEffect(() => {
         if (!loading && userId) {
@@ -17,33 +21,28 @@ const TodoPage = () => {
 
     const fetchItems = async () => {
         try {
-            // Get the current date
+            // get current date and format
             const currentDate = new Date();
-            const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
-    
-            console.log(userId);
-            console.log(formattedDate);
-            // Make the GET request with the date and user ID as query parameters
+            const formattedDate = currentDate.toISOString().split('T')[0]; 
+
             const response = await axios.get(`http://localhost:8000/retrieveitems?date=${formattedDate}&userId=${userId}`);
     
             if (response.data.items) {
                 setItems(response.data.items);
-            } else {
+            } 
+            else {
                 console.error('Error retrieving items:', response.data.error);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error retrieving items:', error);
         }
     };    
 
-    const handleNewItemChange = (event) => {
-        setNewItem(event.target.value);
-    };
-
     const handleAddItem = async () => {
         try {
             const currentDate = new Date();
-            const formattedDate = currentDate.toISOString().split('T')[0]; // Format date as yyyy-mm-dd
+            const formattedDate = currentDate.toISOString().split('T')[0]; 
 
             const response = await axios.post('http://localhost:8000/additem', { text: newItem, date: formattedDate, userId: userId });
             if (response.status === 200) {
@@ -51,7 +50,8 @@ const TodoPage = () => {
                 fetchItems();
                 setNewItem('');
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error adding item:', error);
         }
     };
@@ -63,7 +63,8 @@ const TodoPage = () => {
                 console.log('Item deleted successfully');
                 fetchItems();
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error deleting item:', error);
         }
     };

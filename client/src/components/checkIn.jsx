@@ -29,34 +29,36 @@ const CheckIn = () => {
     }
 
     const moodButtons = [];
-for (let i = 1; i <= 5; i++) {
-    const hoverStyle = {
-        backgroundColor: '#c8cfef'  // a different shade for hover
-    };
-    const defaultStyle = {
-        margin: '0 8px',
-        backgroundColor: moodRating === i ? '#c8cfef' : '#AFBBF4',
-        color: 'black',
-        border: 'none',
-        padding: '18px 20px',
-        cursor: 'pointer',
-        borderRadius: '5px',
-        transition: '0.4s ease'
-    };
-
-    moodButtons.push(
+    
+    for (let i = 1; i <= 5; i++) {
+        const hoverStyle = {
+            // set hover background colour
+            backgroundColor: '#c8cfef'
+        };
+        // set default styles
+        const defaultStyle = {
+            margin: '0 8px',
+            backgroundColor: moodRating === i ? '#c8cfef' : '#AFBBF4',
+            color: 'black',
+            border: 'none',
+            padding: '18px 20px',
+            cursor: 'pointer',
+            borderRadius: '5px',
+            transition: '0.4s ease'
+        };
+        
+        // create mood buttons
+        moodButtons.push(
         <button
-            key={i}
-            style={defaultStyle}
-            onMouseEnter={(e) => e.target.style.backgroundColor = hoverStyle.backgroundColor}
-            onMouseLeave={(e) => e.target.style.backgroundColor = moodRating === i ? '#c8cfef' : '#AFBBF4'}
-            onClick={(e) => onClickMoodButton(e, i)}
-        >
-            {i}
+        key={i}
+        style={defaultStyle}
+        onMouseEnter={(e) => e.target.style.backgroundColor = hoverStyle.backgroundColor}
+        onMouseLeave={(e) => e.target.style.backgroundColor = moodRating === i ? '#c8cfef' : '#AFBBF4'}
+        onClick={(e) => onClickMoodButton(e, i)}
+        >{i}
         </button>
-    );
-}
-
+        );
+    };
 
     useEffect(() => {
         if (!loading && userId) {
@@ -67,17 +69,19 @@ for (let i = 1; i <= 5; i++) {
     const fetchCheckinText = async () => {
         console.log('fetch check-in text');
         try {
+            // get date and format
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
     
+            // call server route and save data
             const response = await axios.get(`http://localhost:8000/checkinresponse?date=${formattedDate}&userId=${userId}`);
             if (response.data.mood_rating) {
                 const moodRatingFromResponse = response.data.mood_rating;
-                console.log('mood rating:' + moodRatingFromResponse);
                 setMoodRating(moodRatingFromResponse);
                 setCheckinText(getCheckinText(moodRatingFromResponse));
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Error fetching check-in response', error);
         }
     };
@@ -102,11 +106,11 @@ for (let i = 1; i <= 5; i++) {
 
     const handleCheckinSubmit = async (event) => {
         event.preventDefault();
-        console.log('check in submit');
         try {
             const currentDate = new Date();
             const formattedDate = currentDate.toISOString().split('T')[0];
 
+            // get check in data from form
             const checkinData = {
                 mood_rating: moodRating,
                 date: formattedDate,
@@ -118,11 +122,11 @@ for (let i = 1; i <= 5; i++) {
 
             const response = await axios.post('http://localhost:8000/postcheckin', checkinData);
             if (response.status === 200) {
-                console.log('Check-in saved successfully');
                 setShowCheckin(false);
                 fetchCheckinText();
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.error('Failed to post check-in:', error);
         }
     };
@@ -130,11 +134,10 @@ for (let i = 1; i <= 5; i++) {
     return (
         <>
         <div className="checkin-container">
-        <div className="gratitude-flex">
-            <h3>Daily Check In</h3>
-            {console.log('mood:' + moodRating)}
-            {moodRating == 0 ? ( <div className="plus-icon" onClick={toggleCheckin}>+</div> ) : ( <div className="plus-icon"></div> )}
-        </div>
+            <div className="gratitude-flex">
+                <h3>Daily Check In</h3>
+                {moodRating == 0 ? ( <div className="plus-icon" onClick={toggleCheckin}>+</div> ) : ( <div className="plus-icon"></div> )}
+            </div>
             <p className="checkin-text">{checkinText}</p>
         </div>
 
@@ -144,6 +147,7 @@ for (let i = 1; i <= 5; i++) {
                 <button className="grat-close-button" onClick={handleCloseCheckin}>X</button>
                 <h2>Complete check in</h2>
                 <form onSubmit={(e) => e.preventDefault()}>
+
                     <label>Please Rate Your Mood:</label>
                     <div className="moodbuttons-container">
                         {moodButtons}
@@ -181,7 +185,7 @@ for (let i = 1; i <= 5; i++) {
         </div>
         )}
         </>
-    )
-}
+    );
+};
 
 export default CheckIn;

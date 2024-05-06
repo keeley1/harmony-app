@@ -1,8 +1,8 @@
-import React from "react";
-import "../main.css";
-import Axios from "axios";
-import { useState } from "react";
-import { Navigate, NavLink } from "react-router-dom";
+import React from 'react';
+import '../main.css';
+import Axios from 'axios';
+import { useState } from 'react';
+import { Navigate, NavLink } from 'react-router-dom';
 
 const Register = () => {
    const [registered, setRegistered] = useState(false);
@@ -14,6 +14,7 @@ const Register = () => {
    const [errors, setErrors] = useState([]);
    
    const RegisterUser = () => {
+      // call server register route
       Axios.post("http://localhost:8000/registeruser", {
          firstname: firstnameReg,
          lastname: lastnameReg,
@@ -24,10 +25,12 @@ const Register = () => {
       .then((response) => {
          console.log(response);
          setRegistered(true);
-      }).catch((error) => {
+      })
+      .catch((error) => {
          if (error.response && error.response.data.errors) {
            setErrors(error.response.data.errors);
-         } else {
+         } 
+         else {
            console.error("Error registering user:", error);
          }
        });
@@ -93,12 +96,12 @@ const Register = () => {
          <button onClick={RegisterUser} className="form-submit-button">Register</button>
 
          <p>Already have an account? <NavLink to="/login" className="form-bold-link"><b>Log in</b></NavLink> to Harmony</p>
+         
          {errors.length > 0 && (
          <div className="error-messages">
             <p>{errors[0].msg}</p>
          </div>
          )}
-
       </div>
    </div>
    </>

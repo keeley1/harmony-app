@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import affirmations from '../data/affirmations.json';
 
 const Affirmations = () => {
@@ -21,7 +21,6 @@ const Affirmations = () => {
 
     const handleCloseAffirmations = () => {
         setShowAffirmations(false);
-        // Clear the displayed indices when affirmations are closed
         setDisplayedIndices([]);
     };
 
@@ -34,7 +33,6 @@ const Affirmations = () => {
     const handleResetCount = () => {
         setRepetitionCount(0);
     };
-    
     
     useEffect(() => {
         if (completed) {
@@ -50,7 +48,8 @@ const Affirmations = () => {
 
         if (displayedIndices.length >= 3) {
             setCompleted(true);
-        } else {
+        } 
+        else {
             setDisplayedIndices(prevIndices => [...prevIndices, newIndex]);
             setRandomAffirmation(affirmations[newIndex]);
         }
@@ -66,10 +65,10 @@ const Affirmations = () => {
     return (
         <>
         <div className="affirmation-container">
-        <div className="gratitude-flex">
-        <h3>Affirmations</h3>
-        <div className="plus-icon" onClick={toggleAffirmations}>+</div>
-        </div>
+            <div className="gratitude-flex">
+                <h3>Affirmations</h3>
+                <div className="plus-icon" onClick={toggleAffirmations}>+</div>
+            </div>
             <p className="affirmation-text">Complete your daily affirmations</p>
         </div>
 
@@ -87,11 +86,11 @@ const Affirmations = () => {
                     <button onClick={handleCloseAffirmations} className="affirmations-close">Close</button>
                 ) : (
                     <>
-                        <h3 className="affirmation-repetitions">{repetitionCount}</h3>
-                        <div className="affirmation-button-flex">
+                    <h3 className="affirmation-repetitions">{repetitionCount}</h3>
+                    <div className="affirmation-button-flex">
                         <button onClick={handleResetCount} className="affirmation-reset-count">Reset count</button>
-                            {repetitionCount === 10 ? ( <button onClick={handleNextAffirmation} className="affirmation-next">Next</button> ) : ( <button onClick={handleCountRepetition} className="affirmation-count-up">+</button> )}
-                        </div>
+                        {repetitionCount === 10 ? ( <button onClick={handleNextAffirmation} className="affirmation-next">Next</button> ) : ( <button onClick={handleCountRepetition} className="affirmation-count-up">+</button> )}
+                    </div>
                     </>
                 )}
             </div>

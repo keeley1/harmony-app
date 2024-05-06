@@ -657,7 +657,7 @@ body {
   margin-left: 10px;
 }
 
-.goals-container ul {
+.goal-list {
   list-style: none;
   margin-left: -30px;
   height: 90px;
@@ -771,8 +771,10 @@ body {
 }
 
 .goal-form-container input {
-  width: 100%;
+  width: 98%;
   margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid black;
 }
 
 .goal-add-submit {

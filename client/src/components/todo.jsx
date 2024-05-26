@@ -7,9 +7,11 @@ const Todo = () => {
     const { userId, loading } = useAuth();
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');
+    const [errors, setErrors] = useState([]);
 
     const handleNewItemChange = (event) => {
         setNewItem(event.target.value);
+        setErrors([]);
     };
 
     useEffect(() => {
@@ -48,11 +50,17 @@ const Todo = () => {
             if (response.status === 200) {
                 fetchItems();
                 setNewItem('');
+                setErrors([]);
             }
         } 
-        catch (error) {
-            console.error('Error adding item:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
 
     const handleDeleteItem = async (itemId) => {
@@ -127,6 +135,13 @@ const Todo = () => {
                     className="todo-form"
                 />
                 <button onClick={handleAddItem} className="todo-button">Submit</button>
+
+                {console.log(errors)}
+                {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+                )}
             </div>
         </div>
         </>

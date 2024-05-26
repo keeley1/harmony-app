@@ -19,7 +19,7 @@ module.exports = function(app) {
         const errors = validationResult(req); 
 
         if (!errors.isEmpty()) { 
-            // log any validation errors and redirect to register page
+            // log any validation errors 
             console.log("Validation errors:", errors.array());
             return res.status(400).json({ errors: errors.array() });
         } 
@@ -121,24 +121,37 @@ module.exports = function(app) {
             res.json({ loggedIn: false });
         }
     });
-    app.post('/additem', (req, res) => {
-        // extract the task text, date, and userId from the request body
-        const { text, date, userId } = req.body;
-        let isComplete = 0;
+    app.post('/additem', [
+        // validate each field against specific criteria
+        check('text').notEmpty().withMessage('Please enter a task').isLength({ max: 500 }).withMessage('Task is too long')
+    ],
+    (req, res) => {
+        const errors = validationResult(req); 
 
-        let sqlquery = "INSERT INTO daily_tasks (task, task_date, is_complete, user_id) VALUES (?, ?, ?, ?)";
-        let newrecord = [text, date, isComplete, userId];
-      
-        db.query(sqlquery, newrecord, (err, result) => {
-          if (err) {
-            console.log('Error adding item:', err);
-            res.status(500).send('Error adding item');
-          } 
-          else {
-            console.log('Item added successfully');
-            res.status(200).send('Item added successfully');
-          }
-        });
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        } 
+        else {
+            // extract the task text, date, and userId from the request body
+            const { text, date, userId } = req.body;
+            let isComplete = 0;
+
+            let sqlquery = "INSERT INTO daily_tasks (task, task_date, is_complete, user_id) VALUES (?, ?, ?, ?)";
+            let newrecord = [text, date, isComplete, userId];
+        
+            db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error adding item:', err);
+                res.status(500).send('Error adding item');
+            } 
+            else {
+                console.log('Item added successfully');
+                res.status(200).send('Item added successfully');
+            }
+            });
+        }
     });
     app.post('/deleteitem', (req, res) => {
         let itemId = req.body.itemId; 

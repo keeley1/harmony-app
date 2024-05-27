@@ -7,6 +7,7 @@ const Gratitude = () => {
     const [gratitudeText, setGratitudeText] = useState('');
     const [gratitudeItem, setGratitudeItem] = useState('');
     const { userId, loading } = useAuth();
+    const [errors, setErrors] = useState([]);
 
     const toggleGratForm = () => {
         setShowGratForm(!showGratForm);
@@ -18,6 +19,7 @@ const Gratitude = () => {
 
     const handleGratitudeChange = (event) => {
         setGratitudeText(event.target.value);
+        setErrors([]);
     };
 
     useEffect(() => {
@@ -56,11 +58,17 @@ const Gratitude = () => {
                 setShowGratForm(false);
                 // Fetch the updated gratitude item after saving
                 fetchGratitude();
+                setErrors([]);
             }
         } 
-        catch (error) {
-            console.error('Error saving gratitude item:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
     
 
@@ -91,6 +99,12 @@ const Gratitude = () => {
                     /><br/>
                     <button type="submit" className="grat-submit-button">Submit</button>
                 </form>
+
+                {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+                )}
             </div>
         </div>
         )}

@@ -16,6 +16,7 @@ const Goals = () => {
     
     const { userId, loading } = useAuth();
     const listRef = useRef(null);
+    const [errors, setErrors] = useState([]);
 
     const toggleAddGoal = () => setShowAddGoal(!showAddGoal);
     const handleCloseAddGoal = () => setShowAddGoal(false);
@@ -40,6 +41,16 @@ const Goals = () => {
     const handleCloseGoalDetails = () => {
         setShowGoalDetails(false);
         setSelectedGoal(null);
+    };
+
+    const handleSetGoalChange = (event) => {
+        setGoal(event.target.value);
+        setErrors([]);
+    };
+
+    const handleSetGoalTargetDateChange = (event) => {
+        setGoalTargetDate(event.target.value);
+        setErrors([]);
     };
 
     useEffect(() => {
@@ -78,11 +89,17 @@ const Goals = () => {
             if (response.status === 200) {
                 fetchGoals();
                 setShowAddGoal(false);
+                setErrors([]);
             }
         } 
-        catch (error) {
-            console.error('Error adding goal:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
 
     const handleCompleteGoal = async (goalId) => {
@@ -175,11 +192,17 @@ const Goals = () => {
                 <h2>Add Goal</h2>
                 <form>
                     <label>Goal:</label>
-                    <input type="text" className="goal-add-text" value={goal} onChange={e => setGoal(e.target.value)} placeholder="Enter goal" />
+                    <input type="text" className="goal-add-text" value={goal} onChange={handleSetGoalChange} placeholder="Enter goal" />
                     <label>Goal target date:</label>
-                    <input type="date" className="goal-add-date" value={goalTargetDate} onChange={e => setGoalTargetDate(e.target.value)} placeholder="Enter target date" /><br/>
+                    <input type="date" className="goal-add-date" value={goalTargetDate} onChange={handleSetGoalTargetDateChange} placeholder="Enter target date" /><br/>
                     <button onClick={handleAddGoal} className="goal-add-submit">Submit</button>
                 </form>
+
+                {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+                )}
             </div>
         </div>
         )}

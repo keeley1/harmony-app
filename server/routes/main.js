@@ -222,22 +222,35 @@ module.exports = function(app) {
             }
         });
     });    
-    app.post('/savegratitude', (req, res) => {
-        const { text, date, userId } = req.body;
+    app.post('/savegratitude', [
+        // validate each field against specific criteria
+        check('text').notEmpty().withMessage('Please enter your daily gratitude').isLength({ max: 500 }).withMessage('Gratitude is too long')
+    ], 
+    (req, res) => {
+        const errors = validationResult(req); 
 
-        let sqlquery = "INSERT INTO gratitude (item, gratitude_date, user_id) VALUES (?, ?, ?)";
-        let newrecord = [text, date, userId];
-      
-        db.query(sqlquery, newrecord, (err, result) => {
-          if (err) {
-            console.log('Error adding item:', err);
-            res.status(500).send('Error adding item');
-          } 
-          else {
-            console.log('Item added successfully');
-            res.status(200).send('Item added successfully');
-          }
-        });
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        } 
+        else {
+            const { text, date, userId } = req.body;
+
+            let sqlquery = "INSERT INTO gratitude (item, gratitude_date, user_id) VALUES (?, ?, ?)";
+            let newrecord = [text, date, userId];
+        
+            db.query(sqlquery, newrecord, (err, result) => {
+            if (err) {
+                console.log('Error adding item:', err);
+                res.status(500).send('Error adding item');
+            } 
+            else {
+                console.log('Item added successfully');
+                res.status(200).send('Item added successfully');
+            }
+            });
+        }
     });
     app.get('/getgratitude', (req, res) => {
         const { date, userId } = req.query;
@@ -304,23 +317,37 @@ module.exports = function(app) {
             }
         });
     });
-    app.post('/postgoal', (req, res) => {
-        const { goal, goal_target_date, userId } = req.body;
-        let is_complete = 0;
+    app.post('/postgoal', [
+        // validate each field against specific criteria
+        check('goal').notEmpty().withMessage('Please enter your goal').isLength({ max: 500 }).withMessage('Gratitude is too long'),
+        check('goal_target_date').notEmpty().withMessage('Please enter a target date').isDate().withMessage('Please enter a valid date')
+    ], 
+    (req, res) => {
+        const errors = validationResult(req); 
 
-        let sqlquery = "INSERT INTO goals (goal, is_complete, goal_target_date, user_id) VALUES (?, ?, ?, ?)";
-        let newrecord = [sanitise(goal), is_complete, goal_target_date, userId];
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+        else {
+            const { goal, goal_target_date, userId } = req.body;
+            let is_complete = 0;
 
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-              console.log('Error adding goal:', err);
-              res.status(500).send('Error adding goal');
-            } 
-            else {
-              console.log('Goal added successfully');
-              res.status(200).send('Goal added successfully');
-            }
-        });
+            let sqlquery = "INSERT INTO goals (goal, is_complete, goal_target_date, user_id) VALUES (?, ?, ?, ?)";
+            let newrecord = [sanitise(goal), is_complete, goal_target_date, userId];
+
+            db.query(sqlquery, newrecord, (err, result) => {
+                if (err) {
+                console.log('Error adding goal:', err);
+                res.status(500).send('Error adding goal');
+                } 
+                else {
+                console.log('Goal added successfully');
+                res.status(200).send('Goal added successfully');
+                }
+            });
+        }
     });
     app.get('/getgoals', (req, res) => {
         const { userId } = req.query;

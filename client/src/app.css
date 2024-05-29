@@ -1,8 +1,25 @@
+:root {
+  --background-color: #f4f4f4;
+  --text-color: #000000;
+}
+
+[data-theme='dark'] {
+  --background-color: #121212;
+  --text-color: #ffffff;
+}
+
 body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background-color);
+  /*color: var(--text-color);*/
+}
+
+/*body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
     background-color: #f4f4f4;
-}
+}*/
 
 /*--- navbar styling ---*/
 .nav-list {
@@ -50,7 +67,7 @@ body {
   background-color: #dcffe7;
 }
 
-/*--- Login/register styling ---*/
+/*-------- Login/register styling --------*/
 .form-container {
   text-align: center;
 }
@@ -238,6 +255,7 @@ body {
   justify-content: space-between; 
 }
 
+/*-------- container plus icons --------*/
 .plus-icon {
   align-self: center;
   margin-right: 15px;
@@ -248,15 +266,12 @@ body {
   transition: 0.4s ease;
 }
 
-.plus-icon:hover {
+.light-theme .plus-icon:hover {
   background-color: #e2e1e1;
 }
 
-.affirmation-container {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
+.dark-theme .plus-icon:hover {
+  background-color: #37373c;
 }
 
 .timer-container {
@@ -331,6 +346,14 @@ body {
   border-radius: 5px;
 }
 
+.goals-page-container {
+  margin: 20px;
+  padding: 10px;
+  background-color: white;
+  height: 620px;
+  border-radius: 5px;
+}
+
 .add-goal-button {
   padding: 5px;
   border: none;
@@ -347,10 +370,22 @@ body {
   background-color: #c8cfef;
 }
 
-/* date styling */
-.date-container {
+/*-------- date styling --------*/
+.light-theme .date-container {
   text-align: center;
   background-color: white;
+  width: max-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1px 40px 1px 40px;
+  border-radius: 5px;
+  line-height: 0.6;
+}
+
+.dark-theme .date-container {
+  text-align: center;
+  color: white;
+  background-color: #26262a;
   width: max-content;
   margin-left: auto;
   margin-right: auto;
@@ -405,18 +440,6 @@ body {
   border-radius: 5px;
 }
 
-.grat-close-button {
-  align-self: flex-start;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 4px;
-  background-color: white;
-  cursor: pointer;
-  transition: 0.4s ease;
-  margin-left: -5px;
-  margin-top: -5px;
-}
-
 .grat-submit-button {
   margin-top: -2px;
   margin-bottom: 30px;
@@ -432,8 +455,37 @@ body {
   background-color: #c8cfef;
 }
 
-.grat-close-button:hover {
+.light-theme .grat-close-button {
+  align-self: flex-start;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: white;
+  cursor: pointer;
+  transition: 0.4s ease;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+
+.dark-theme .grat-close-button {
+  align-self: flex-start;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 4px;
+  background-color: #26262a;
+  color: white;
+  cursor: pointer;
+  transition: 0.4s ease;
+  margin-left: -5px;
+  margin-top: -5px;
+}
+
+.light-theme .grat-close-button:hover {
   background-color: #e2e1e1;
+}
+
+.dark-theme .grat-close-button:hover {
+  background-color: #37373c;
 }
 
 .gratitude-item {
@@ -530,7 +582,22 @@ body {
   text-align: center;
 }
 
-/*temp affirmation form*/
+/*-------- affirmation form --------*/
+.light-theme .affirmation-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.dark-theme .affirmation-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  color: white;
+  background-color: #26262a;
+  border-radius: 5px;
+}
+
 .affirmation-form-overlay {
   position: fixed;
   top: 0;
@@ -544,13 +611,26 @@ body {
   z-index: 999;
 }
 
-.affirmation-form-container {
+.light-theme .affirmation-form-container {
   position: relative;
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  flex-direction: column; /* Ensure vertical stacking */
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 230px;
+}
+
+.dark-theme .affirmation-form-container {
+  position: relative;
+  background-color: #26262a;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
   align-items: center;
   width: 400px;
   height: 230px;
@@ -580,10 +660,10 @@ body {
 
 .affirmation-button-flex {
   display: flex;
-  justify-content: space-between; /* Align items to the beginning and end */
+  justify-content: space-between;
 }
 
-.affirmation-count-up {
+.light-theme .affirmation-count-up {
   background-color: #AFBBF4;
   transition: 0.4s ease;
   cursor: pointer;
@@ -594,11 +674,27 @@ body {
   padding-right: 14px;
 }
 
-.affirmation-count-up:hover {
+.dark-theme .affirmation-count-up {
+  background-color: rgb(93, 96, 249);
+  color: white;
+  transition: 0.4s ease;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  font-size: larger;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+
+.light-theme .affirmation-count-up:hover {
   background-color: #c9d1fb;
 }
 
-.affirmation-next {
+.dark-theme .affirmation-count-up:hover {
+  background-color: rgb(133, 135, 255);
+}
+
+.light-theme .affirmation-next {
   background-color: #AFBBF4;
   transition: 0.4s ease;
   cursor: pointer;
@@ -609,11 +705,27 @@ body {
   padding-right: 14px;
 }
 
-.affirmation-next:hover {
+.dark-theme .affirmation-next {
+  background-color: rgb(93, 96, 249);
+  color: white;
+  transition: 0.4s ease;
+  cursor: pointer;
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+  padding-left: 12px;
+  padding-right: 14px;
+}
+
+.light-theme .affirmation-next:hover {
   background-color: #c9d1fb;
 }
 
-.affirmation-reset-count {
+.dark-theme .affirmation-next:hover {
+  background-color: rgb(133, 135, 255);
+}
+
+.light-theme .affirmation-reset-count {
   background-color: #AFBBF4;
   border: none;
   transition: 0.4s ease;
@@ -624,27 +736,63 @@ body {
   cursor: pointer;
 }
 
-.affirmation-reset-count:hover {
+.dark-theme .affirmation-reset-count {
+  background-color: rgb(93, 96, 249);
+  color: white;
+  border: none;
+  transition: 0.4s ease;
+  border-radius: 25px;
+  padding: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+}
+
+.light-theme .affirmation-reset-count:hover {
   background-color: #c9d1fb;
 }
 
-.affirmations-close {
+.dark-theme .affirmation-reset-count:hover {
+  background-color: rgb(133, 135, 255);
+}
+
+.light-theme .affirmations-close {
   position: absolute; 
-  bottom: 20px; 
+  bottom: 80px; 
   left: 50%; 
   transform: translateX(-50%);
   background-color: #AFBBF4;
   border: none;
   transition: 0.4s ease;
   border-radius: 25px;
-  padding: 7px;
-  padding-left: 12px;
-  padding-right: 12px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
   cursor: pointer;
 }
 
-.affirmations-close:hover {
+.dark-theme .affirmations-close {
+  position: absolute; 
+  bottom: 80px; 
+  left: 50%; 
+  transform: translateX(-50%);
+  background-color: rgb(93, 96, 249);
+  color: white;
+  border: none;
+  transition: 0.4s ease;
+  border-radius: 25px;
+  padding: 10px;
+  padding-left: 15px;
+  padding-right: 15px;
+  cursor: pointer;
+}
+
+.light-theme .affirmations-close:hover {
   background-color: #c9d1fb;
+}
+
+.dark-theme .affirmations-close:hover {
+  background-color: rgb(133, 135, 255);
 }
 
 .affirmation-text {
@@ -657,10 +805,21 @@ body {
   margin-left: 10px;
 }
 
+.goals-page-container h2 {
+  margin-left: 10px;
+}
+
 .goal-list {
   list-style: none;
   margin-left: -30px;
   height: 90px;
+  overflow-y: auto;
+}
+
+.goal-page-list {
+  list-style: none;
+  margin-left: -30px;
+  height: 500px;
   overflow-y: auto;
 }
 
@@ -678,6 +837,23 @@ body {
 }
 
 .goals-container li:hover {
+  background-color: #f4f4f4;
+}
+
+.goals-page-container li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  width: 97%;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+.goals-page-container li:hover {
   background-color: #f4f4f4;
 }
 
@@ -877,3 +1053,5 @@ body {
 .todo-back-button {
   margin-left: 20px;
 }
+
+/*Settings*/

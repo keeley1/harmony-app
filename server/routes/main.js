@@ -385,25 +385,38 @@ module.exports = function(app) {
             }
         });
     });
-    app.post('/addgoaltask', (req, res) => {
-        const { goalId, goal_task, userId } = req.body;
+    app.post('/addgoaltask', [
+        // validate each field against specific criteria
+        check('goal_task').notEmpty().withMessage('Please enter a task').isLength({ max: 500 }).withMessage('Task is too long')
+    ], 
+    (req, res) => {
+        const errors = validationResult(req); 
 
-        // initialise is_complete to 0
-        let is_complete = 0;
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+        else {
+            const { goalId, goal_task, userId } = req.body;
 
-        let sqlquery = "INSERT INTO goal_tasks (goal_task, is_complete, user_id, goal_id) VALUES (?, ?, ?, ?)";
-        let newrecord = [goal_task, is_complete, userId, goalId];
+            // initialise is_complete to 0
+            let is_complete = 0;
 
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-              console.log('Error adding task:', err);
-              res.status(500).send('Error adding task');
-            } 
-            else {
-              console.log('Task added successfully');
-              res.status(200).send('Task added successfully');
-            }
-        });
+            let sqlquery = "INSERT INTO goal_tasks (goal_task, is_complete, user_id, goal_id) VALUES (?, ?, ?, ?)";
+            let newrecord = [goal_task, is_complete, userId, goalId];
+
+            db.query(sqlquery, newrecord, (err, result) => {
+                if (err) {
+                console.log('Error adding task:', err);
+                res.status(500).send('Error adding task');
+                } 
+                else {
+                console.log('Task added successfully');
+                res.status(200).send('Task added successfully');
+                }
+            });
+        }
     });
     app.get('/getgoaltasks', (req, res) => {
         const { goalId, userId } = req.query;
@@ -529,22 +542,35 @@ module.exports = function(app) {
             }
         });
     });
-    app.post('/addprojectlist', (req, res) => {
-        const { project_list_name, project_id } = req.body;
+    app.post('/addprojectlist', [
+        // validate each field against specific criteria
+        check('project_list_name').notEmpty().withMessage('Please enter list name').isLength({ max: 500 }).withMessage('List name is too long')
+    ], 
+    (req, res) => {
+        const errors = validationResult(req); 
+
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+        else {
+            const { project_list_name, project_id } = req.body;
         
-        let sqlquery = "INSERT INTO project_lists (project_list_name, project_id) VALUES (?, ?)";
-        let values = [project_list_name, project_id];
-        
-        db.query(sqlquery, values, (err, result) => {
-            if (err) {
-                console.log('Error adding project list', err);
-                res.status(500).send('Error adding project list');
-            } 
-            else {
-                console.log('Project list added successfully');
-                res.status(201).send('Project list added successfully');
-            }
-        });
+            let sqlquery = "INSERT INTO project_lists (project_list_name, project_id) VALUES (?, ?)";
+            let values = [project_list_name, project_id];
+            
+            db.query(sqlquery, values, (err, result) => {
+                if (err) {
+                    console.log('Error adding project list', err);
+                    res.status(500).send('Error adding project list');
+                } 
+                else {
+                    console.log('Project list added successfully');
+                    res.status(201).send('Project list added successfully');
+                }
+            });
+        }
     });
     app.post('/deleteprojectlist', (req, res) => {
         const { projectListId } = req.body;
@@ -582,23 +608,38 @@ module.exports = function(app) {
             }
         });
     });
-    app.post('/addprojecttask', (req, res) => {
-        const { projectTaskName, projectTaskDescription, projectTaskDate, projectListId } = req.body;
-        const isComplete = 0;
+    app.post('/addprojecttask',[
+        // validate each field against specific criteria
+        check('projectTaskName').notEmpty().withMessage('Please enter task name').isLength({ max: 500 }).withMessage('Task name is too long'),
+        check('projectTaskDescription').notEmpty().withMessage('Please enter task description').isLength({ max: 500 }).withMessage('Task description is too long'),
+        check('projectTaskDate').notEmpty().withMessage('Please enter task date').isDate().withMessage('Please enter a valid date')
+    ], 
+    (req, res) => {
+        const errors = validationResult(req); 
 
-        let sqlquery = "INSERT INTO project_list_tasks (project_task_name, project_task_description, project_task_due_date, project_task_is_complete, project_list_id) VALUES (?, ?, ?, ?, ?)";
-        let values = [projectTaskName, projectTaskDescription, projectTaskDate, isComplete, projectListId];
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+        else {
+            const { projectTaskName, projectTaskDescription, projectTaskDate, projectListId } = req.body;
+            const isComplete = 0;
 
-        db.query(sqlquery, values, (err, result) => {
-            if (err) {
-                console.log('Error adding project task', err);
-                res.status(500).send('Error adding project task');
-            } 
-            else {
-                console.log('Project task added successfully');
-                res.status(201).send('Project task added successfully');
-            }
-        });
+            let sqlquery = "INSERT INTO project_list_tasks (project_task_name, project_task_description, project_task_due_date, project_task_is_complete, project_list_id) VALUES (?, ?, ?, ?, ?)";
+            let values = [projectTaskName, projectTaskDescription, projectTaskDate, isComplete, projectListId];
+
+            db.query(sqlquery, values, (err, result) => {
+                if (err) {
+                    console.log('Error adding project task', err);
+                    res.status(500).send('Error adding project task');
+                } 
+                else {
+                    console.log('Project task added successfully');
+                    res.status(201).send('Project task added successfully');
+                }
+            });
+        }
     });
     app.post('/deleteprojecttask', (req, res) => {
         const { projectTaskId } = req.body;

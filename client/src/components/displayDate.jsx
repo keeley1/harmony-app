@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
+import { ThemeContext } from '../pages/themeChange';
 
 // note that this page was created for testing purposes
 
 const DisplayDate = () => {
+    const { theme } = useContext(ThemeContext);
+    
     // initialise date information
     const [dateInfo, setDateInfo] = useState({
         dayOfWeek: '',
@@ -31,7 +34,7 @@ const DisplayDate = () => {
 
     return (
         <>
-        <div className="date-container">
+        <div className={`date-container ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
             <p>{dateInfo.dayOfWeek}</p>
             <p>{dateInfo.date}</p>
         </div>

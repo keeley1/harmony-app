@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import affirmations from '../data/affirmations.json';
+import { ThemeContext } from '../pages/themeChange';
 
 const Affirmations = () => {
+    const { theme } = useContext(ThemeContext);
+
     const [showAffirmations, setShowAffirmations] = useState(false);
     const [randomAffirmation, setRandomAffirmation] = useState('');
     const [repetitionCount, setRepetitionCount] = useState(0);
@@ -64,32 +67,35 @@ const Affirmations = () => {
 
     return (
         <>
-        <div className="affirmation-container">
+        <div className={`affirmation-container ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
             <div className="gratitude-flex">
                 <h3>Affirmations</h3>
-                <div className="plus-icon" onClick={toggleAffirmations}>+</div>
+                <div className={`plus-icon ${theme === 'light' ? 'light-theme' : 'dark-theme'}`} onClick={toggleAffirmations}>+</div>
             </div>
             <p className="affirmation-text">Complete your daily affirmations</p>
         </div>
 
         {showAffirmations && (
         <div className="affirmation-form-overlay">
-            <div className="affirmation-form-container">
-                <button className="grat-close-button" onClick={handleCloseAffirmations}><b>X</b></button>
-                <h2>Repeat this Affirmation 10 Times:</h2>
+            <div className={`affirmation-form-container ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
+                <button className={`grat-close-button ${theme === 'light' ? 'light-theme' : 'dark-theme'}`} onClick={handleCloseAffirmations}><b>X</b></button>
+                {/*<h2>Repeat this Affirmation 10 Times:</h2>*/}
                 {completed ? (
-                    <p>Affirmations Complete</p>
+                    <h2>Affirmations Complete</h2>
                 ) : (
+                    <>
+                    <h2>Repeat this Affirmation 10 Times:</h2>
                     <p>{randomAffirmation}</p>
+                    </>
                 )}
                 {completed ? (
-                    <button onClick={handleCloseAffirmations} className="affirmations-close">Close</button>
+                    <button onClick={handleCloseAffirmations} className={`affirmations-close ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Close</button>
                 ) : (
                     <>
                     <h3 className="affirmation-repetitions">{repetitionCount}</h3>
                     <div className="affirmation-button-flex">
-                        <button onClick={handleResetCount} className="affirmation-reset-count">Reset count</button>
-                        {repetitionCount === 10 ? ( <button onClick={handleNextAffirmation} className="affirmation-next">Next</button> ) : ( <button onClick={handleCountRepetition} className="affirmation-count-up">+</button> )}
+                        <button onClick={handleResetCount} className={`affirmation-reset-count ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Reset count</button>
+                        {repetitionCount === 10 ? ( <button onClick={handleNextAffirmation} className={`affirmation-next ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Next</button> ) : ( <button onClick={handleCountRepetition} className={`affirmation-count-up ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>+</button> )}
                     </div>
                     </>
                 )}

@@ -83,12 +83,15 @@ const Goals = () => {
         }
     };
 
-    const handleAddGoal = async () => {
+    const handleAddGoal = async (event) => {
+        event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8000/postgoal', { goal, goal_target_date: goalTargetDate, userId });
             if (response.status === 200) {
                 fetchGoals();
                 setShowAddGoal(false);
+                setGoal('');
+                setGoalTargetDate('');
                 setErrors([]);
             }
         } 
@@ -143,11 +146,17 @@ const Goals = () => {
             if (response.status === 200) {
                 fetchGoalTasks(selectedGoal.goal_id);
                 setGoalTask('');
+                setErrors([]);
             }
         } 
-        catch (error) {
-            console.error('Error adding task:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
 
     const handleCompleteGoalTask = async (goalId, goalTaskId) => {
@@ -244,6 +253,12 @@ const Goals = () => {
                     <input type="text" className="goal-task-bar" placeholder="Enter new task" value={goalTask} onChange={(e) => setGoalTask(e.target.value)} />
                     <button type="submit" className="goal-task-button">Add Task</button>
                 </form>
+
+                {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+                )}
                 
                 <div className="goal-task-bottom-flex">
                     <p><strong>Target Date:</strong> {formatDate(selectedGoal.goal_target_date)}</p>

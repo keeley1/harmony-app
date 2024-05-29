@@ -17,6 +17,7 @@ const IndividualProject = () => {
     const [newTaskDescription, setNewTaskDescription] = useState('');
     const [newTaskDate, setNewTaskDate] = useState('');
     const { userId, loading } = useAuth();
+    const [errors, setErrors] = useState([]);
 
     const toggleAddProjectTask = (listId) => {
         if (activeListId === listId) {
@@ -108,30 +109,37 @@ const IndividualProject = () => {
         }
     };
     
-    const addProjectList = async () => {
-        if (!newListName.trim()) {
+    const addProjectList = async (event) => {
+        event.preventDefault();
+        /*if (!newListName.trim()) {
             alert('Please enter a name for the project list.');
             return;
-        }
+        }*/
         try {
             const response = await axios.post('http://localhost:8000/addprojectlist', { project_list_name: newListName, project_id: projectId });
             if (response.status === 201) {
                 fetchProject(); 
                 fetchProjectLists();
                 setNewListName('');
+                setErrors([]);
                 alert('Project list added successfully.');
             }
         } 
-        catch (error) {
-            console.error('Error adding project list:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
 
     const addProjectTask = async (projectListId) => {
-        if (!newTaskName.trim()) {
+        /*if (!newTaskName.trim()) {
             alert('Please enter a name for the task.');
             return;
-        }
+        }*/
         try {
             const response = await axios.post('http://localhost:8000/addprojecttask', {
                 projectTaskName: newTaskName,
@@ -145,13 +153,19 @@ const IndividualProject = () => {
                 setNewTaskName('');
                 setNewTaskDescription('');
                 setNewTaskDate('');
+                setErrors([]);
                 alert('Task added successfully.');
                 handleCloseAddProjectTask();
             }
         } 
-        catch (error) {
-            console.error('Error adding task:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
     
     const handleDeleteProjectList = async (projectListId) => {
@@ -321,6 +335,12 @@ const IndividualProject = () => {
                             />
                             
                             <button type="submit" className="btn-submit-task">Add Task</button>
+
+                            {errors.length > 0 && (
+                            <div className="error-messages">
+                                <p>{errors[0].msg}</p>
+                            </div>
+                            )}
                         </div>
                     </form>
                     )}
@@ -343,6 +363,12 @@ const IndividualProject = () => {
                 rows="1"
                 ></textarea><br/>
                 <button onClick={addProjectList} className="btn-add-list">+ Add List</button>
+
+                {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+                )}
             </div>
         </div>
         ) : (
@@ -362,6 +388,12 @@ const IndividualProject = () => {
             rows="1"
             ></textarea><br/>
             <button onClick={addProjectList} className="btn-add-list">+ Add List</button>
+
+            {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+            )}
         </div>
         )}
     </div>

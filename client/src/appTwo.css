@@ -357,17 +357,80 @@
 }
 
 .project-flex ul {
+    list-style: none;
+    height: 530px;
+    overflow-y: scroll;
+}
+
+.project-flex ul li {
+    padding: 10px;
+    margin: 10px 40px 10px 0px;
+    border-radius: 5px;
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #c9d1fb;
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.project-flex ul li:hover {
+    background-color: #AFBBF4;
+}
+
+.project-item {
+    text-decoration: none;
+    color: black;
+}
+
+.add-project-button {
+    background-color: #f8cfea;
+    border: none;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 30px;
+    transition: 0.4s ease;
+}
+
+.add-project-button:hover {
+    background-color: #f3b8e0;
+}
+/*
+.project-item {
+    padding: 20px;
+    background-color: #AFF4C6;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: 0.4s ease;
+}
+
+.project-item:hover {
+    background-color: #9febb8;
+}*/
+/*.projects-container {
+    margin: 20px;
+}
+
+.projects-title {
+    margin-bottom: 20px;
+}
+
+.project-flex ul {
     display: flex;   
     flex-wrap: wrap;     
     padding: 0;              
     margin: 0;                
     list-style: none;  
-    max-height: 550px;
-    max-width: 550px;
 }
 
 .project-flex ul li {
     margin-top: 15px; 
+    margin-bottom: 45px;
 }
 
 .project-item {
@@ -378,7 +441,6 @@
     color: black;
     text-decoration: none;
     border-radius: 5px;
-    width: 200px;
     transition: 0.4s ease;
 }
 
@@ -405,4 +467,10 @@
 
 .add-project-button:hover {
     background-color: #f3b8e0;
+}*/
+
+.error-messages {
+    background-color: #f8bdbd;
+    border-radius: 5px;
+    padding: auto;
 }

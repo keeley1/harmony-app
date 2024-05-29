@@ -52,6 +52,9 @@ const Navbar = () => {
                     <>
                     <div className="nav-inner-2">
                         <div className="nav-flex">
+                            <li><NavLink to="/settings" className="nav-item">Settings</NavLink></li>
+                        </div>
+                        <div className="nav-flex">
                             <li><NavLink className="logout-button" onClick={handleLogout}>Log out</NavLink></li>
                         </div>
                     </div>

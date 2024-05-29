@@ -12,6 +12,7 @@ const Projects = () => {
     const [selectedGoal, setSelectedGoal] = useState(null);
     const { userId, loading } = useAuth();
     const listRef = useRef(null);
+    const [errors, setErrors] = useState([]);
 
     const toggleAddProject = () => setShowAddProject(!showAddProject);
     const handleCloseAddProject = () => setShowAddProject(false);
@@ -38,17 +39,26 @@ const Projects = () => {
         }
     };
 
-    const handleAddProject = async () => {
+    const handleAddProject = async (event) => {
+        event.preventDefault();
         try {
             const response = await axios.post('http://localhost:8000/postproject', { project_name: projectName, project_description: projectDescription, userId });
             if (response.status === 200) {
                 fetchProjects();
                 setShowAddProject(false);
+                setErrors([]);
+                setProjectName(''); 
+                setProjectDescription('');
             }
         } 
-        catch (error) {
-            console.error('Error adding project:', error);
-        }
+        catch(error) {
+            if (error.response && error.response.data.errors) {
+              setErrors(error.response.data.errors);
+            } 
+            else {
+              console.error("Error adding item:", error);
+            }
+        };
     };
 
     return (
@@ -84,6 +94,12 @@ const Projects = () => {
                     <input type="text" className="goal-add-date" value={projectDescription} onChange={e => setProjectDescription(e.target.value)} placeholder="Enter project description" /><br/>
                     <button onClick={handleAddProject} className="goal-add-submit">Submit</button>
                 </form>
+
+                {errors.length > 0 && (
+                <div className="error-messages">
+                    <p>{errors[0].msg}</p>
+                </div>
+                )}
             </div>
         </div>
         )}   

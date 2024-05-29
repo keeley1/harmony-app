@@ -12,6 +12,7 @@ import GoalPage from './pages/goals';
 import UserTest from './pages/userTest';
 import Projects from './pages/projects';
 import IndividualProject from './pages/individualProject';
+import Settings from './pages/Settings';
 
 const App = () => {
   return (
@@ -30,6 +31,7 @@ const App = () => {
       <Route path="/register" element={<Register />}/>
       <Route path="/login" element={<Login />}/>
       <Route path="/todo" element={<TodoPage />}/>
+      <Route path="/settings" element={<Settings />}/>
       <Route path="/usertest" element={<UserTest />}/>
     </Routes>
     </>

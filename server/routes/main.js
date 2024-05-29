@@ -441,22 +441,36 @@ module.exports = function(app) {
             }
         });
     });
-    app.post('/postproject', (req, res) => {
-        const { project_name, project_description, userId } = req.body;
+    app.post('/postproject', [
+        // validate each field against specific criteria
+        check('project_name').notEmpty().withMessage('Please enter your project').isLength({ max: 500 }).withMessage('Project name is too long'),
+        check('project_description').notEmpty().withMessage('Please enter your project description').isLength({ max: 1000 }).withMessage('Project description is too long')
+    ], 
+    (req, res) => {
+        const errors = validationResult(req); 
 
-        let sqlquery = "INSERT INTO projects (project_name, project_description, user_id) VALUES (?, ?, ?)";
-        let newrecord = [project_name, project_description, userId];
+        if (!errors.isEmpty()) { 
+            // log any validation errors 
+            console.log("Validation errors:", errors.array());
+            return res.status(400).json({ errors: errors.array() });
+        }
+        else {
+            const { project_name, project_description, userId } = req.body;
 
-        db.query(sqlquery, newrecord, (err, result) => {
-            if (err) {
-              console.log('Error adding project:', err);
-              res.status(500).send('Error adding project');
-            } 
-            else {
-              console.log('Project added successfully');
-              res.status(200).send('Project added successfully');
-            }
-        });
+            let sqlquery = "INSERT INTO projects (project_name, project_description, user_id) VALUES (?, ?, ?)";
+            let newrecord = [project_name, project_description, userId];
+
+            db.query(sqlquery, newrecord, (err, result) => {
+                if (err) {
+                console.log('Error adding project:', err);
+                res.status(500).send('Error adding project');
+                } 
+                else {
+                console.log('Project added successfully');
+                res.status(200).send('Project added successfully');
+                }
+            });
+        }
     });
     app.get('/getprojects', (req, res) => {
         const { userId } = req.query;

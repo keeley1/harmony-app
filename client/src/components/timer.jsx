@@ -1,7 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import countdownEnd from '../sounds/countdownEnd.mp3';
+import { ThemeContext } from '../pages/themeChange';
 
 const Timer = () => {
+    const { theme } = useContext(ThemeContext);
+    
     const [time, setTime] = useState(0);
     const [timerRunning, setTimerRunning] = useState(false);
     const intervalRef = useRef();

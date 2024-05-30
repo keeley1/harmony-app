@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
+import { ThemeContext } from '../pages/themeChange';
 
 const Gratitude = () => {
+    const { theme } = useContext(ThemeContext);
+    
     const [showGratForm, setShowGratForm] = useState(false);
     const [gratitudeText, setGratitudeText] = useState('');
     const [gratitudeItem, setGratitudeItem] = useState('');

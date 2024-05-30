@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
 import emotions from '../data/emotions.json';
+import { ThemeContext } from '../pages/themeChange';
 
 const CheckIn = () => {
+    const { theme } = useContext(ThemeContext);
+
     const [showCheckin, setShowCheckin] = useState(false);
     const [moodRating, setMoodRating] = useState(0);
     const [emotionOne, setEmotionOne] = useState('');
@@ -30,7 +33,7 @@ const CheckIn = () => {
 
     const moodButtons = [];
     
-    for (let i = 1; i <= 5; i++) {
+    /*for (let i = 1; i <= 5; i++) {
         const hoverStyle = {
             // set hover background colour
             backgroundColor: '#c8cfef'
@@ -57,6 +60,19 @@ const CheckIn = () => {
         onClick={(e) => onClickMoodButton(e, i)}
         >{i}
         </button>
+        );
+    };*/
+
+    for (let i = 1; i <= 5; i++) {
+        const isSelected = moodRating === i;
+        moodButtons.push(
+            <button
+                key={i}
+                className={`mood-button ${isSelected ? 'selected' : ''}`}
+                onClick={(e) => onClickMoodButton(e, i)}
+            >
+                {i}
+            </button>
         );
     };
 
@@ -133,17 +149,17 @@ const CheckIn = () => {
 
     return (
         <>
-        <div className="checkin-container">
+        <div className={`checkin-container ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
             <div className="gratitude-flex">
                 <h3>Daily Check In</h3>
-                {moodRating == 0 ? ( <div className="plus-icon" onClick={toggleCheckin}>+</div> ) : ( <div className="plus-icon"></div> )}
+                {moodRating == 0 ? ( <div className={`plus-icon ${theme === 'light' ? 'light-theme' : 'dark-theme'}`} onClick={toggleCheckin}>+</div> ) : ( <div className={`plus-icon ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}></div> )}
             </div>
             <p className="checkin-text">{checkinText}</p>
         </div>
 
         {showCheckin && (
         <div className="checkin-form-overlay">
-            <div className="checkin-form-container">
+            <div className={`checkin-form-container ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
                 <button className="grat-close-button" onClick={handleCloseCheckin}>X</button>
                 <h2>Complete check in</h2>
                 <form onSubmit={(e) => e.preventDefault()}>
@@ -179,7 +195,7 @@ const CheckIn = () => {
                         ))}
                     </select>
 
-                    <button type="submit" onClick={handleCheckinSubmit} className="checkin-submit-button">Submit</button>
+                    <button type="submit" onClick={handleCheckinSubmit} className={`checkin-submit-button ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>Submit</button>
                 </form>
             </div>
         </div>

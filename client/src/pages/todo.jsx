@@ -1,10 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 import DisplayDate from '../components/displayDate';
+import { ThemeContext } from './themeChange';
 
 const TodoPage = () => {
+    const { theme } = useContext(ThemeContext);
+
     const { userId, loading } = useAuth();
     const [items, setItems] = useState([]);
     const [newItem, setNewItem] = useState('');

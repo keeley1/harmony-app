@@ -129,94 +129,7 @@ body {
   text-decoration: underline;
 }
 
-
-/*temp to do*/
-.todo-title {
-    text-align: center;
-}
-
-/*temporary*/
-.todo-list {
-    list-style: none;
-    margin-left: -40px;
-    height: 110px;
-    overflow-y: auto;
-}
-  
-  .todo-list-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5px;
-    width: 99%;
-    margin-top: 5px;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border-radius: 2px;
-  }
-  
-  .todo-form {
-    height: 30px;
-    padding: 3px;
-    word-wrap: break-word;
-    width: 85%;
-    border: 1px solid black;
-    border-radius: 5px;
-  }
-  
-  .todo-button {
-    margin-left: 15px;
-    cursor: pointer;
-    background-color: #AFBBF4;
-    border: none;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 25px;
-    height: 35px;
-    transition: 0.4s ease;
-  }
-  
-  .todo-button:hover {
-    background-color: #c8cfef;
-  }
-  
-  .delete-button {
-    background-color: white;
-    border: none;
-    border-radius: 3px;
-    padding: 5px 8px 5px 8px;
-    transition: 0.4s ease;
-    order: 1;
-  }
-  
-  .delete-button:hover {
-    background-color: #e2e1e1;
-    cursor: pointer;
-  }
-
-  .tick-button {
-    cursor: pointer;
-    transition: 0.4s ease;
-    font-size: large;
-  }
-
-  .tick-button:hover {
-    background-color: #e2e1e1;
-    opacity: 50%;
-  }
-
-  .view-all-button {
-    text-decoration: none;
-    color: black;
-    transition: 0.4s ease;
-  }
-
-  .view-all-button:hover {
-    text-decoration: underline;
-  }
-
-/*--- dashboard styling ---*/
-/* to do styling */
+/*-------- dashboard styling --------*/
 .dashboard-container {
   display: flex;
   justify-content: space-between;
@@ -236,23 +149,138 @@ body {
   margin-top: 20px;
 }
 
-.todo-container {
+/*-------- daily task styling --------*/
+.light-theme .todo-container {
   margin-bottom: 20px;
   padding: 20px;
   background-color: white;
   border-radius: 5px;
 }
 
-.gratitude-container {
+.dark-theme .todo-container {
   margin-bottom: 20px;
-  padding: 10px;
-  background-color: white;
+  padding: 20px;
+  background-color: #26262a;
+  color: white;
   border-radius: 5px;
 }
 
-.gratitude-flex {
+.todo-title {
+  text-align: center;
+}
+
+.todo-list {
+  list-style: none;
+  margin-left: -40px;
+  height: 110px;
+  overflow-y: auto;
+}
+  
+.todo-list-item {
   display: flex;
-  justify-content: space-between; 
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px;
+  width: 99%;
+  margin-top: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  border-radius: 2px;
+}
+  
+.light-theme .todo-form {
+  height: 30px;
+  padding: 3px;
+  word-wrap: break-word;
+  width: 85%;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.dark-theme .todo-form {
+  height: 30px;
+  padding: 3px;
+  word-wrap: break-word;
+  width: 85%;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #37373c;
+  color: white;
+}
+  
+.light-theme .todo-button {
+  margin-left: 15px;
+  cursor: pointer;
+  background-color: #AFBBF4;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  height: 35px;
+  transition: 0.4s ease;
+}
+
+.dark-theme .todo-button {
+  margin-left: 15px;
+  cursor: pointer;
+  background-color: rgb(93, 96, 249);
+  color: white;
+  border: none;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  height: 35px;
+  transition: 0.4s ease;
+}
+  
+.light-theme .todo-button:hover {
+  background-color: #c8cfef;
+}
+
+.dark-theme .todo-button:hover {
+  background-color: rgb(133, 135, 255);
+}
+  
+.delete-button {
+  background-color: white;
+  border: none;
+  border-radius: 3px;
+  padding: 5px 8px 5px 8px;
+  transition: 0.4s ease;
+  order: 1;
+}
+  
+.delete-button:hover {
+  background-color: #e2e1e1;
+  cursor: pointer;
+}
+
+.tick-button {
+  cursor: pointer;
+  transition: 0.4s ease;
+  font-size: large;
+}
+
+.tick-button:hover {
+  background-color: #e2e1e1;
+  opacity: 50%;
+}
+
+.light-theme .view-all-button {
+  text-decoration: none;
+  color: black;
+  transition: 0.4s ease;
+}
+
+.dark-theme .view-all-button {
+  text-decoration: none;
+  color: black;
+  transition: 0.4s ease;
+  color: white;
+}
+
+.view-all-button:hover {
+  text-decoration: underline;
 }
 
 /*-------- container plus icons --------*/
@@ -274,10 +302,19 @@ body {
   background-color: #37373c;
 }
 
-.timer-container {
+/*-------- countdown styling --------*/
+.light-theme .timer-container {
   margin-bottom: 20px;
   padding: 10px;
   background-color: white;
+  border-radius: 5px;
+}
+
+.dark-theme .timer-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #26262a;
+  color: white;
   border-radius: 5px;
 }
 
@@ -286,10 +323,18 @@ body {
   justify-content: space-between;
 }
 
-.timer-flex select {
+.light-theme .timer-flex select {
   border-radius: 5px;
   padding: 8px 10px;              
   border: 1px solid black;
+}
+
+.dark-theme .timer-flex select {
+  border-radius: 5px;
+  padding: 8px 10px;              
+  border: 1px solid black;
+  background-color: #37373c;
+  color: rgb(170, 170, 170);
 }
 
 .timer-flex h3 {
@@ -310,7 +355,7 @@ body {
   margin-bottom: 10px;
 }
 
-.timer-button {
+.light-theme .timer-button {
   margin-left: 10px;
   padding: 5px;
   border: none;
@@ -323,41 +368,12 @@ body {
   transition: 0.4s ease;
 }
 
-.timer-button:hover {
-  background-color: #c8cfef;
-}
-
-.checkin-container {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: white;
-  border-radius: 5px;
-}
-
-.moodbuttons-container {
-  margin-bottom: 20px;
-}
-
-.goals-container {
-  margin-bottom: 20px;
-  padding: 10px;
-  background-color: white;
-  height: 200px;
-  border-radius: 5px;
-}
-
-.goals-page-container {
-  margin: 20px;
-  padding: 10px;
-  background-color: white;
-  height: 620px;
-  border-radius: 5px;
-}
-
-.add-goal-button {
+.dark-theme .timer-button {
+  margin-left: 10px;
   padding: 5px;
   border: none;
-  background-color: #AFBBF4;
+  background-color: rgb(93, 96, 249);
+  color: white;
   cursor: pointer;
   padding: 5px;
   padding-left: 15px;
@@ -366,8 +382,16 @@ body {
   transition: 0.4s ease;
 }
 
-.add-goal-button:hover {
+.light-theme .timer-button:hover {
   background-color: #c8cfef;
+}
+
+.dark-theme .timer-button:hover {
+  background-color: rgb(133, 135, 255);
+}
+
+.moodbuttons-container {
+  margin-bottom: 20px;
 }
 
 /*-------- date styling --------*/
@@ -394,7 +418,27 @@ body {
   line-height: 0.6;
 }
 
-/*temp grat form*/
+/*-------- gratitude styling --------*/
+.light-theme .gratitude-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.dark-theme .gratitude-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #26262a;
+  color: white;
+  border-radius: 5px;
+}
+
+.gratitude-flex {
+  display: flex;
+  justify-content: space-between; 
+}
+
 .grat-form-overlay {
   position: fixed;
   top: 0;
@@ -408,7 +452,7 @@ body {
   z-index: 999;
 }
 
-.grat-form-container {
+.light-theme .grat-form-container {
   width: 450px;
   background-color: white;
   padding: 20px;
@@ -416,11 +460,23 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Ensures that child elements like form will expand to full width */
+  align-items: stretch; 
+}
+
+.dark-theme .grat-form-container {
+  width: 450px;
+  background-color: #26262a;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; 
 }
 
 .grat-form-container h2 {
-  text-align: center; /* Centers the text inside the h2 */
+  text-align: center;
   margin-bottom: 30px;
 }
 
@@ -433,14 +489,23 @@ body {
   margin-bottom: 0px;
 }
 
-.grat-form-container input {
+.light-theme .grat-form-container input {
   width: 98.5%;
   padding: 2px;
   border: 1px solid black;
   border-radius: 5px;
 }
 
-.grat-submit-button {
+.dark-theme .grat-form-container input {
+  width: 98.5%;
+  padding: 2px;
+  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #37373c;
+  color: white;
+}
+
+.light-theme .grat-submit-button {
   margin-top: -2px;
   margin-bottom: 30px;
   border: none;
@@ -451,8 +516,24 @@ body {
   cursor: pointer;
 }
 
-.grat-submit-button:hover {
+.dark-theme .grat-submit-button {
+  margin-top: -2px;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+  background-color: rgb(93, 96, 249);
+  color: white;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.light-theme .grat-submit-button:hover {
   background-color: #c8cfef;
+}
+
+.dark-theme .grat-submit-button:hover {
+  background-color: rgb(133, 135, 255);
 }
 
 .light-theme .grat-close-button {
@@ -497,7 +578,22 @@ body {
   margin-left: 10px;
 }
 
-/*temp check-in form*/
+/*-------- check in styling --------*/
+.light-theme .checkin-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+}
+
+.dark-theme .checkin-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #26262a;
+  color: white;
+  border-radius: 5px;
+}
+
 .checkin-form-overlay {
   position: fixed;
   top: 0;
@@ -511,7 +607,7 @@ body {
   z-index: 999;
 }
 
-.checkin-form-container {
+.light-theme .checkin-form-container {
   width: 450px;
   background-color: white;
   padding: 20px;
@@ -519,11 +615,23 @@ body {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  align-items: stretch; /* Ensures that child elements like form will expand to full width */
+  align-items: stretch; 
+}
+
+.dark-theme .checkin-form-container {
+  width: 450px;
+  background-color: #26262a;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; 
 }
 
 .checkin-form-container h2 {
-  text-align: center; /* Centers the text inside the h2 */
+  text-align: center; 
   margin-bottom: 30px;
 }
 
@@ -537,7 +645,7 @@ body {
   margin-top: 5px;
 }
 
-.checkin-form-container select {
+.light-theme .checkin-form-container select {
   width: 100%;                 
   padding: 8px 10px;              
   border: 1px solid black;       
@@ -549,7 +657,19 @@ body {
   margin-bottom: 10px;        
 }
 
-.checkin-submit-button {
+.dark-theme .checkin-form-container select {
+  width: 100%;                 
+  padding: 8px 10px;              
+  border: 1px solid black;       
+  border-radius: 4px;           
+  background-color: #37373c;
+  color: rgb(170, 170, 170);                           
+  cursor: pointer;                 
+  outline: none;   
+  margin-bottom: 10px;        
+}
+
+.light-theme .checkin-submit-button {
   margin-top: 13px;
   margin-bottom: 30px;
   border: none;
@@ -560,8 +680,24 @@ body {
   cursor: pointer;
 }
 
-.checkin-submit-button:hover {
+.dark-theme .checkin-submit-button {
+  margin-top: 13px;
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 25px;
+  padding: 7px;
+  background-color: rgb(93, 96, 249);
+  color: white;
+  transition: 0.4s ease;
+  cursor: pointer;
+}
+
+.light-theme .checkin-submit-button:hover {
   background-color: #c8cfef;
+}
+
+.dark-theme .checkin-submit-button:hover {
+  background-color: rgb(133, 135, 255);
 }
 
 .moodbuttons-container {
@@ -571,6 +707,44 @@ body {
   flex-wrap: wrap;   
   margin: 10px 0;    
   margin-bottom: 15px;   
+}
+
+.light-theme .mood-button {
+  background-color: #AFBBF4;
+  color: black;
+  margin: 0 8px;
+  border: none;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: 0.4s ease;
+  border-radius: 5px;
+}
+
+.dark-theme .mood-button {
+  background-color: rgb(93, 96, 249);
+  color: white;
+  margin: 0 8px;
+  border: none;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: 0.4s ease;
+  border-radius: 5px;
+}
+
+.light-theme .mood-button:hover {
+  background-color: #c9d1fb;
+}
+
+.dark-theme .mood-button:hover {
+  background-color: rgb(133, 135, 255);
+}
+
+.light-theme .mood-button.selected {
+  background-color: #c9d1fb;
+}
+
+.dark-theme .mood-button.selected {
+  background-color: rgb(133, 135, 255);
 }
 
 .checkin-text {
@@ -800,7 +974,57 @@ body {
   margin-left: 10px;
 }
 
-/*temp goal form*/
+/*-------- goal styling --------*/
+.light-theme .goals-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: white;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.dark-theme .goals-container {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #26262a;
+  color: white;
+  height: 200px;
+  border-radius: 5px;
+}
+
+.light-theme .add-goal-button {
+  padding: 5px;
+  border: none;
+  background-color: #AFBBF4;
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  transition: 0.4s ease;
+}
+
+.dark-theme .add-goal-button {
+  padding: 5px;
+  border: none;
+  background-color: rgb(93, 96, 249);
+  color: white;
+  cursor: pointer;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 25px;
+  transition: 0.4s ease;
+}
+
+.light-theme .add-goal-button:hover {
+  background-color: #c8cfef;
+}
+
+.dark-theme .add-goal-button:hover {
+  background-color: rgb(133, 135, 255);
+}
+
 .goals-container h3 {
   margin-left: 10px;
 }
@@ -836,25 +1060,12 @@ body {
   overflow-y: auto;
 }
 
-.goals-container li:hover {
+.light-theme .goals-container li:hover {
   background-color: #f4f4f4;
 }
 
-.goals-page-container li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  padding: 5px;
-  width: 97%;
-  margin-right: 5px;
-  margin-bottom: 5px;
-  border-radius: 5px;
-  overflow-y: auto;
-}
-
-.goals-page-container li:hover {
-  background-color: #f4f4f4;
+.dark-theme .goals-container li:hover {
+  background-color: #37373c;
 }
 
 .goal-form-overlay {
@@ -870,7 +1081,7 @@ body {
   z-index: 999;
 }
 
-.goal-form-container {
+.light-theme .goal-form-container {
   position: relative;
   background-color: white;
   padding: 20px;
@@ -882,9 +1093,35 @@ body {
   height: 320px;
 }
 
-.single-goal-form-container {
+.dark-theme .goal-form-container {
+  position: relative;
+  background-color: #26262a;
+  color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 320px;
+}
+
+.light-theme .single-goal-form-container {
   position: relative;
   background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: center;
+  width: 550px;
+  height: 430px;
+}
+
+.dark-theme .single-goal-form-container {
+  position: relative;
+  background-color: #26262a;
+  color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -899,9 +1136,22 @@ body {
   margin-bottom: 20px;
 }
 
-.completed-goal-container {
+.light-theme .completed-goal-container {
   position: relative;
   background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  height: 380px;
+}
+
+.dark-theme .completed-goal-container {
+  position: relative;
+  background-color: #26262a;
+  color: white;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -946,14 +1196,23 @@ body {
   margin-bottom: 5px;
 }
 
-.goal-form-container input {
+.light-theme .goal-form-container input {
   width: 98%;
   margin-bottom: 15px;
   border-radius: 5px;
   border: 1px solid black;
 }
 
-.goal-add-submit {
+.dark-theme .goal-form-container input {
+  width: 98%;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  background-color: #37373c;
+  color: white;
+  border: 1px solid black;
+}
+
+.light-theme .goal-add-submit {
   background-color: #AFBBF4;
   border: none;
   transition: 0.4s ease;
@@ -965,8 +1224,25 @@ body {
   margin-top: -12px;
 }
 
-.goal-add-submit:hover {
+.dark-theme .goal-add-submit {
+  background-color: rgb(93, 96, 249);
+  color: white;
+  border: none;
+  transition: 0.4s ease;
+  border-radius: 25px;
+  padding: 7px;
+  padding-left: 12px;
+  padding-right: 12px;
+  cursor: pointer;
+  margin-top: -12px;
+}
+
+.light-theme .goal-add-submit:hover {
   background-color: #c9d1fb;
+}
+
+.dark-theme .goal-add-submit:hover {
+  background-color: rgb(133, 135, 255);
 }
 
 .button-container {
@@ -1001,7 +1277,7 @@ body {
   justify-content: space-between;
 }
 
-.goal-task-bar {
+.light-theme .goal-task-bar {
   height: 30px;
   padding: 3px;
   word-wrap: break-word;
@@ -1010,7 +1286,18 @@ body {
   width: 83%;
 }
 
-.goal-task-button {
+.dark-theme .goal-task-bar {
+  height: 30px;
+  padding: 3px;
+  word-wrap: break-word;
+  border: 1px solid black;
+  border-radius: 5px;
+  width: 83%;
+  background-color: #37373c;
+  color: white;
+}
+
+.light-theme .goal-task-button {
   border-radius: 25px;
   border: none;
   background-color: #AFBBF4;
@@ -1019,8 +1306,22 @@ body {
   padding: 10px;
 }
 
-.goal-task-button:hover {
+.dark-theme .goal-task-button {
+  border-radius: 25px;
+  border: none;
+  background-color: rgb(93, 96, 249);
+  color: white;
+  transition: 0.4s ease;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.light-theme .goal-task-button:hover {
   background-color: #c9d1fb;
+}
+
+.dark-theme .goal-task-button:hover {
+  background-color: rgb(133, 135, 255);
 }
 
 .goal-task-bottom-flex {
@@ -1053,5 +1354,3 @@ body {
 .todo-back-button {
   margin-left: 20px;
 }
-
-/*Settings*/

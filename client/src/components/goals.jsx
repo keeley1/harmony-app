@@ -1,8 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import axios from 'axios';
 import useAuth from '../hooks/useAuth';
+import { ThemeContext } from '../pages/themeChange';
 
 const Goals = () => {
+    const { theme } = useContext(ThemeContext);
+
     const [showAddGoal, setShowAddGoal] = useState(false);
     const [showGoalDetails, setShowGoalDetails] = useState(false);
     const [goal, setGoal] = useState('');
@@ -179,7 +182,7 @@ const Goals = () => {
 
     return (
         <>
-        <div className="goals-container">
+        <div className={`goals-container ${theme === 'light' ? 'light-theme' : 'dark-theme'}`}>
             <h3>Current Goals</h3>
             <ul ref={listRef} className="goal-list">
                 {items.map((item, index) => (

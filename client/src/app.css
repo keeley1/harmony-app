@@ -12,16 +12,9 @@ body {
   margin: 0;
   font-family: Arial, Helvetica, sans-serif;
   background-color: var(--background-color);
-  /*color: var(--text-color);*/
 }
 
-/*body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: #f4f4f4;
-}*/
-
-/*--- navbar styling ---*/
+/*-------- navbar styling --------*/
 .nav-list {
     margin-top: 0;
     list-style-type: none;
@@ -72,6 +65,11 @@ body {
   text-align: center;
 }
 
+.dark-theme .form-container {
+  text-align: center;
+  color: white;
+}
+
 .login-container {
   background-color: #AFF4C6;
 }
@@ -102,9 +100,33 @@ body {
   height: 35px;
 }
 
+.dark-theme .input-field {
+  width: 300px;
+  height: 35px;
+  border: 1px solid black;
+  padding: 3px;
+  border-radius: 5px;
+  background-color: #28282d;
+  color: white;
+}
+
 .form-submit-button {
   border: none;
   background-color: #AFBBF4;
+  padding: 8px;
+  width: 310px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: 0.4s ease;
+  font-size: medium;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.dark-theme .form-submit-button {
+  border: none;
+  background-color: rgb(93, 96, 249);
+  color: white;
   padding: 8px;
   width: 310px;
   border-radius: 25px;
@@ -119,9 +141,19 @@ body {
   background-color: #c9d1fb;
 }
 
+.dark-theme .form-submit-button:hover {
+  background-color: rgb(133, 135, 255);
+}
+
 .form-bold-link {
   text-decoration: none;
   color: black;
+  transition: 0.4s ease;
+}
+
+.dark-theme .form-bold-link {
+  text-decoration: none;
+  color: white;
   transition: 0.4s ease;
 }
 
@@ -992,6 +1024,23 @@ body {
   border-radius: 5px;
 }
 
+.light-theme .goals-page-container {
+  margin: 20px;
+  padding: 10px;
+  background-color: white;
+  height: 620px;
+  border-radius: 5px;
+}
+
+.dark-theme .goals-page-container {
+  margin: 20px;
+  padding: 10px;
+  background-color: #26262a;
+  color: white;
+  height: 620px;
+  border-radius: 5px;
+}
+
 .light-theme .add-goal-button {
   padding: 5px;
   border: none;
@@ -1045,6 +1094,21 @@ body {
   margin-left: -30px;
   height: 500px;
   overflow-y: auto;
+}
+
+.goal-page-list li {
+  padding: 7px;
+  transition: 0.4s ease;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.light-theme .goal-page-list li:hover {
+  background-color: #f4f4f4;
+}
+
+.dark-theme .goal-page-list li:hover {
+  background-color: #37373c;
 }
 
 .goals-container li {
@@ -1345,12 +1409,3 @@ body {
   opacity: 50%;
 }
 
-/*to do full page*/
-.todo-top-flex {
-  display: flex;
-  justify-content: space-between;
-}
-
-.todo-back-button {
-  margin-left: 20px;
-}

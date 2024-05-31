@@ -1,6 +1,109 @@
-.board-container {
+/*-------- all projects styling --------*/
+.projects-container {
+    margin: 20px;
+}
+
+.dark-theme .projects-container {
+    color: white;
+}
+
+.projects-title {
+    margin-bottom: 20px;
+}
+
+.project-flex ul {
+    list-style: none;
+    height: 530px;
+    overflow-y: scroll;
+}
+
+.light-theme .project-flex ul li {
+    padding: 10px;
+    margin: 10px 40px 10px 0px;
+    border-radius: 5px;
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: #c9d1fb;
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.dark-theme .project-flex ul li {
+    padding: 10px;
+    margin: 10px 40px 10px 0px;
+    border-radius: 5px;
+    max-height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    background-color: rgb(93, 96, 249);
+    color: white;
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.project-flex ul li:hover {
+    background-color: #AFBBF4;
+}
+
+.dark-theme .project-flex ul li:hover {
+    background-color: rgb(133, 135, 255);
+}
+
+.light-theme .project-item {
+    text-decoration: none;
+    color: black;
+}
+
+.dark-theme .project-item {
+    text-decoration: none;
+    color: white;
+}
+
+.light-theme .add-project-button {
+    background-color: #f8cfea;
+    border: none;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 30px;
+    transition: 0.4s ease;
+}
+
+.dark-theme .add-project-button {
+    background-color: #eb36af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 30px;
+    transition: 0.4s ease;
+}
+
+.light-theme .add-project-button:hover {
+    background-color: #f3b8e0;
+}
+
+.dark-theme .add-project-button:hover {
+    background-color: #e870c0;
+}
+
+.light-theme .board-container {
     margin: 15px;
     background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dark-theme .board-container {
+    margin: 15px;
+    background-color: #37373c;
+    color: white;
     padding: 10px;
     border-radius: 5px;
 }
@@ -15,7 +118,7 @@
     margin-left: 10px;
 }
 
-.single-project-back {
+.light-theme .single-project-back {
     text-decoration: none;
     color: black;
     font-size: larger;
@@ -27,8 +130,24 @@
     transition: 0.4s ease;
 }
 
-.single-project-back:hover {
+.dark-theme .single-project-back {
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+    padding: 3px;
+    cursor: pointer;
+    padding-left: 8px;
+    padding-right: 5px;
+    border-radius: 5px;
+    transition: 0.4s ease;
+}
+
+.light-theme .single-project-back:hover {
     background-color: #dddddd;
+}
+
+.dark-theme .single-project-back:hover {
+    background-color: #4e4e55;
 }
 
 .single-project-desc {
@@ -53,8 +172,19 @@
     overflow-y: auto;
 }
 
-.task-add-card {
+.light-theme .task-add-card {
     background-color: #c9d1fb;
+    margin-top: 0px;
+    padding: 10px;
+    border-radius: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    transition: 0.4s ease;
+    cursor: pointer;
+}
+
+.dark-theme .task-add-card {
+    background-color: rgb(93, 96, 249);
     margin-top: 0px;
     padding: 10px;
     border-radius: 5px;
@@ -66,6 +196,10 @@
 
 .task-add-card:hover {
     background-color: #AFBBF4;
+}
+
+.dark-theme .task-add-card:hover {
+    background-color: rgb(133, 135, 255);
 }
 
 .btn-add-task {
@@ -82,8 +216,26 @@
     transition: 0.4s ease;
 }
 
+.dark-theme .btn-add-task {
+    position: absolute; 
+    top: 15px; 
+    right: 15px; 
+    background-color: #28282d;
+    font-size: 16px;
+    border: none;
+    border-radius: 5%;
+    padding: 3px 9px 3px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
 .btn-add-task:hover {
     background-color: #dddddd;
+}
+
+.dark-theme .btn-add-task:hover {
+    background-color: #46464e;
 }
 
 .project-list-name {
@@ -107,7 +259,7 @@
     align-items: center;
 }
 
-.project-list-item {
+.light-theme .project-list-item {
     position: relative;
     padding: 5px;
     border-radius: 5px;
@@ -115,6 +267,20 @@
     flex: 0 0 auto; 
     width: 300px; 
     background-color: #f4f4f4;
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    margin-right: 20px;
+}
+
+.dark-theme .project-list-item {
+    position: relative;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    flex: 0 0 auto; 
+    width: 300px; 
+    background-color: #28282d;
     padding: 15px;
     border-radius: 5px;
     box-sizing: border-box; 
@@ -149,8 +315,32 @@
     text-overflow: ellipsis; 
 }
 
-.task-item:hover {
+.dark-theme .task-item {
+    margin-bottom: 15px;
+    margin-left: -15px;
+    margin-right: 5px;
+    color: black;
+    border: 1px solid #42424a;
+    color: white;
+    list-style: none;
+    cursor: pointer;
+    transition: 0.4s ease;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #42424a;
+    max-height: 3.6em;  
+    line-height: 1.2em;  
+    white-space: normal; 
+    overflow-y: auto;    
+    text-overflow: ellipsis; 
+}
+
+.light-theme .task-item:hover {
     border-color: #7d7d7d;
+}
+
+.dark-theme .task-item:hover {
+    border-color: #878794;
 }
 
 .task-details-popup {
@@ -169,6 +359,14 @@
 .task-details-container {
     position: relative;
     background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 45%;
+}
+
+.dark-theme .task-details-container {
+    position: relative;
+    background-color: #37373c;
     padding: 20px;
     border-radius: 10px;
     width: 45%;
@@ -193,7 +391,23 @@
     transition: 0.4s ease;
 }
 
+.dark-theme .complete-delete-button {
+    background-color: #eb36af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 5px 15px 5px 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    transition: 0.4s ease;
+}
+
 .complete-delete-button:hover {
+    background-color: #e870c0;
+}
+
+
+.dark-theme .complete-delete-button:hover {
     background-color: #f3b8e0;
 }
 
@@ -211,8 +425,27 @@
     transition: 0.4s ease;
 }
 
+.dark-theme .close-task-details {
+    position: absolute;
+    top: 0px; 
+    right: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333; 
+    background-color: #37373c;
+    color: white;
+    padding: 3px 9px 3px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
 .close-task-details:hover {
     background-color: #c3c3c3;
+}
+
+.dark-theme .close-task-details:hover {
+    background-color: #4b4b51;
 }
 
 .task-form {
@@ -232,6 +465,15 @@
     position: relative;
     display: block;
     background-color: white;
+    padding: 20px;
+    width: 30%;
+    border-radius: 10px;
+}
+
+.dark-theme .task-form-container {
+    position: relative;
+    display: block;
+    background-color: #37373c;
     padding: 20px;
     width: 30%;
     border-radius: 10px;
@@ -260,8 +502,27 @@
     transition: 0.4s ease;
 }
 
+.dark-theme .btn-close-form {
+    position: absolute;
+    top: 0px; 
+    right: 15px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333; 
+    background-color: #37373c;
+    color: white;
+    padding: 3px 9px 3px 9px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.4s ease;
+}
+
 .btn-close-form:hover {
     background-color: #c3c3c3;
+}
+
+.dark-theme .btn-close-form:hover {
+    background-color: #4e4e55;
 }
 
 .input-task-name, .input-task-description {
@@ -277,6 +538,21 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.dark-theme .input-task-name, .input-task-description {
+    display: block;
+    width: 95%;
+    margin-bottom: 10px;
+    margin-top: 5px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid black;
+    resize: none; 
+    overflow: hidden; 
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #4e4e55;
+    color: white;
+}
+
 .input-task-date {
     display: block;
     width: 100%;
@@ -285,6 +561,18 @@
     margin-top: 5px;
     font-family: Arial, Helvetica, sans-serif;
     margin-bottom: 10px;
+}
+
+.dark-theme .input-task-date {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-top: 5px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-bottom: 10px;
+    background-color: #4e4e55;
+    color: white;
 }
 
 .btn-submit-task {
@@ -298,13 +586,43 @@
     background-color: #AFBBF4;
 }
 
+.dark-theme .btn-submit-task {
+    width: 100%;
+    border: none;
+    padding: 7px;
+    margin-top: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.4s ease;
+    background-color: rgb(93, 96, 249);
+    color: white;
+}
+
 .btn-submit-task:hover {
     background-color: #c9d1fb;
-  }
+}
+
+.dark-theme .btn-submit-task:hover {
+    background-color: rgb(133, 135, 255);
+}
 
 .new-list-container {
     display: block;
     background-color: #f4f4f4;
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    flex: 0 0 auto; 
+    width: 300px; 
+    padding: 15px;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    margin-right: 20px;
+}
+
+.dark-theme .new-list-container {
+    display: block;
+    background-color: #28282d;
     padding: 5px;
     border-radius: 5px;
     margin-bottom: 15px;
@@ -327,6 +645,19 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.dark-theme .input-new-list-name {
+    width: 92%;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    margin-top: 10px;
+    resize: none; 
+    overflow: hidden; 
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #37373c;
+    color: white;
+}
+
 .btn-add-list {
     background-color: #f8cfea;
     border: none;
@@ -339,139 +670,70 @@
     transition: 0.4s ease;
 }
 
+.dark-theme .btn-add-list {
+    background-color: #eb36af;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-radius: 25px;
+    margin-top: 10px;
+    height: 30px;
+    transition: 0.4s ease;
+}
+
 .btn-add-list:hover {
-    background-color: #f3b8e0;
+    background-color: #e870c0;
 }
 
 .board-container {
     padding: 20px;
 }
 
-/* all projects styling */
-.projects-container {
-    margin: 20px;
-}
-
-.projects-title {
-    margin-bottom: 20px;
-}
-
-.project-flex ul {
-    list-style: none;
-    height: 530px;
-    overflow-y: scroll;
-}
-
-.project-flex ul li {
-    padding: 10px;
-    margin: 10px 40px 10px 0px;
-    border-radius: 5px;
-    max-height: 100px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    background-color: #c9d1fb;
-    transition: 0.4s ease;
-    cursor: pointer;
-}
-
-.project-flex ul li:hover {
-    background-color: #AFBBF4;
-}
-
-.project-item {
-    text-decoration: none;
-    color: black;
-}
-
-.add-project-button {
-    background-color: #f8cfea;
-    border: none;
-    cursor: pointer;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 25px;
-    margin-top: 10px;
-    height: 30px;
-    transition: 0.4s ease;
-}
-
-.add-project-button:hover {
-    background-color: #f3b8e0;
-}
-/*
-.project-item {
-    padding: 20px;
-    background-color: #AFF4C6;
-    cursor: pointer;
-    color: black;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.4s ease;
-}
-
-.project-item:hover {
-    background-color: #9febb8;
-}*/
-/*.projects-container {
-    margin: 20px;
-}
-
-.projects-title {
-    margin-bottom: 20px;
-}
-
-.project-flex ul {
-    display: flex;   
-    flex-wrap: wrap;     
-    padding: 0;              
-    margin: 0;                
-    list-style: none;  
-}
-
-.project-flex ul li {
-    margin-top: 15px; 
-    margin-bottom: 45px;
-}
-
-.project-item {
-    margin: 10px;
-    padding: 20px;
-    background-color: #AFF4C6;
-    cursor: pointer;
-    color: black;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: 0.4s ease;
-}
-
-.project-item:hover {
-    background-color: #9febb8;
-}
-
-.project-button-container {
-    margin-left: 10px;
-    margin-top: 35px;
-}
-
-.add-project-button {
-    background-color: #f8cfea;
-    border: none;
-    cursor: pointer;
-    padding-left: 15px;
-    padding-right: 15px;
-    border-radius: 25px;
-    margin-top: 10px;
-    height: 30px;
-    transition: 0.4s ease;
-}
-
-.add-project-button:hover {
-    background-color: #f3b8e0;
-}*/
-
+/*-------- error styling --------*/
 .error-messages {
     background-color: #f8bdbd;
     border-radius: 5px;
     padding: auto;
     text-align: center;
+}
+
+/*-------- setting styling --------*/
+.light-theme .settings-container {
+    margin: 30px;
+}
+
+.dark-theme .settings-container {
+    margin: 30px;
+    color: white;
+}
+
+.light-theme .theme-toggle {
+    border: none;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.4s ease;
+    background-color: #AFBBF4;
+}
+
+.dark-theme .theme-toggle {
+    border: none;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: 0.4s ease;
+    background-color: rgb(93, 96, 249);
+    color: white;
+}
+
+.light-theme .theme-toggle:hover {
+    background-color: #AFBBF4;
+}
+
+.dark-theme .theme-toggle:hover {
+    background-color: rgb(133, 135, 255);
 }

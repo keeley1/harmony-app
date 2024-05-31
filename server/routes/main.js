@@ -335,7 +335,7 @@ module.exports = function(app) {
             let is_complete = 0;
 
             let sqlquery = "INSERT INTO goals (goal, is_complete, goal_target_date, user_id) VALUES (?, ?, ?, ?)";
-            let newrecord = [sanitise(goal), is_complete, goal_target_date, userId];
+            let newrecord = [goal, is_complete, goal_target_date, userId];
 
             db.query(sqlquery, newrecord, (err, result) => {
                 if (err) {
